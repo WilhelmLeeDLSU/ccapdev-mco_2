@@ -1,13 +1,7 @@
 <!-- main -->
 <body class="mainPage">
     {{> header}}
-    <nav class="mainPage">
-        <a class="navItem no-style" id="selNavPage">Home</a>
-        <a class="navItem no-style" href="explore.html">Explore</a>
-        <a class="navItem no-style" href="post.html">Post</a>
-        <a class="navItem no-style" href="popular.html">Popular</a>
-        <a class="navItem no-style" href="profile.html">Profile</a>
-    </nav>
+    {{> navbar}}
     <div class="homeContainer">
         <div class="homePosts">
             <span class="pageHeader">Recent Posts</span>
@@ -222,6 +216,8 @@
             
         </div>
     </div>
+    
+    <!-- Communities -->
     <aside>
         <div class="communityContainer">
             <h1>Communities</h1>
