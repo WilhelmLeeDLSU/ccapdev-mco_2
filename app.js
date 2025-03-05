@@ -51,12 +51,22 @@ server.get('/popular', function(req, resp){
     });
 });
 
-//idea for profile: /profile would be the users own profile, while /<username> when searching for others
+//idea for profile: /profile would be the users own profile, while /profile/<username> when searching for others
+//idea for posts: /profile/<username>/post<num> for the posts of a user
 server.get('/profile', function(req, resp){
     resp.render('profile',{
         layout: 'index',
         title: 'My Profile',
         selNav: 'profile'
+    });
+});
+
+//this one is for /profile/<username>
+server.get('/profile/:user', function(req, resp){
+    resp.render('profile',{
+        layout: 'index',
+        title: req.params.user + '\'s Profile',
+        user: req.params.user,
     });
 });
 
@@ -70,7 +80,7 @@ server.get('/login', function(req, resp){
 server.get('/register', function(req, resp){
     resp.render('register',{
         layout: 'index',
-        title: 'Register',
+        title: 'Register', 
     });
 });
 
