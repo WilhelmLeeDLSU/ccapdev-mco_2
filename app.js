@@ -18,10 +18,11 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
+//main is homepage
 server.get('/', function(req, resp){
     resp.render('main',{
         layout: 'index',
-        title: 'Home Page',
+        title: 'Home',
         selNav: 'main'
     });
 });
@@ -29,7 +30,7 @@ server.get('/', function(req, resp){
 server.get('/explore', function(req, resp){
     resp.render('explore',{
         layout: 'index',
-        title: 'Explore Page',
+        title: 'Explore',
         selNav: 'explore'
     });
 });
@@ -39,6 +40,37 @@ server.get('/newpost', function(req, resp){
         layout: 'index',
         title: 'New Post',
         selNav: 'newpost'
+    });
+});
+
+server.get('/popular', function(req, resp){
+    resp.render('popular',{
+        layout: 'index',
+        title: 'Popular',
+        selNav: 'popular'
+    });
+});
+
+//idea for profile: /profile would be the users own profile, while /<username> when searching for others
+server.get('/profile', function(req, resp){
+    resp.render('profile',{
+        layout: 'index',
+        title: 'My Profile',
+        selNav: 'profile'
+    });
+});
+
+server.get('/login', function(req, resp){
+    resp.render('login',{
+        layout: 'index',
+        title: 'Login',
+    });
+});
+
+server.get('/register', function(req, resp){
+    resp.render('register',{
+        layout: 'index',
+        title: 'Register',
     });
 });
 

@@ -1,10 +1,15 @@
-<!-- main -->
-<body class="mainPage">
+<!-- explore -->
+<body class="mainPage no-aside">
     {{> header}}
     {{> navbar}}
-    <div class="homeContainer">
-        <div class="homePosts">
-            <span class="pageHeader">Recent Posts</span>
+
+    <div class="pageContentContainer">
+        <div class="exploreContent">
+            <form class="searchBarBox">
+                <input class="searchBar" name="searchBar" type="text" placeholder="Type to search" required>
+                <input id="searchButton" type="submit" value="Search"> 
+            </form>
+
             <!-- POST 1 -->
             <div class="postContainer">
                 <div class="post">
@@ -22,7 +27,7 @@
                         <p>Excited for the new F1 season! Shame Sainz had to move to Williams.</p>
                     </div>
                     <div></div>
-                    <div class="postAction">
+                    <div>
                         <div class="actionContainer">
                             <div class="action">
                                 <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-up-icon.png">
@@ -39,56 +44,14 @@
                                 <span>53</span>
                             </div>
                         </div>
-                        <div class="modifyContainer">
-                            <a class="modify" href="edit-post.html">
-                                <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
-                            </a>
-                            <a class="modify">
-                                <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" alt="delete">
-                            </a>
-                        </div>
-
                         <hr>
                     </div>
                 </div>
             </div>
             <!-- end of POST 1 -->
-    
-    <!-- Communities -->
-    <aside>
-        <div class="communityContainer">
-            <h1>Communities</h1>
-
-            <div class="community"> 
-                <h3 class="communityName">
-                    College
-                </h3>
-                <p class="communityDesc">
-                    Discussions about student life, academics, exams, and campus experience
-                </p>
-                <hr>
-            </div>
             
-            <div class="community"> 
-                <h3 class="communityName">
-                    Shows
-                </h3>
-                <p class="communityDesc">
-                    Talk about TV series, movies, and binge-worthy recommendations.
-                </p>
-                <hr>
-            </div>
-
-            <div class="community"> 
-                <h3 class="communityName">
-                    Formula 1
-                </h3>
-                <p class="communityDesc">
-                    Everything about F1 racing, teams, drivers, and season updates.
-                </p>
-                <hr>
-            </div>
-
         </div>
-    </aside>
+    </div>
+
+    
 </body>
