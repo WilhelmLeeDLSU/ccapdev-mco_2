@@ -18,12 +18,16 @@ server.engine('hbs', handlebars.engine({
 
 server.use(express.static('public'));
 
+var currentuser = 'BigGreenLegend'; //replace with current user!!!!
+
 //main is homepage
 server.get('/', function(req, resp){
     resp.render('main',{
         layout: 'index',
         title: 'Home',
-        selNav: 'main'
+        selNav: 'main',
+
+        currentuser: currentuser
     });
 });
 
@@ -31,7 +35,9 @@ server.get('/explore', function(req, resp){
     resp.render('explore',{
         layout: 'index',
         title: 'Explore',
-        selNav: 'explore'
+        selNav: 'explore',
+
+        currentuser: currentuser
     });
 });
 
@@ -39,7 +45,9 @@ server.get('/newpost', function(req, resp){
     resp.render('newpost',{
         layout: 'index',
         title: 'New Post',
-        selNav: 'newpost'
+        selNav: 'newpost',
+
+        currentuser: currentuser
     });
 });
 
@@ -47,26 +55,68 @@ server.get('/popular', function(req, resp){
     resp.render('popular',{
         layout: 'index',
         title: 'Popular',
-        selNav: 'popular'
+        selNav: 'popular',
+
+        currentuser: currentuser
     });
 });
 
-//idea for profile: /profile would be the users own profile, while /profile/<username> when searching for others
-//idea for posts: /profile/<username>/post<num> for the posts of a user
-server.get('/profile', function(req, resp){
-    resp.render('profile',{
+//idea for profile: /profile/<username>
+//idea for posts: /profile/<username>/post<postid> for the posts of a user
+
+//edit profile
+server.get('/editprofile', function(req, resp){
+    resp.render('editprofile',{
         layout: 'index',
-        title: 'My Profile',
-        selNav: 'profile'
+        title: 'Edit Profile',
+
+        currentuser: currentuser
     });
 });
 
 //this one is for /profile/<username>
-server.get('/profile/:user', function(req, resp){
+server.get('/profile/:username', function(req, resp){
     resp.render('profile',{
         layout: 'index',
-        title: req.params.user + '\'s Profile',
-        user: req.params.user,
+        title: req.params.username + '\'s Profile',
+        username: req.params.username,
+
+        currentuser: currentuser
+    });
+});
+
+//this one is for /profile/<username>/replies for replies of the profile
+server.get('/profile/:username/replies', function(req, resp){
+    resp.render('profileReplies',{
+        layout: 'index',
+        title: req.params.username + '\'s Replies',
+        username: req.params.username,
+
+        currentuser: currentuser 
+    });
+});
+
+//this one is for /profile/<username>/post<postid>
+server.get('/profile/:posteruser/post:postid', function(req, resp){
+    resp.render('post',{
+        layout: 'index',
+        title: 'Title of Post', //replace with title of post
+        username: req.params.posteruser, //username of poster
+        postid: req.params.postid, 
+
+        currentuser: currentuser
+    });
+});
+
+//this one is for /profile/<username>/post<postid>
+server.get('/profile/:posteruser/post:postid/edit', function(req, resp){
+    resp.render('editpost',{
+        layout: 'index',
+        title: 'Editing Post',
+        username: req.params.posteruser, //username of poster
+        postid: req.params.postid, 
+
+        currentuser: currentuser
     });
 });
 
