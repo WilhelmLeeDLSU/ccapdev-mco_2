@@ -1,3 +1,4 @@
+const User = require('../models/userModel');
 
 module.exports.add = (server) => {
     server.get('/login', function(req, resp){
@@ -6,8 +7,19 @@ module.exports.add = (server) => {
             title: 'Login',
         });
     });
+
+    server.post('/login', async function(req, resp){
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+
+        if(!user || user.password !== password) {
+            return res.status(401).send("Invalid username or password");
+        }
+
+        resp.redirect(`/profile/${user.username}?currentuser=${user.username}`);
+    });
     
-    server.get('/register', function(req, resp){
+    server.post('/register', function(req, resp){
         resp.render('register',{
             layout: 'index',
             title: 'Register', 

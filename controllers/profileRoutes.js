@@ -1,12 +1,23 @@
+const User = require('../models/userModel');
 
 module.exports.add = (server) => {
     // URL: /profile/<username>
-    server.get('/profile/:username', function(req, resp){
+    server.get('/profile/:username', async function(req, resp){
+        const user = await User.findOne({ username: req.params.username });
+
+        if (!user) {
+            return resp.status(404).send("User not found");
+        }
+        
         resp.render('profile',{
             layout: 'index',
-            title: req.params.username + '\'s Profile',
+            title: `${user.profileName} | Profile`,
             selNav: 'profile',
-            username: req.params.username,
+            username: user.username,
+            profileName: user.profileName,
+            email: user.email,
+            pfp: user.pfp,
+            bio: user.bio,
 
             currentuser: req.currentuser
         });

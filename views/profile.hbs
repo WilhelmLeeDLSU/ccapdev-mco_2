@@ -5,10 +5,10 @@
         <profile>
             <div class="profileContainer">
                 <div class="profileDetails">
-                    <img src="https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg">
+                    <img src={{pfp}}>
                     <div class="profileName">
                         <div class="name">
-                            <span>Swamp Guardian</span>
+                            <span>{{profileName}}</span>
                         </div>
                         <div class="username">
                             <span>@{{username}}</span>
@@ -16,8 +16,7 @@
                     </div>
                 </div>
                 <div class="profileBio">
-                    <span>Professional Swamp Owner | Full-time ogre.<br>
-                          No Farquads allowed.</span>
+                    <span>{{bio}}</span>
                 </div>
                 {{#if (eq username currentuser)}}
                     <div class="profileEditButton">

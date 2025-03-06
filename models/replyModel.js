@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const replySchema = new mongoose.Schema({
     post: { type: mongoose.Schema.Types.ObjectId, ref: 'post', required: true },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
-    authorProfileName: { type: String, required: true },
-    authorUsername: { type: String, required: true },
-    authorPfp: { type: String, default: '/public/common/defaultpfp.png' },
     timeCreated: { type: Date, default: Date.now },
     content: { type: String, required: true },
     upvotes: { type: Number, default: 0 },

@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-    authorProfileName: { type: String, required: true },
-    authorUsername: { type: String, required: true },
-    authorPfp: { type: String, default: '/public/common/defaultpfp.png' },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
     timeCreated: { type: Date, default: Date.now },
     community: { type: mongoose.Schema.Types.ObjectId, ref: 'community', required: true },
     title: { type: String, required: true },
