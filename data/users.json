@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "67c981c73094331e7fadb86e"
+  },
+  "username": "BigGreenLegend",
+  "profileName": "Swamp Guardian",
+  "email": "shrek@email.com",
+  "password": "ilovefiona",
+  "bio": "",
+  "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg"
+},
+{
+  "_id": {
+    "$oid": "67c9b2203094331e7fadb873"
+  },
+  "username": "f1_fanatic",
+  "profileName": "RacingFan55",
+  "email": "johnjohnjohn@email.com",
+  "password": "pastry",
+  "bio": "MCL",
+  "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp"
+},
+{
+  "_id": {
+    "$oid": "67c9b4693094331e7fadb876"
+  },
+  "username": "uni_survivor",
+  "profileName": "StudentLife23",
+  "email": "iloveschool@email.com",
+  "password": "nerd",
+  "bio": "UCLA",
+  "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg"
+},
+{
+  "_id": {
+    "$oid": "67c9b4d73094331e7fadb877"
+  },
+  "username": "cinema_geek",
+  "profileName": "MovieBuff77",
+  "email": "anora@email.com",
+  "password": "notoemiliaperez",
+  "bio": "Wicked Lover",
+  "pfp": "https://www.cia-france.com/media/1492/les-films-incontournables-du-cinema-w_2524x884.jpg"
+},
+{
+  "_id": {
+    "$oid": "67c9b5583094331e7fadb878"
+  },
+  "username": "prancing_horse",
+  "profileName": "ScuderiaFan",
+  "email": "forzaferrari@email.com",
+  "password": "leclercsainz",
+  "bio": "FORZA",
+  "pfp": "https://play-lh.googleusercontent.com/AFTR5qCcA2rTeEJTeQr4RcFelF7r1sJUnJTvo2lABGTR4SF774vcozga636nqzEGLk0"
+},
+{
+  "_id": {
+    "$oid": "67c9b5e73094331e7fadb879"
+  },
+  "username": "meme_professor",
+  "profileName": "CampusJoker",
+  "email": "imfunny@email.com",
+  "password": "peoplelaughing",
+  "bio": "Knock Knock",
+  "pfp": "https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3e5fbd9bbb8343a2928d0_82.png"
+}]

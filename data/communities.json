@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "67c9aa0628f4cfabf3245011"
+  },
+  "name": "Formula 1",
+  "color": "FF0000"
+},
+{
+  "_id": {
+    "$oid": "67c9b1e028f4cfabf3245021"
+  },
+  "name": "College",
+  "color": "#ffa500"
+},
+{
+  "_id": {
+    "$oid": "67c9b21228f4cfabf3245022"
+  },
+  "name": "Shows",
+  "color": "#0000ff"
+},
+{
+  "_id": {
+    "$oid": "67c9b23b28f4cfabf3245023"
+  },
+  "name": "Anime",
+  "color": "#ee82ee"
+},
+{
+  "_id": {
+    "$oid": "67c9b26c28f4cfabf3245024"
+  },
+  "name": "Beauty",
+  "color": "#6a5acd"
+},
+{
+  "_id": {
+    "$oid": "67c9be253094331e7fadb893"
+  },
+  "name": "DLSU",
+  "color": "#006400"
+}]
