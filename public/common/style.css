@@ -813,14 +813,16 @@ img.pfp {
     margin-top: 3px;
     margin-right: 3px;
 }
+
 .modifyContainer {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
-    width: 7%;
+    width: 35%;
     margin-top: 3px;
     margin-bottom: 3px;
     margin-left: auto;
+    gap: 25px;
 }
 
 .modifyContainer > .modify {
