@@ -1,0 +1,27 @@
+<body class="profilePage">
+        {{> header-loggedin}}
+        {{> navbar}}
+        <profile>
+            <div class="editProfile">
+                <div class="headerContainer">
+                    <a href="profile.html">
+                        <img src="https://www.iconpacks.net/icons/2/free-arrow-left-icon-3099-thumb.png">
+                    </a>
+                    <h3>Edit Profile</h3>
+                </div>
+                <div class="editPfp">
+                    <img class="pfp" src="https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg" alt="shrek" />
+                    <p><span>edit profile picture</span></p>
+                </div>
+                <form class="editDetails">
+                    <h4>Profile Name</h4>
+                    <input type="text" id="profileName" placeholder="Profile Name">
+                    <h4>Username</h4>
+                    <input type="text" id="userName" placeholder="Username">
+                    <h4>Bio</h4>
+                    <input type="text" id="bio" placeholder="Bio">
+                    <button type="submit"><b>Submit</b></button>
+                </form>
+            </div>
+        </profile>
+    </body>
