@@ -79,6 +79,7 @@ server.get('/profile/:username', function(req, resp){
     resp.render('profile',{
         layout: 'index',
         title: req.params.username + '\'s Profile',
+        selNav: 'profile',
         username: req.params.username,
 
         currentuser: currentuser
