@@ -16,10 +16,17 @@ server.engine('hbs', handlebars.engine({
     }
 }));
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
+
 server.use(express.static('public'));
 
 var currentuser = 'BigGreenLegend'; //replace with current user!!!!
 
+const User = require('./models/userModel');
+const Post = require('./models/postModel');
+const Community = require('./models/communityModel');
+const Reply = require('./models/replyModel');
 //main is homepage
 
 //idea for profile: /profile/<username>
