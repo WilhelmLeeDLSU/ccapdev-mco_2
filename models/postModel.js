@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
     community: { type: mongoose.Schema.Types.ObjectId, ref: 'community', required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    upvotes: { type: Number, default: 0 },
+    upvotes: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     downvotes: { type: Number, default: 0 },
     replies: { type: mongoose.Schema.Types.ObjectId, ref: 'reply' }
 });
