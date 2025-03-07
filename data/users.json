@@ -88,4 +88,285 @@
       "$oid": "67c9ba4928f4cfabf3245037"
     }
   ]
-}]
+},
+{
+  "_id": {
+    "$oid": "67c9b6f73094331e7fadb880"
+  },
+  "username": "tech_guru",
+  "profileName": "TechMaster",
+  "email": "techguru@email.com",
+  "password": "securepassword123"
+},
+{
+  "_id": {
+    "$oid": "67c9b7f73094331e7fadb881"
+  },
+  "username": "nature_lover",
+  "profileName": "GreenThumb",
+  "email": "naturelover@email.com",
+  "password": "plantsarelife"
+},
+{
+  "_id": {
+    "$oid": "67c9b8f73094331e7fadb882"
+  },
+  "username": "bookworm",
+  "profileName": "PageTurner",
+  "email": "bookworm@email.com",
+  "password": "readingisfun"
+},
+{
+  "_id": {
+    "$oid": "67c9b9f73094331e7fadb883"
+  },
+  "username": "fitness_freak",
+  "profileName": "GymRat",
+  "email": "fitnessfreak@email.com",
+  "password": "workoutdaily"
+},
+{
+  "_id": {
+    "$oid": "67c9baf73094331e7fadb884"
+  },
+  "username": "foodie",
+  "profileName": "ChefMaster",
+  "email": "foodie@email.com",
+  "password": "ilovefood"
+},
+{
+  "_id": {
+    "$oid": "67c9bbf73094331e7fadb885"
+  },
+  "username": "travel_bug",
+  "profileName": "Wanderlust",
+  "email": "travelbug@email.com",
+  "password": "exploretheworld"
+},
+{
+  "_id": {
+    "$oid": "67c9bcf73094331e7fadb886"
+  },
+  "username": "music_lover",
+  "profileName": "MelodyMaker",
+  "email": "musiclover@email.com",
+  "password": "ilovemusic"
+},
+{
+  "_id": {
+    "$oid": "67c9bdf73094331e7fadb887"
+  },
+  "username": "art_fanatic",
+  "profileName": "ArtisticSoul",
+  "email": "artfanatic@email.com",
+  "password": "creativity"
+},
+{
+  "_id": {
+    "$oid": "67c9bef73094331e7fadb888"
+  },
+  "username": "sports_fan",
+  "profileName": "Athlete",
+  "email": "sportsfan@email.com",
+  "password": "gameon"
+},
+{
+  "_id": {
+    "$oid": "67c9bff73094331e7fadb889"
+  },
+  "username": "movie_buff",
+  "profileName": "FilmCritic",
+  "email": "moviebuff@email.com",
+  "password": "cinemalover"
+},
+{
+  "_id": {
+    "$oid": "67c9c0f73094331e7fadb890"
+  },
+  "username": "history_buff",
+  "profileName": "Historian",
+  "email": "historybuff@email.com",
+  "password": "pastisfascinating"
+},
+{
+  "_id": {
+    "$oid": "67c9c1f73094331e7fadb891"
+  },
+  "username": "science_geek",
+  "profileName": "ScienceNerd",
+  "email": "sciencegeek@email.com",
+  "password": "ilovescience"
+},
+{
+  "_id": {
+    "$oid": "67c9c2f73094331e7fadb892"
+  },
+  "username": "fashionista",
+  "profileName": "StyleIcon",
+  "email": "fashionista@email.com",
+  "password": "fashionlover"
+},
+{
+  "_id": {
+    "$oid": "67c9c3f73094331e7fadb893"
+  },
+  "username": "gamer",
+  "profileName": "GameMaster",
+  "email": "gamer@email.com",
+  "password": "gamingislife"
+},
+{
+  "_id": {
+    "$oid": "67c9c4f73094331e7fadb894"
+  },
+  "username": "photographer",
+  "profileName": "Shutterbug",
+  "email": "photographer@email.com",
+  "password": "capturingmoments"
+},
+{
+  "_id": {
+    "$oid": "67c9c5f73094331e7fadb895"
+  },
+  "username": "animal_lover",
+  "profileName": "PetLover",
+  "email": "animallover@email.com",
+  "password": "ilovepets"
+},
+{
+  "_id": {
+    "$oid": "67c9c6f73094331e7fadb896"
+  },
+  "username": "car_enthusiast",
+  "profileName": "CarLover",
+  "email": "carenthusiast@email.com",
+  "password": "vroomvroom"
+},
+{
+  "_id": {
+    "$oid": "67c9c7f73094331e7fadb897"
+  },
+  "username": "diy_expert",
+  "profileName": "CraftMaster",
+  "email": "diyexpert@email.com",
+  "password": "handmade"
+},
+{
+  "_id": {
+    "$oid": "67c9c8f73094331e7fadb898"
+  },
+  "username": "gardener",
+  "profileName": "PlantLover",
+  "email": "gardener@email.com",
+  "password": "greenfingers"
+},
+{
+  "_id": {
+    "$oid": "67c9c9f73094331e7fadb899"
+  },
+  "username": "tech_enthusiast",
+  "profileName": "GadgetGuru",
+  "email": "techenthusiast@email.com",
+  "password": "techsavvy"
+},
+{
+  "_id": {
+    "$oid": "67c9caf73094331e7fadb900"
+  },
+  "username": "fitness_guru",
+  "profileName": "HealthNut",
+  "email": "fitnessguru@email.com",
+  "password": "fitlife"
+},
+{
+  "_id": {
+    "$oid": "67c9cbf73094331e7fadb901"
+  },
+  "username": "movie_critic",
+  "profileName": "FilmBuff",
+  "email": "moviecritic@email.com",
+  "password": "moviereviews"
+},
+{
+  "_id": {
+    "$oid": "67c9ccf73094331e7fadb902"
+  },
+  "username": "history_lover",
+  "profileName": "HistoryBuff",
+  "email": "historylover@email.com",
+  "password": "historyrocks"
+},
+{
+  "_id": {
+    "$oid": "67c9cdf73094331e7fadb903"
+  },
+  "username": "science_lover",
+  "profileName": "ScienceBuff",
+  "email": "sciencelover@email.com",
+  "password": "scienceisfun"
+},
+{
+  "_id": {
+    "$oid": "67c9cef73094331e7fadb904"
+  },
+  "username": "fashion_guru",
+  "profileName": "FashionBuff",
+  "email": "fashionguru@email.com",
+  "password": "fashionista"
+},
+{
+  "_id": {
+    "$oid": "67c9cff73094331e7fadb905"
+  },
+  "username": "gamer_guru",
+  "profileName": "GameBuff",
+  "email": "gamerguru@email.com",
+  "password": "gamingpro"
+},
+{
+  "_id": {
+    "$oid": "67c9d0f73094331e7fadb906"
+  },
+  "username": "photo_enthusiast",
+  "profileName": "PhotoBuff",
+  "email": "photoenthusiast@email.com",
+  "password": "photography"
+},
+{
+  "_id": {
+    "$oid": "67c9d1f73094331e7fadb907"
+  },
+  "username": "animal_fanatic",
+  "profileName": "AnimalBuff",
+  "email": "animalfanatic@email.com",
+  "password": "animalcrazy"
+},
+{
+  "_id": {
+    "$oid": "67c9d2f73094331e7fadb908"
+  },
+  "username": "car_fanatic",
+  "profileName": "CarBuff",
+  "email": "carfanatic@email.com",
+  "password": "carcrazy"
+},
+{
+  "_id": {
+    "$oid": "67c9d3f73094331e7fadb909"
+  },
+  "username": "diy_fanatic",
+  "profileName": "DIYBuff",
+  "email": "diyfanatic@email.com",
+  "password": "diycrazy"
+},
+{
+  "_id": {
+    "$oid": "67c9d4f73094331e7fadb910"
+  },
+  "username": "garden_guru",
+  "profileName": "GardenBuff",
+  "email": "gardenguru@email.com",
+  "password": "gardening"
+}
+
+]
