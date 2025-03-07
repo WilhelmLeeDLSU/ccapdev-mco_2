@@ -19,16 +19,18 @@
                 <span>{{replies}}</span>
             </div>
         </div>
-        
+
         <!-- EDIT & DELETE -->
-        <div class="modifyContainer">
-            <a class="modify" href="/profile/BigGreenLegend/post1/edit">
-                <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
-            </a>
-            <a class="modify">
-                <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" alt="delete">
-            </a>
-        </div>
+        {{#if (eq currentuser author.username)}}
+            <div class="modifyContainer">
+                <a class="modify" href="/profile/BigGreenLegend/post1/edit">
+                    <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
+                </a>
+                <a class="modify">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" alt="delete">
+                </a>
+            </div>
+        {{/if}}
     </div>
     <hr>
 </div>

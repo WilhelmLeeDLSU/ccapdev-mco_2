@@ -8,55 +8,8 @@
     </a> 
 </div>
 <hr>
-<div class="postContainer">
-    <div class="post">
-        <img class="pfp" src="{{authorPfp}}" alt="shrek">
-        <div class="poster">
-            <a href="/profile/{{author}}" class="no-style">
-                <b>{{authorProfileName}}</b> <span>{{author}}</span> 
-            </a> 
-            <span>{{timeCreated}}</span>
-            <div class="tags">
-                <span class="tag" style="background: {{community.color}};">{{community}}</span>
-            </div>
-        </div>
-        <div></div>
-        <div class="postContent">
-            <h3>{{title}}</h3>
-            <p>{{content}}</p>
-        </div>
-        <div></div>
-        <div class="postAction">
-            <div class="actionContainer">
-                <!-- UPVOTES -->
-                <div class="action">
-                    <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-up-icon.png">
-                    <span>{{upvotes}}</span>
-                </div>
-                <!-- DOWNVOTES -->
-                <div class="action">
-                    <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-down-icon.png">
-                    <span>{{downvotes}}</span>
-                </div>
-                <!-- REPLIES -->
-                <div class="action">
-                    <a href="/profile/BigGreenLegend/post1">
-                        <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/512/FontAwesome-Regular-Comment-icon.png">
-                    </a>
-                    <span>{{replies}}</span>
-                </div>
-            </div>
-            
-            <!-- EDIT & DELETE -->
-            <div class="modifyContainer">
-                <a class="modify" href="/profile/BigGreenLegend/post1/edit">
-                    <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
-                </a>
-                <a class="modify"> //CHANGE TO DELETE
-                    <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" alt="delete">
-                </a>
-            </div>
-            <hr>
-        </div>
-    </div>
+<div class="profilePosts">
+    {{#each posts}}
+        {{> post currentuser=../currentuser}}
+    {{/each}}
 </div>

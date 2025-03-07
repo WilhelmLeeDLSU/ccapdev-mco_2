@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const { formatTimeDifference, buildPost } = require('../js/utils');
 
 module.exports.add = (server) => {
     // URL: /profile/<username>
@@ -9,10 +10,29 @@ module.exports.add = (server) => {
             return resp.redirect('/login');
         }
 
-        const user = await User.findOne({ username: req.params.username }).lean();
+        const user = await User.findOne({ username: req.params.username })
+            .populate({
+                path: 'posts',
+                model: 'post',
+                populate: [{
+                    path: 'author',
+                    model: 'user',
+                    select: 'username profileName pfp'
+                }, {
+                    path: 'community',
+                    model: 'community',
+                    select: 'name color'
+                }]
+            })
+            .lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
+        
+        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
+        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
+
+        const transformedPosts = user.posts.map(post => buildPost(post));
         
         resp.render('profile-posts',{
             layout: 'profileLayout',
@@ -21,10 +41,12 @@ module.exports.add = (server) => {
             username: user.username,
             profileName: user.profileName,
             email: user.email,
-            pfp: user.pfp,
+            viewedUserPfp: user.pfp,
             bio: user.bio,
+            posts: transformedPosts,
 
-            currentuser: currentuser
+            currentuser: currentuser,
+            currentuserPfp: currentUserPfp
         });
     });
 

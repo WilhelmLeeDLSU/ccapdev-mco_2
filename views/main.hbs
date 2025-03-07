@@ -7,7 +7,7 @@
             <span class="pageHeader">Recent Posts</span>
             <!-- POSTS -->
             {{#each posts}}
-                {{> post}}
+                {{> post currentuser=../currentuser}}
             {{/each}}
             <!-- END OF POSTS-->
         </div>

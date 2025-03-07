@@ -1,13 +1,13 @@
 <div class="postContainer">
-    <div class="post" onclick="window.location.href='/explore';">
-        <img class="pfp" src="{{author.profilePicture}}" alt="shrek">
+    <div class="post" onclick="window.location.href='/explore?currentuser={{currentuser}}';">
+        <img class="pfp" src="{{author.pfp}}" alt="shrek">
         <div class="poster">
-            <a href="/profile/{{author.id}}" class="no-style">
+            <a href="/profile/{{author.username}}?currentuser={{currentuser}}" class="no-style">
                 <b>{{author.profileName}}</b> <span>@{{author.username}}</span> 
             </a> 
             <span>{{timeCreated}}</span>
             <div class="tags">
-                <span class="tag" style="background: {{community.color}};">{{community.community}}</span>
+                <span class="tag" style="background: {{community.color}};">{{community.name}}</span>
             </div>
         </div>
         <div></div>
@@ -16,6 +16,6 @@
             <p>{{content}}</p>
         </div>
         <div></div>
-        {{> post-actions}}
+        {{> post-actions currentuser=currentuser}}
     </div>
 </div>
