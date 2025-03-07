@@ -13,21 +13,7 @@ module.exports.add = (server) => {
             return resp.redirect('/login');
         }
 
-        const user = await User.findOne({ username: req.params.username })
-            .populate({
-                path: 'posts',
-                model: 'post',
-                populate: [{
-                    path: 'author',
-                    model: 'user',
-                    select: 'username profileName pfp'
-                }, {
-                    path: 'community',
-                    model: 'community',
-                    select: 'name color'
-                }]
-            })
-            .lean();
+        const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
@@ -35,7 +21,12 @@ module.exports.add = (server) => {
         const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
         const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
-        const transformedPosts = user.posts.map(post => buildPost(post));
+        const userPosts = await Post.find({ author: user._id })
+            .populate("author", "profileName username pfp")
+            .populate("community", "name color")
+            .lean();
+
+        const transformedPosts = userPosts.map(post => buildPost(post));
         
         resp.render('profile-posts',{
             layout: 'profileLayout',
@@ -94,8 +85,7 @@ module.exports.add = (server) => {
             return resp.redirect('/login');
         }
 
-        const user = await User.findOne({ username: req.params.username });
-
+        const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
@@ -103,7 +93,12 @@ module.exports.add = (server) => {
         const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
         const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
-        const transformedPosts = user.posts.map(post => buildPost(post));
+        const upvotedPosts = await Post.find({ upvotes: user._id })
+            .populate("author", "profileName username pfp")
+            .populate("community", "name color")
+            .lean();
+
+        const transformedPosts = upvotedPosts.map(post => buildPost(post));
         
         resp.render('profile-upvotes',{
             layout: 'profileLayout',
