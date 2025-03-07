@@ -10,16 +10,19 @@ module.exports.add = (server) => {
         try {
             const posts = await Post.find()
                 .populate("author", "profileName username pfp")
-                .populate("community", "name color")
+                .populate("community", "name color ")
                 .lean();
             
             const builtPosts = posts.map(post => buildPost(post));
+
+            const communities = await Community.find().lean();
     
             resp.render('main', {
                 layout: 'index',
                 title: 'Home',
                 selNav: 'main',
                 posts: builtPosts,
+                communities: communities,
                 currentuser: req.query.currentuser || null
             });
     
@@ -64,18 +67,21 @@ module.exports.add = (server) => {
     
     server.get('/popular', async function(req, resp){
         try {
-            const posts = await Post.find({ upvotes: { $gte: 50 } })
+            const posts = await Post.find({ upvotes: { $gte: 15 } })
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color")
                 .lean();
 
             const builtPosts = posts.map(post => buildPost(post));
+
+            const communities = await Community.find().lean();
     
             resp.render('popular',{
                 layout: 'index',
                 title: 'Popular',
                 selNav: 'popular',
                 posts: builtPosts,
+                communities: communities,
                 currentuser: req.query.currentuser || null
             });
     
@@ -100,6 +106,8 @@ module.exports.add = (server) => {
             .lean();
             
         const builtPosts = posts.map(post => buildPost(post));
+
+        const communities = await Community.find().lean();
     
         resp.render('community', {
             layout: 'index',
@@ -107,6 +115,7 @@ module.exports.add = (server) => {
             selNav: 'community',
             communityName: community.name,
             posts: builtPosts,
+            communities: communities,
             currentuser: req.query.currentuser || null
         });
 

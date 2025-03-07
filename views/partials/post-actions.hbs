@@ -12,14 +12,16 @@
                 <span>{{downvotes}}</span>
             </div>
             <!-- REPLIES -->
-            {{#unless isReply}} <!-- Do not show if not a post -->
-            <div class="action">
-                <a href="/profile/{{author.username}}/post/{{_id}}?currentuser={{currentuser}}">
-                    <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/512/FontAwesome-Regular-Comment-icon.png">
-                </a>
-                <span>{{replies}}</span>
-            </div>
-            {{/unless}}
+            {{#if isReply}}
+                <div class="action"></div>
+            {{else}} 
+                <div class="action">
+                    <a href="/profile/{{author.username}}/post/{{_id}}?currentuser={{currentuser}}">
+                        <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/512/FontAwesome-Regular-Comment-icon.png">
+                    </a>
+                    <span>{{replies}}</span>
+                </div>
+            {{/if}}
         </div>
 
         <!-- EDIT & DELETE -->

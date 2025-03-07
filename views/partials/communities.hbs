@@ -1,36 +1,15 @@
 <aside>
-        <div class="communityContainer">
-            <h1>Communities</h1>
-
-            <div class="community"> 
+    <div class="communityContainer">
+        <h1>Communities</h1>
+        {{#each communities}}
+            <div class="community">
                 <h3 class="communityName">
-                    College
+                    <a href="/community/{{name}}" class="no-style">{{name}}</a>
                 </h3>
                 <p class="communityDesc">
-                    Discussions about student life, academics, exams, and campus experience
+                    {{bio}}
                 </p>
-                <hr>
             </div>
-            
-            <div class="community"> 
-                <h3 class="communityName">
-                    Shows
-                </h3>
-                <p class="communityDesc">
-                    Talk about TV series, movies, and binge-worthy recommendations.
-                </p>
-                <hr>
-            </div>
-
-            <div class="community"> 
-                <h3 class="communityName">
-                    Formula 1
-                </h3>
-                <p class="communityDesc">
-                    Everything about F1 racing, teams, drivers, and season updates.
-                </p>
-                <hr>
-            </div>
-
-        </div>
-    </aside>
+        {{/each}}
+    </div>
+</aside>
