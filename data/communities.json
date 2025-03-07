@@ -3,40 +3,38 @@
     "$oid": "67c9aa0628f4cfabf3245011"
   },
   "name": "Formula 1",
-  "color": "#FF0000"
+  "color": "#FF0000",
+  "bio": "Everything about F1 racing, teams, drivers, and season updates."
 },
 {
   "_id": {
     "$oid": "67c9b1e028f4cfabf3245021"
   },
   "name": "College",
-  "color": "#ffa500"
+  "color": "#ffa500",
+  "bio": "Discussions about student life, academics, exams, and campus experience"
 },
 {
   "_id": {
     "$oid": "67c9b21228f4cfabf3245022"
   },
   "name": "Shows",
-  "color": "#0000ff"
+  "color": "#0000ff",
+  "bio": "Talk about TV series, movies, and binge-worthy recommendations."
 },
 {
   "_id": {
     "$oid": "67c9b23b28f4cfabf3245023"
   },
   "name": "Anime",
-  "color": "#ee82ee"
+  "color": "#ee82ee",
+  "bio": "A place for anime lovers to iscuss their favorite shows."
 },
 {
   "_id": {
     "$oid": "67c9b26c28f4cfabf3245024"
   },
   "name": "Beauty",
-  "color": "#6a5acd"
-},
-{
-  "_id": {
-    "$oid": "67c9be253094331e7fadb893"
-  },
-  "name": "DLSU",
-  "color": "#006400"
+  "color": "#6a5acd",
+  "bio": "Discover beauty tips, skincare routines, makeup trends, and more."
 }]
