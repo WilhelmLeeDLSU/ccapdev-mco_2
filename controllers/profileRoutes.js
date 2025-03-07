@@ -70,7 +70,6 @@ module.exports.add = (server) => {
             .lean();
 
         const builtReplies = replies.map(reply => buildReply(reply));
-
         resp.render('profile-replies',{
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
@@ -81,10 +80,11 @@ module.exports.add = (server) => {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
-
+    
             currentuser: currentuser,
             currentuserPfp: currentUserPfp
         });
+        
     });
 
     server.get('/profile/:username/upvotes', async function(req, resp){
@@ -119,7 +119,6 @@ module.exports.add = (server) => {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             posts: transformedPosts,
-
             currentuser: currentuser,
             currentuserPfp: currentUserPfp
         });
@@ -148,7 +147,6 @@ module.exports.add = (server) => {
                 .lean();
 
             const builtReplies = replies.map(reply => buildReply(reply));
-
             resp.render('viewpost', {
                 layout: 'index',
                 title: postData.title, 
@@ -157,6 +155,7 @@ module.exports.add = (server) => {
                 ...builtPost,
                 repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
             });
+            
         } catch (error) {
             console.error("Error loading post:", error);
             resp.status(500).render('error', { message: "Internal Server Error" });
