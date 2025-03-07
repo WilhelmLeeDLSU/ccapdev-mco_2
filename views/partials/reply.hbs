@@ -1,5 +1,5 @@
 <div class="replyContainer">
-    <div class="post">
+    <div class="post" onclick="window.location.href='/profile/{{post.authorUsername}}/post/{{post._id}}?currentuser={{currentuser}}';">
         <img class="pfp" src="{{author.pfp}}" alt="pfp_o1">
         <div class="poster">
             <b>{{author.profileName}}</b> <span>{{author.username}}</span> <span>{{timeCreated}}</span> <br>
