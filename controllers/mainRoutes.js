@@ -111,7 +111,7 @@ function formatTimeDifference(timeCreated) {
 }
 
 // BUILD POST
-function buildPost(post, usersMap, communitiesMap) {
+function buildPost(post) {
     if (!post || !post.timeCreated) return null;
     
     return {
@@ -120,11 +120,11 @@ function buildPost(post, usersMap, communitiesMap) {
             id: post.author?._id || "unknown",
             profileName: post.author?.profileName || "Unknown User",
             username: post.author?.username || "anonymous",
-            profilePicture: post.author?.pfp || "/default-pfp.png",
+            pfp: post.author?.pfp || "/default-pfp.png",
         },
         timeCreated: formatTimeDifference(post.timeCreated),
         community: {
-            community: post.community?.name || "General Discussion",
+            name: post.community?.name || "General Discussion",
             color: post.community?.color || "#222222",
         },
         title: post.title || "Untitled",
