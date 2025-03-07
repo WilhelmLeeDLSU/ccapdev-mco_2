@@ -1,6 +1,14 @@
-<!-- profile -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="/common/style.css" rel="stylesheet" />
+  </head>
+  <!-- profile -->
 <body class="profilePage">
-        {{> header-loggedin}}
+        {{> header}}
         {{> navbar}}
         <profile>
             <div class="profileContainer">
@@ -25,25 +33,9 @@
                     </a>
                 </div>
                 {{/if}}
-                
-                <div class="profileTabContainer">
-                    <div class="items" id="selProfileTab">Posts</div>
-                    <a href="/profile/{{username}}/replies" class="no-style">
-                        <div class="items">Replies</div>
-                    </a>
-                    <a href="/profile/{{username}}/upvotes" class="no-style">
-                        <div class="items">Upvotes</div>
-                    </a> 
-                </div>
-                <hr>
-
-                <div class="profilePosts">
-                    <!-- PROFILE POST 1 -->
-                    
-                    <!-- end of PROFILE POST 1 -->
-                </div>
-
+                {{{body}}}
             </div>
         </profile>
 
     </body>
+</html>

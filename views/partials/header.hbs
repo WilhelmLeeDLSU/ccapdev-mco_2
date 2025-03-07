@@ -1,12 +1,18 @@
 <!-- header -->
 <header class="mainPage">
     <div class="headitem appbrandContainer">
-        <img class="horizontalLogo" src="common/horizontal-logo.png">
+        <img class="horizontalLogo" src="/common/horizontal-logo.png">
     </div>
     <div class="logoContainer">
-        <img class="circle" src="common/circle-logo.png" alt="shrek">
+        <img class="circle" src="/common/circle-logo.png" alt="shrek">
     </div>
     <div class="headitem homeLoginContainer">
-        <a class="loginButton" href="/login">Log In</a>
+        {{#if isAuthenticated}}
+            <div class="headitem homeLoginContainer">
+                <img class="pfp" src={{pfp}} alt="pfp">
+            </div>
+        {{else}}
+            <a class="loginButton" href="/login">Log In</a>
+        {{/if}}
     </div>
 </header>

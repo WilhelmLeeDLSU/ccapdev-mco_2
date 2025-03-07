@@ -21,8 +21,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
 
 server.use(express.static('public'));
 
-var currentuser = 'BigGreenLegend'; //replace with current user!!!!
-
 const User = require('./models/userModel');
 const Post = require('./models/postModel');
 const Community = require('./models/communityModel');
@@ -35,7 +33,10 @@ const Reply = require('./models/replyModel');
 const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes'];
 
 server.use((req, resp, next) => {
-    req.currentuser = currentuser;
+    const currentuser = req.query.currentuser || null;
+    console.log("Current user:", currentuser);
+    resp.locals.currentuser = currentuser;
+    resp.locals.isAuthenticated = !!currentuser;
     next();
 });
 

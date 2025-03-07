@@ -9,14 +9,22 @@ module.exports.add = (server) => {
     });
 
     server.post('/login', async function(req, resp){
-        const { username, password } = req.body;
-        const user = await User.findOne({ username });
+        try {
+            const { username, password } = req.body;
+            const user = await User.findOne({ username });
 
-        if(!user || user.password !== password) {
-            return res.status(401).send("Invalid username or password");
+            if(!user || user.password !== password) {
+                return resp.status(401).send("Invalid username or password");
+            }
+
+            console.log("User logged in:", user.username);
+
+            resp.redirect(`/?currentuser=${encodeURIComponent(user.username)}`);
+
+        } catch (error) {
+            console.error("Login error: ", error);
         }
-
-        resp.redirect(`/profile/${user.username}?currentuser=${user.username}`);
+    
     });
     
     server.post('/register', function(req, resp){

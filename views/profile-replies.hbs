@@ -1,5 +1,16 @@
+<div class="profileTabContainer">
+    <a href="/profile/{{username}}?currentuser={{currentuser}}" class="no-style">
+        <div class="items">Posts</div>
+    </a>
+    <div class="items" id="selProfileTab">Replies</div>
+    <a href="/profile/{{username}}/upvotes?currentuser={{currentuser}}" class="no-style">
+        <div class="items">Upvotes</div>
+    </a> 
+</div>
+<hr>
+
 <div class="postContainer">
-    <div class="post" onclick="window.location.href='/explore';">
+    <div class="post">
         <img class="pfp" src="{{authorPfp}}" alt="shrek">
         <div class="poster">
             <a href="/profile/{{author}}" class="no-style">

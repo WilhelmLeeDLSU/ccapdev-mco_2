@@ -6,7 +6,7 @@ module.exports.add = (server) => {
             title: 'Home',
             selNav: 'main',
     
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 
@@ -16,7 +16,7 @@ module.exports.add = (server) => {
             title: 'Explore',
             selNav: 'explore',
     
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 
@@ -26,7 +26,7 @@ module.exports.add = (server) => {
             title: 'New Post',
             selNav: 'newpost',
     
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
     
@@ -36,7 +36,7 @@ module.exports.add = (server) => {
             title: 'Popular',
             selNav: 'popular',
 
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 }

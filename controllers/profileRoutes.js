@@ -9,8 +9,8 @@ module.exports.add = (server) => {
             return resp.status(404).send("User not found");
         }
         
-        resp.render('profile',{
-            layout: 'index',
+        resp.render('profile-posts',{
+            layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
             selNav: 'profile',
             username: user.username,
@@ -19,30 +19,62 @@ module.exports.add = (server) => {
             pfp: user.pfp,
             bio: user.bio,
 
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 
     // URL: /profile/<username>/replies for replies of the profile
-    server.get('/profile/:username/replies', function(req, resp){
-        resp.render('profileReplies',{
-            layout: 'index',
-            title: req.params.username + '\'s Replies',
-            username: req.params.username,
+    server.get('/profile/:username/replies', async function(req, resp){
+        const user = await User.findOne({ username: req.params.username });
 
-            currentuser: req.currentuser 
+        if (!user) {
+            return resp.status(404).send("User not found");
+        }
+        
+        resp.render('profile-replies',{
+            layout: 'profileLayout',
+            title: `${user.profileName} | Replies`,
+            selNav: 'profile',
+            username: user.username,
+            profileName: user.profileName,
+            email: user.email,
+            pfp: user.pfp,
+            bio: user.bio,
+
+            currentuser: req.query.currentuser || null
+        });
+    });
+
+    server.get('/profile/:username/upvotes', async function(req, resp){
+        const user = await User.findOne({ username: req.params.username });
+
+        if (!user) {
+            return resp.status(404).send("User not found");
+        }
+        
+        resp.render('profile-upvotes',{
+            layout: 'profileLayout',
+            title: `${user.profileName} | Upvotes`,
+            selNav: 'profile',
+            username: user.username,
+            profileName: user.profileName,
+            email: user.email,
+            pfp: user.pfp,
+            bio: user.bio,
+
+            currentuser: req.query.currentuser || null
         });
     });
 
     // URL: /profile/<username>/post<postid>
     server.get('/profile/:posteruser/post:postid', function(req, resp){
         resp.render('post',{
-            layout: 'index',
+            layout: 'profileLayout',
             title: 'Title of Post', //replace with title of post
             username: req.params.posteruser, //username of poster
             postid: req.params.postid, 
 
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 
@@ -54,7 +86,7 @@ module.exports.add = (server) => {
             username: req.params.posteruser, //username of poster
             postid: req.params.postid, 
 
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 
@@ -64,7 +96,7 @@ module.exports.add = (server) => {
             layout: 'index',
             title: 'Edit Profile',
 
-            currentuser: req.currentuser
+            currentuser: req.query.currentuser || null
         });
     });
 }
