@@ -1,26 +1,25 @@
-const fs = require('fs'); // Import fs module
-const path = require('path');
 const moment = require('moment'); 
 
+const Post = require('../models/postModel');
+const User = require('../models/userModel');
+const Community = require('../models/communityModel');
+
 module.exports.add = (server) => {
-    server.get('/', function (req, resp) {
+    server.get('/', async function (req, resp) {
         try {
-            const postsData = loadJSON(path.join(__dirname, '../data/posts.json'));
-            const usersData = loadJSON(path.join(__dirname, '../data/users.json'));
-            const communitiesData = loadJSON(path.join(__dirname, '../data/communities.json'));
-    
-            const usersMap = createUsersMap(usersData);
-            const communitiesMap = createCommunitiesMap(communitiesData);
-    
-            const builtPosts = postsData.map(post => buildPost(post, usersMap, communitiesMap))
-                                           .filter(post => post !== null);
+            const posts = await Post.find()
+                .populate("author", "profileName username pfp")
+                .populate("community", "name, color")
+                .lean();
+            
+            const builtPosts = posts.map(post => buildPost(post));
     
             resp.render('main', {
                 layout: 'index',
                 title: 'Home',
                 selNav: 'main',
                 currentuser: req.currentuser,
-                posts: builtPosts
+                posts: builtPosts,
             });
     
         } catch (error) {
@@ -60,41 +59,6 @@ module.exports.add = (server) => {
     });
 }
 
-// LOAD JSON FILES
-function loadJSON(filePath) {
-    try {
-        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    } catch (error) {
-        console.error(`Error loading ${filePath}:`, error);
-        return [];
-    }
-}
-
-// USERS MAP
-function createUsersMap(usersData) {
-    const usersMap = {};
-    usersData.forEach(user => {
-        usersMap[user._id?.$oid] = {
-            profileName: user.profileName || "Unknown User",
-            username: user.username || "anonymous",
-            profilePicture: user.pfp || "/default-pfp.png"
-        };
-    });
-    return usersMap;
-}
-
-// COMMUNITIES MAP
-function createCommunitiesMap(communitiesData) {
-    const communitiesMap = {};
-    communitiesData.forEach(community => {
-        communitiesMap[community._id?.$oid] = {
-            community: community.name || "General Discussion",
-            color: community.color || "#222222"
-        };
-    });
-    return communitiesMap;
-}
-
 // FORMAT TIME CREATED
 function formatTimeDifference(timeCreated) {
     if (!timeCreated) return "Unknown time";
@@ -123,24 +87,24 @@ function formatTimeDifference(timeCreated) {
 // BUILD POST
 function buildPost(post, usersMap, communitiesMap) {
     if (!post || !post.timeCreated) return null;
-
+    
     return {
-        _id: post._id?.$oid,
+        _id: post._id,
         author: {
-            id: post.author?.$oid || "unknown",
-            profileName: usersMap[post.author?.$oid]?.profileName || "Unknown User",
-            username: usersMap[post.author?.$oid]?.username || "anonymous",
-            profilePicture: usersMap[post.author?.$oid]?.profilePicture || "/default-pfp.png"
+            id: post.author?._id || "unknown",
+            profileName: post.author?.profileName || "Unknown User",
+            username: post.author?.username || "anonymous",
+            profilePicture: post.author?.pfp || "/default-pfp.png",
         },
         timeCreated: formatTimeDifference(post.timeCreated),
         community: {
-            community: communitiesMap[post.community?.$oid]?.community || "General Discussion",
-            color: communitiesMap[post.community?.$oid]?.color || "#222222"
+            community: post.community?.name || "General Discussion",
+            color: post.community?.color || "#222222",
         },
         title: post.title || "Untitled",
         content: post.content || "No content available",
         upvotes: post.upvotes || 0,
         downvotes: post.downvotes || 0,
-        replies: post.replies || []
+        replies: post.replies || [],
     };
 }
