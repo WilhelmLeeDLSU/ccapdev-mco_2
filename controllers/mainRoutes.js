@@ -9,7 +9,7 @@ module.exports.add = (server) => {
         try {
             const posts = await Post.find()
                 .populate("author", "profileName username pfp")
-                .populate("community", "name, color")
+                .populate("community", "name color")
                 .lean();
             
             const builtPosts = posts.map(post => buildPost(post));
@@ -18,8 +18,8 @@ module.exports.add = (server) => {
                 layout: 'index',
                 title: 'Home',
                 selNav: 'main',
-                currentuser: req.currentuser,
                 posts: builtPosts,
+                currentuser: req.currentuser,
             });
     
         } catch (error) {
@@ -28,14 +28,27 @@ module.exports.add = (server) => {
         }
     });
 
-    server.get('/explore', function(req, resp){
-        resp.render('explore',{
-            layout: 'index',
-            title: 'Explore',
-            selNav: 'explore',
+    server.get('/explore', async function(req, resp){
+        try {
+            const posts = await Post.find()
+                .populate("author", "profileName username pfp")
+                .populate("community", "name color")
+                .lean();
+            
+            const builtPosts = posts.map(post => buildPost(post));
     
-            currentuser: req.currentuser
-        });
+            resp.render('explore',{
+                layout: 'index',
+                title: 'Explore',
+                selNav: 'explore',
+                posts: builtPosts,
+                currentuser: req.currentuser,
+            });
+    
+        } catch (error) {
+            console.error("Error loading posts:", error);
+            resp.status(500).send("Internal Server Error");
+        }
     });
 
     server.get('/newpost', function(req, resp){
@@ -48,14 +61,27 @@ module.exports.add = (server) => {
         });
     });
     
-    server.get('/popular', function(req, resp){
-        resp.render('popular',{
-            layout: 'index',
-            title: 'Popular',
-            selNav: 'popular',
+    server.get('/popular', async function(req, resp){
+        try {
+            const posts = await Post.find({ upvotes: { $gte: 50 } })
+                .populate("author", "profileName username pfp")
+                .populate("community", "name color")
+                .lean();
 
-            currentuser: req.currentuser
-        });
+            const builtPosts = posts.map(post => buildPost(post));
+    
+            resp.render('popular',{
+                layout: 'index',
+                title: 'Popular',
+                selNav: 'popular',
+                posts: builtPosts,
+                currentuser: req.currentuser
+            });
+    
+        } catch (error) {
+            console.error("Error loading posts:", error);
+            resp.status(500).send("Internal Server Error");
+        }
     });
 }
 

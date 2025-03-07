@@ -9,49 +9,11 @@
                 <input class="searchBar" name="searchBar" type="text" placeholder="Type to search" required>
                 <input id="searchButton" type="submit" value="Search"> 
             </form>
-
-            <!-- POST 1 -->
-            <div class="postContainer">
-                <div class="post">
-                    <img class="pfp" src="https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg" alt="shrek">
-                    <div class="poster">
-                        <a href="/profile/BigGreenLegend" class="no-style">
-                        <b>Swamp Guardian</b> <span>@BigGreenLegend</span> </a> <span>5h</span>
-                        <div class="tags">
-                            <span class="tag" style="background: red;">Formula 1</span>
-                        </div>
-                    </div>
-                    <div></div>
-                    <div class="postContent">
-                        <h3>F1 2025</h3>
-                        <p>Excited for the new F1 season! Shame Sainz had to move to Williams.</p>
-                    </div>
-                    <div></div>
-                    <div>
-                        <div class="actionContainer">
-                            <div class="action">
-                                <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-up-icon.png">
-                                <span>103</span>
-                            </div>
-                            <div class="action">
-                                <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-down-icon.png">
-                                <span>12</span>
-                            </div>
-                            <div class="action">
-                                <a href="/profile/BigGreenLegend/post1">
-                                    <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/512/FontAwesome-Regular-Comment-icon.png">
-                                </a>
-                                <span>53</span>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-            </div>
+            <!-- POSTS -->
+            {{#each posts}}
+                {{> post}}
+            {{/each}}
             <!-- end of POST 1 -->
-            
         </div>
     </div>
-
-    
 </body>

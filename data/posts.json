@@ -5,15 +5,17 @@
   "author": {
     "$oid": "67c981c73094331e7fadb86e"
   },
-  "timeCreated": "2024-03-06T12:00:00Z",
+  "timeCreated": {
+    "$date": "2024-03-06T12:00:00.000Z"
+  },
   "community": {
     "$oid": "67c9aa0628f4cfabf3245011"
   },
   "title": "F1 2025",
   "content": "Excited for the new F1 season! Shame Sainz had to move to Williams.",
-  "upvotes": "103",
-  "downvotes": "12",
-  "replies": "53"
+  "upvotes": 103,
+  "downvotes": 12,
+  "replies": 53
 },
 {
   "_id": {
@@ -22,15 +24,17 @@
   "author": {
     "$oid": "67c9b2203094331e7fadb873"
   },
-  "timeCreated": "2024-03-06T14:23:45Z",
+  "timeCreated": {
+    "$date": "2024-03-06T14:23:45.000Z"
+  },
   "community": {
     "$oid": "67c9aa0628f4cfabf3245011"
   },
   "title": "McLaren's Comeback",
   "content": "McLaren did well this season. I wonder if they can challenge Red Bull.",
-  "upvotes": "11",
-  "downvotes": "30",
-  "replies": "0"
+  "upvotes": 11,
+  "downvotes": 30,
+  "replies": 0
 },
 {
   "_id": {
@@ -39,15 +43,17 @@
   "author": {
     "$oid": "67c9b4693094331e7fadb876"
   },
-  "timeCreated": "2024-02-28T08:15:30Z",
+  "timeCreated": {
+    "$date": "2024-02-28T08:15:30.000Z"
+  },
   "community": {
     "$oid": "67c9b1e028f4cfabf3245021"
   },
   "title": "Hardest Color Major",
   "content": "Which major do you think is the hardest?",
-  "upvotes": "12",
-  "downvotes": "3",
-  "replies": "1"
+  "upvotes": 12,
+  "downvotes": 3,
+  "replies": 1
 },
 {
   "_id": {
@@ -56,15 +62,17 @@
   "author": {
     "$oid": "67c9b4d73094331e7fadb877"
   },
-  "timeCreated": "2023-12-25T22:10:05Z",
+  "timeCreated": {
+    "$date": "2023-12-25T22:10:05.000Z"
+  },
   "community": {
     "$oid": "67c9b21228f4cfabf3245022"
   },
   "title": "Greatest TV Show Ever",
   "content": "What's the greatest TV show of all time? Sopranos, Breaking Bad, or something else?",
-  "upvotes": "1",
-  "downvotes": "0",
-  "replies": "1"
+  "upvotes": 1,
+  "downvotes": 0,
+  "replies": 1
 },
 {
   "_id": {
@@ -73,13 +81,15 @@
   "author": {
     "$oid": "67c9b5e73094331e7fadb879"
   },
-  "timeCreated": "2024-01-15T17:45:00Z",
+  "timeCreated": {
+    "$date": "2024-01-15T17:45:00.000Z"
+  },
   "community": {
     "$oid": "67c9b23b28f4cfabf3245023"
   },
   "title": "Your Lie in April: Most Painful Watch Ever",
   "content": "If you don't want to ruin your life, please don't watch this show",
-  "upvotes": "10",
-  "downvotes": "0",
-  "replies": "4"
+  "upvotes": 52,
+  "downvotes": 0,
+  "replies": 4
 }]
