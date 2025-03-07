@@ -25,18 +25,20 @@ const User = require('./models/userModel');
 const Post = require('./models/postModel');
 const Community = require('./models/communityModel');
 const Reply = require('./models/replyModel');
-//main is homepage
-
-//idea for profile: /profile/<username>
-//idea for posts: /profile/<username>/post<postid> for the posts of a user
 
 const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes'];
 
-server.use((req, resp, next) => {
+server.use( async(req, resp, next) => {
     const currentuser = req.query.currentuser || null;
-    console.log("Current user:", currentuser);
+    let userData = null;
+
+    if (currentuser) {
+        userData = await User.findOne({ username: currentuser }).lean();
+    }
+
     resp.locals.currentuser = currentuser;
     resp.locals.isAuthenticated = !!currentuser;
+    resp.locals.pfp = userData ? userData.pfp : "/common/defaultpfp.png";
     next();
 });
 

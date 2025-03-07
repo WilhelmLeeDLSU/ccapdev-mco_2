@@ -4,7 +4,7 @@ module.exports.add = (server) => {
     server.get('/login', function(req, resp){
         resp.render('login',{
             layout: 'index',
-            title: 'Login',
+            title: 'Login'
         });
     });
 
@@ -27,6 +27,10 @@ module.exports.add = (server) => {
     
     });
     
+    server.get('/logout',function(req, resp){
+        resp.redirect('/?currentuser=');
+    })
+
     server.post('/register', function(req, resp){
         resp.render('register',{
             layout: 'index',

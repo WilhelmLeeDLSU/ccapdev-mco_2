@@ -8,8 +8,12 @@
     </div>
     <div class="headitem homeLoginContainer">
         {{#if isAuthenticated}}
-            <div class="headitem homeLoginContainer">
-                <img class="pfp" src={{pfp}} alt="pfp">
+            <div class="profile-container">
+                <img class="pfp" id="profileDropdownTrigger"src={{pfp}} alt="pfp">
+                <div class="dropdown-menu" id="profileDropdown">
+                    <a href="/profile/{{currentuser}}?currentuser={{currentuser}}">View Profile</a>
+                    <a href="/logout" class="logout-button">Log Out</a>
+                </div>
             </div>
         {{else}}
             <a class="loginButton" href="/login">Log In</a>

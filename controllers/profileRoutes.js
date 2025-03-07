@@ -5,8 +5,13 @@ const Community = require('../models/communityModel');
 module.exports.add = (server) => {
     // URL: /profile/<username>
     server.get('/profile/:username', async function(req, resp){
-        const user = await User.findOne({ username: req.params.username });
+        const currentuser = req.query.currentuser || null;
 
+        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
+            return resp.redirect('/login');
+        }
+
+        const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
@@ -21,7 +26,7 @@ module.exports.add = (server) => {
             pfp: user.pfp,
             bio: user.bio,
 
-            currentuser: req.query.currentuser || null
+            currentuser: currentuser
         });
     });
 
