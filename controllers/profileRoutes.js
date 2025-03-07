@@ -51,7 +51,6 @@ module.exports.add = (server) => {
             currentuserPfp: currentUserPfp
         });
     });
-
     // URL: /profile/<username>/replies for replies of the profile
     server.get('/profile/:username/replies', async function(req, resp){
         const user = await User.findOne({ username: req.params.username });
