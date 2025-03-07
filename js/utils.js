@@ -25,7 +25,7 @@ function formatTimeDifference(timeCreated) {
 }
 
 // BUILD POST
-function buildPost(post, usersMap, communitiesMap) {
+function buildPost(post) {
     if (!post || !post.timeCreated) return null;
     
     return {
@@ -49,4 +49,26 @@ function buildPost(post, usersMap, communitiesMap) {
     };
 }
 
-module.exports = { formatTimeDifference, buildPost };
+// BUILD REPLY
+function buildReply(reply) {
+    if (!reply || !reply.timeCreated) return null;
+
+    return {
+        _id: reply._id,
+        post: reply.post, // Directly store ObjectId
+        author: reply.author
+            ? {
+                profileName: reply.author.profileName,
+                username: reply.author.username,
+                pfp: reply.author.pfp,
+            }
+            : { profileName: "Deleted User", username: "deleted", pfp: "/default-pfp.png" },
+        timeCreated: formatTimeDifference(reply.timeCreated),
+        content: reply.content,
+        upvotes: reply.upvotes,
+        downvotes: reply.downvotes,
+    };
+}
+
+
+module.exports = { formatTimeDifference, buildPost, buildReply };
