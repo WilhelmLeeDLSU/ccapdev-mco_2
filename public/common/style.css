@@ -715,6 +715,16 @@ profile > .profileContainer {
 }
 
 /* POSTS STYLE ----------------------------*/
+.post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.post {
+    cursor: pointer;
+}
+
 .postContainer {
     width: 100%;
     margin-bottom: 30px;
@@ -786,9 +796,9 @@ img.pfp {
 
 .postAction {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
+    margin-bottom: 5px;
 }
 
 .actionContainer {
@@ -809,7 +819,7 @@ img.pfp {
 }
 
 .action img {
-    height: 20px;
+    height: 19px;
     margin-top: 3px;
     margin-right: 3px;
 }
@@ -818,10 +828,9 @@ img.pfp {
     display: flex;
     justify-content: end;
     align-items: center;
-    width: 35%;
+    width: 40%;
     margin-top: 3px;
     margin-bottom: 3px;
-    margin-left: auto;
     gap: 25px;
 }
 
