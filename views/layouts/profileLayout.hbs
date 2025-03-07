@@ -28,10 +28,10 @@
                 </div>
                 {{#if (eq username currentuser)}}
                     <div class="profileEditButton">
-                    <a href="/editprofile" class="no-style">
-                        <span>Edit profile</span>
-                    </a>
-                </div>
+                        <a href="/editprofile/{{username}}?currentuser={{currentuser}}" class="no-style">
+                            <span>Edit profile</span>
+                        </a>
+                    </div>
                 {{/if}}
                 {{{body}}}
             </div>

@@ -175,11 +175,17 @@ module.exports.add = (server) => {
     });
 
     //edit profile
-    server.get('/editprofile', function(req, resp){
+    server.get('/editprofile/:username', async function(req, resp){
+        const user = await User.findOne({ username: req.params.username }).lean();
+        if (!user) {
+            return resp.status(404).send("User not found");
+        }
+
         resp.render('editprofile',{
             layout: 'index',
             title: 'Edit Profile',
-
+            pfp: user.pfp,
+            username: user.username,
             currentuser: req.query.currentuser || null
         });
     });

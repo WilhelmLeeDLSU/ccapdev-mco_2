@@ -87,6 +87,16 @@ header > .homeLoginContainer {
     margin: 4px 2px;
     cursor: pointer;
     font-size: medium;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.loginButton:hover {
+    background-color: #009e00;
+    transform: scale(1.05);
+}
+
+.loginButton:active {
+    transform: scale(0.95);
 }
 
 .profile-container {
@@ -192,6 +202,15 @@ nav.mainPage > .navItem {
     justify-content: start;
     align-items: start;
     width: 100%;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+nav.mainPage > .navItem:hover {
+    background: #f6f6f6;
+    border-radius: 1px;
+    outline: 10px solid #F6F6F6;
+    transform: scale(1.02);
+    cursor: pointer;
 }
 
 #selNavPage {
@@ -199,6 +218,12 @@ nav.mainPage > .navItem {
     border-radius: 1px;
     outline: 10px solid #F6F6F6;
     font-weight: bold;
+}
+
+#selNavPage:hover {
+    background-color: #e0e0e0;
+    outline: 10px solid #e0e0e0;
+    transition: background 0.3s ease;
 }
 
 /* HOME PAGE ----------------------------*/
@@ -528,6 +553,14 @@ profile > .profileContainer {
     text-align: center;
     font-weight: bold;
     font-size: medium;
+
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.profileContainer > .profileEditButton:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .profileContainer > .profileTabContainer {
@@ -782,6 +815,15 @@ profile > .profileContainer {
     gap: 3px;
 }
 
+.poster .username, .poster .profileName {
+    transition: text-decoration 0.3s ease;
+}
+
+.poster .username:hover, .poster .profileName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .post {
     width: 100%;
     height: auto;
@@ -791,6 +833,13 @@ profile > .profileContainer {
     grid-template-columns: 50px auto;
 
     position: relative;
+
+    transition: transform 0.2s, background-color 0.3s ease;
+}
+
+.post:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
 }
 
 .pfpContainer {
@@ -806,6 +855,13 @@ img.pfp {
     object-fit: cover;
 
     border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img.pfp:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .threadLine {
@@ -878,6 +934,13 @@ img.pfp {
     height: 19px;
     margin-top: 3px;
     margin-right: 3px;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.action img:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .modifyContainer {
@@ -914,6 +977,18 @@ body.mainPage > aside {
     align-items: start;
     justify-content: start;
     padding: 20px 15%;
+}
+
+.community {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.community:hover{
+    background-color: #f0f0f0;
+    transform: scale(1.03);
+    cursor: pointer;
 }
 
 .communityContainer > h1 {
