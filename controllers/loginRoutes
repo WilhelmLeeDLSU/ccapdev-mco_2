@@ -27,6 +27,10 @@ module.exports.add = (server) => {
     
     });
     
+    server.get('/logout',function(req, resp){
+        resp.redirect('/?currentuser=');
+    })
+
     server.post('/register', function(req, resp){
         resp.render('register',{
             layout: 'index',
