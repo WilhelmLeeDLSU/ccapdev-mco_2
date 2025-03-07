@@ -43,7 +43,7 @@ function buildPost(post) {
         },
         title: post.title || "Untitled",
         content: post.content || "No content available",
-        upvotes: post.upvotes || 0,
+        upvotes: post.upvotes?.length || 0,
         downvotes: post.downvotes || 0,
         replies: post.replies || [],
     };
@@ -65,7 +65,7 @@ function buildReply(reply) {
             : { profileName: "Deleted User", username: "deleted", pfp: "/default-pfp.png" },
         timeCreated: formatTimeDifference(reply.timeCreated),
         content: reply.content,
-        upvotes: reply.upvotes,
+        upvotes: reply.upvotes?.length,
         downvotes: reply.downvotes,
     };
 }
