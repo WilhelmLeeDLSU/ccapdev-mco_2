@@ -70,7 +70,15 @@ module.exports.add = (server) => {
         const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
         const transformedPosts = user.posts.map(post => buildPost(post));
-        
+        const replies = await Reply.find({ author: user._id })
+            .populate("author", "profileName username pfp")
+            .populate({
+                path: "post",
+                populate: { path: "author", select: "username" } 
+            })
+            .lean();
+
+        const builtReplies = replies.map(reply => buildReply(reply));
         resp.render('profile-replies',{
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
@@ -81,6 +89,7 @@ module.exports.add = (server) => {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             posts: transformedPosts,
+            repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
 
             currentuser: currentuser,
             currentuserPfp: currentUserPfp
@@ -138,9 +147,9 @@ module.exports.add = (server) => {
             }
             
             const builtPost = buildPost(postData);
-
             const replies = await Reply.find({ post: postid })
                 .populate("author", "profileName username pfp")
+                .populate("post", "_id author")
                 .lean();
 
             const builtReplies = replies.map(reply => buildReply(reply));

@@ -82,4 +82,21 @@
   "content": "This made me and my wife cry so bad huhu",
   "upvotes": 0,
   "downvotes": 0
+},
+{
+  "_id": {
+    "$oid": "67cb1084f1e2f6fcd4837879"
+  },
+  "post": {
+    "$oid": "67c9b61728f4cfabf324502c"
+  },
+  "author": {
+    "$oid": "67c981c73094331e7fadb86e"
+  },
+  "timeCreated": {
+    "$date": "2024-03-04T10:00:00.000Z"
+  },
+  "content": "lol didn’t expect this post to blow up",
+  "upvotes": 0,
+  "downvotes": 0
 }]

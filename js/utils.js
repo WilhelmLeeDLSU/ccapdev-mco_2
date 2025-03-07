@@ -43,7 +43,7 @@ function buildPost(post) {
         },
         title: post.title || "Untitled",
         content: post.content || "No content available",
-        upvotes: post.upvotes?.length || 0,
+        upvotes: post.upvotes.length || 0,
         downvotes: post.downvotes || 0,
         replies: post.replies || [],
     };
@@ -55,7 +55,10 @@ function buildReply(reply) {
 
     return {
         _id: reply._id,
-        post: reply.post, // Directly store ObjectId
+        post: reply.post 
+            ? { _id: reply.post._id, 
+                authorUsername: reply.post.author?.username || "unknown" } 
+            : null,
         author: reply.author
             ? {
                 profileName: reply.author.profileName,
@@ -65,7 +68,7 @@ function buildReply(reply) {
             : { profileName: "Deleted User", username: "deleted", pfp: "/default-pfp.png" },
         timeCreated: formatTimeDifference(reply.timeCreated),
         content: reply.content,
-        upvotes: reply.upvotes?.length,
+        upvotes: reply.upvotes,
         downvotes: reply.downvotes,
     };
 }
