@@ -7,7 +7,12 @@
   "email": "shrek@email.com",
   "password": "ilovefiona",
   "bio": "",
-  "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg"
+  "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg",
+  "posts": [
+    {
+      "$oid": "67c9b61728f4cfabf324502c"
+    }
+  ]
 },
 {
   "_id": {
@@ -18,7 +23,12 @@
   "email": "johnjohnjohn@email.com",
   "password": "pastry",
   "bio": "MCL",
-  "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp"
+  "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp",
+  "posts": [
+    {
+      "$oid": "67c9b7c528f4cfabf3245034"
+    }
+  ]
 },
 {
   "_id": {
@@ -29,7 +39,12 @@
   "email": "iloveschool@email.com",
   "password": "nerd",
   "bio": "UCLA",
-  "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg"
+  "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg",
+  "posts": [
+    {
+      "$oid": "67c9b8e328f4cfabf3245035"
+    }
+  ]
 },
 {
   "_id": {
@@ -40,7 +55,12 @@
   "email": "anora@email.com",
   "password": "notoemiliaperez",
   "bio": "Wicked Lover",
-  "pfp": "https://www.cia-france.com/media/1492/les-films-incontournables-du-cinema-w_2524x884.jpg"
+  "pfp": "https://www.cia-france.com/media/1492/les-films-incontournables-du-cinema-w_2524x884.jpg",
+  "posts": [
+    {
+      "$oid": "67c9b97d28f4cfabf3245036"
+    }
+  ]
 },
 {
   "_id": {
@@ -62,5 +82,10 @@
   "email": "imfunny@email.com",
   "password": "peoplelaughing",
   "bio": "Knock Knock",
-  "pfp": "https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3e5fbd9bbb8343a2928d0_82.png"
+  "pfp": "https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3e5fbd9bbb8343a2928d0_82.png",
+  "posts": [
+    {
+      "$oid": "67c9ba4928f4cfabf3245037"
+    }
+  ]
 }]
