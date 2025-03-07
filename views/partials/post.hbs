@@ -7,7 +7,9 @@
             </a> 
             <span>{{timeCreated}}</span>
             <div class="tags">
-                <span class="tag" style="background: {{community.color}};">{{community.name}}</span>
+                <a href="/community/{{community.name}}?currentuser={{currentuser}}" >
+                    <span class="tags tag" style="background: {{community.color}};">{{community.name}}</span>
+                </a>
             </div>
         </div>
         <div></div>

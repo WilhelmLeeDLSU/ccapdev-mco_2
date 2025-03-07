@@ -831,12 +831,23 @@ img.pfp {
     width: 100%;
 }
 
-.tags > span.tag { 
+.tags a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.tags > a > span.tag { 
     border-radius: 10px;
     font-size: small; 
     color: white; 
-    padding: 3px; 
+    padding: 3px 5px; 
     font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.tags > a > span.tag:hover {
+    opacity: 0.8;
 }
 
 .postAction {

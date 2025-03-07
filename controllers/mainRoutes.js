@@ -84,4 +84,31 @@ module.exports.add = (server) => {
             resp.status(500).send("Internal Server Error");
         }
     });
+
+    server.get('/community/:name', async function(req, resp) {
+        const communityName = req.params.name;
+    
+        const community = await Community.findOne({ name: { $regex: new RegExp("^" + communityName + "$", "i") } }).lean();
+        
+        if (!community) {
+            return resp.status(404).send("Community not found");
+        }
+    
+        const posts = await Post.find({ community: community._id })
+            .populate("author", "profileName username pfp")
+            .populate("community", "name color")
+            .lean();
+            
+        const builtPosts = posts.map(post => buildPost(post));
+    
+        resp.render('community', {
+            layout: 'index',
+            title: community.name,
+            selNav: 'community',
+            communityName: community.name,
+            posts: builtPosts,
+            currentuser: req.query.currentuser || null
+        });
+
+    });
 }

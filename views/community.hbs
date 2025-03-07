@@ -1,0 +1,17 @@
+
+<body class="mainPage">
+    {{> header}}
+    {{> navbar}}
+    <div class="homeContainer">
+        <div class="homePosts">
+            <span class="pageHeader">Community Posts</span>
+            <!-- POSTS -->
+            {{#each posts}}
+                {{> post currentuser=../currentuser}}
+            {{/each}}
+            <!-- END OF POSTS-->
+        </div>
+    </div>
+    <!-- Communities -->
+    {{> communities}}
+</body>
