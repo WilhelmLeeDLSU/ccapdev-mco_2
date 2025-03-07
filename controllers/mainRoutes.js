@@ -67,7 +67,9 @@ module.exports.add = (server) => {
     
     server.get('/popular', async function(req, resp){
         try {
-            const posts = await Post.find({ upvotes: { $gte: 15 } })
+            const posts = await Post.find({ 
+                $expr: { $gte: [{ $size: "$upvotes" }, 15] } 
+            })
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color")
                 .lean();
