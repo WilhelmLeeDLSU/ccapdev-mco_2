@@ -54,44 +54,70 @@ module.exports.add = (server) => {
     });
     // URL: /profile/<username>/replies for replies of the profile
     server.get('/profile/:username/replies', async function(req, resp){
+        const currentuser = req.query.currentuser || null;
+
+        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
+            return resp.redirect('/login');
+        }
+
         const user = await User.findOne({ username: req.params.username });
 
         if (!user) {
             return resp.status(404).send("User not found");
         }
         
+        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
+        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
+
+        const transformedPosts = user.posts.map(post => buildPost(post));
+        
         resp.render('profile-replies',{
             layout: 'profileLayout',
-            title: `${user.profileName} | Replies`,
+            title: `${user.profileName} | Profile`,
             selNav: 'profile',
             username: user.username,
             profileName: user.profileName,
             email: user.email,
-            pfp: user.pfp,
+            viewedUserPfp: user.pfp,
             bio: user.bio,
+            posts: transformedPosts,
 
-            currentuser: req.query.currentuser || null
+            currentuser: currentuser,
+            currentuserPfp: currentUserPfp
         });
     });
 
     server.get('/profile/:username/upvotes', async function(req, resp){
+        const currentuser = req.query.currentuser || null;
+
+        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
+            return resp.redirect('/login');
+        }
+
         const user = await User.findOne({ username: req.params.username });
 
         if (!user) {
             return resp.status(404).send("User not found");
         }
         
+        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
+        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
+
+        const transformedPosts = user.posts.map(post => buildPost(post));
+        
         resp.render('profile-upvotes',{
             layout: 'profileLayout',
-            title: `${user.profileName} | Upvotes`,
+            title: `${user.profileName} | Profile`,
             selNav: 'profile',
             username: user.username,
             profileName: user.profileName,
             email: user.email,
-            pfp: user.pfp,
+            viewedUserPfp: user.pfp,
             bio: user.bio,
+            posts: transformedPosts,
 
-            currentuser: req.query.currentuser || null
+            currentuser: currentuser,
+            currentuserPfp: currentUserPfp
         });
     });
 
