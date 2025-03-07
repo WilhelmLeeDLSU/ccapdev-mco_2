@@ -4,5 +4,10 @@
     <a class="navItem no-style" href="/explore?currentuser={{currentuser}}" {{#if (eq selNav 'explore')}}id="selNavPage"{{/if}} >Explore</a>
     <a class="navItem no-style" href="/newpost?currentuser={{currentuser}}" {{#if (eq selNav 'newpost')}}id="selNavPage"{{/if}} >Post</a>
     <a class="navItem no-style" href="/popular?currentuser={{currentuser}}" {{#if (eq selNav 'popular')}}id="selNavPage"{{/if}} >Popular</a>
-    <a class="navItem no-style" href="/profile/{{currentuser}}?currentuser={{currentuser}}" {{#if (eq selNav 'profile')}}id="selNavPage"{{/if}} >Profile</a>
+    
+    {{#if currentuser}}
+        <a class="navItem no-style" href="/profile/{{currentuser}}?currentuser={{currentuser}}" {{#if (eq selNav 'profile')}}id="selNavPage"{{/if}} >Profile</a>
+    {{else}}
+        <a class="navItem no-style" href="/login">Profile</a>
+    {{/if}}
 </nav>

@@ -4,7 +4,7 @@ module.exports.add = (server) => {
     server.get('/login', function(req, resp){
         resp.render('login',{
             layout: 'index',
-            title: 'Login',
+            title: 'Login'
         });
     });
 
