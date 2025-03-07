@@ -51,7 +51,7 @@ module.exports.add = (server) => {
             return resp.redirect('/login');
         }
 
-        const user = await User.findOne({ username: req.params.username });
+        const user = await User.findOne({ username: req.params.username })
 
         if (!user) {
             return resp.status(404).send("User not found");
@@ -60,7 +60,7 @@ module.exports.add = (server) => {
         const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
         const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
-        const transformedPosts = user.posts.map(post => buildPost(post));
+        
         const replies = await Reply.find({ author: user._id })
             .populate("author", "profileName username pfp")
             .populate({
@@ -70,6 +70,7 @@ module.exports.add = (server) => {
             .lean();
 
         const builtReplies = replies.map(reply => buildReply(reply));
+
         resp.render('profile-replies',{
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
@@ -79,7 +80,6 @@ module.exports.add = (server) => {
             email: user.email,
             viewedUserPfp: user.pfp,
             bio: user.bio,
-            posts: transformedPosts,
             repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
 
             currentuser: currentuser,
