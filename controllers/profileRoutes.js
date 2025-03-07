@@ -1,4 +1,6 @@
 const User = require('../models/userModel');
+const Post = require('../models/postModel');
+const Community = require('../models/communityModel');
 const { formatTimeDifference, buildPost } = require('../js/utils');
 
 module.exports.add = (server) => {
@@ -94,17 +96,35 @@ module.exports.add = (server) => {
     });
 
     // URL: /profile/<username>/post<postid>
-    server.get('/profile/:posteruser/post:postid', function(req, resp){
-        resp.render('post',{
-            layout: 'profileLayout',
-            title: 'Title of Post', //replace with title of post
-            username: req.params.posteruser, //username of poster
-            postid: req.params.postid, 
+    server.get('/profile/:posteruser/post/:postid', async (req, resp) => {
+        try {
+            const { posteruser, postid } = req.params;
+            const currentuser = req.query.currentuser || null;
+    
+            const postData = await Post.findOne({ _id: postid })
+                .populate("author", "profileName username pfp")
+                .populate("community", "name color")
+                .lean();
+    
+            // Ensure post exists and belongs to the correct user
+            if (!postData || postData.author.username !== posteruser) {
+                return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
+            }
+            
+            const builtPost = buildPost(postData);
 
-            currentuser: req.query.currentuser || null
-        });
+            resp.render('viewpost', {
+                layout: 'index',
+                title: postData.title, 
+                isViewPost: true,
+                ...builtPost,
+            });
+        } catch (error) {
+            console.error("Error loading post:", error);
+            resp.status(500).render('error', { message: "Internal Server Error" });
+        }
     });
-
+    
     // URL: /profile/<username>/post<postid>
     server.get('/profile/:posteruser/post:postid/edit', function(req, resp){
         resp.render('editpost',{
