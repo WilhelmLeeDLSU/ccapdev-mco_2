@@ -125,48 +125,49 @@ module.exports.add = (server) => {
     });
 
     // URL: /profile/<username>/post<postid>
-    server.get('/profile/:posteruser/post/:postid', async (req, resp) => {
-        try {
-            const { posteruser, postid } = req.params;
-            const currentuser = req.query.currentuser || null;
+        server.get('/profile/:posteruser/post/:postid', async (req, resp) => {
+            try {
+                const { posteruser, postid } = req.params;
+                const currentuser = req.query.currentuser || null;
+        
+                const postData = await Post.findOne({ _id: postid })
+                    .populate("author", "profileName username pfp")
+                    .populate("community", "name color")
+                    .lean();
+        
+                // Ensure post exists and belongs to the correct user
+                if (!postData || postData.author?.username !== posteruser) {
+                    return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
+                }
+                
+                const builtPost = buildPost(postData);
+                const replies = await Reply.find({ post: postid })
+                    .populate("author", "profileName username pfp")
+                    .populate({
+                        path: "post",
+                        populate: { path: "author", select: "username" } 
+                    })
+                    .lean();
+                
+                const communities = await Community.find().lean();
     
-            const postData = await Post.findOne({ _id: postid })
-                .populate("author", "profileName username pfp")
-                .populate("community", "name color")
-                .lean();
-    
-            // Ensure post exists and belongs to the correct user
-            if (!postData || postData.author?.username !== posteruser) {
-                return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
+                const builtReplies = replies.map(reply => buildReply(reply));
+                resp.render('viewpost', {
+                    layout: 'index',
+                    title: postData.title, 
+                    isViewPost: true,
+                    isReply: false,
+                    ...builtPost,
+                    repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
+                    communities: communities,
+                    currentuser: currentuser
+                });
+                
+            } catch (error) {
+                console.error("Error loading post:", error);
+                resp.status(500).render('error', { message: "Internal Server Error" });
             }
-            
-            const builtPost = buildPost(postData);
-            const replies = await Reply.find({ post: postid })
-                .populate("author", "profileName username pfp")
-                .populate({
-                    path: "post",
-                    populate: { path: "author", select: "username" } 
-                })
-                .lean();
-
-            // Log output before rendering
-        console.log("Rendering viewpost with isViewPost:", true);
-
-            const builtReplies = replies.map(reply => buildReply(reply));
-            resp.render('viewpost', {
-                layout: 'index',
-                title: postData.title, 
-                isViewPost: true,
-                isReply: false,
-                ...builtPost,
-                repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
-            });
-            
-        } catch (error) {
-            console.error("Error loading post:", error);
-            resp.status(500).render('error', { message: "Internal Server Error" });
-        }
-    });
+        });
     
     // URL: /profile/<username>/post<postid>/edit
     server.get('/profile/:posteruser/post:postid/edit', function(req, resp){

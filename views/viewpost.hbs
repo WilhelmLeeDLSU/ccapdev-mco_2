@@ -18,8 +18,9 @@
             </div>
             <!-- replies-->
             {{#each repliesToPost}}
-                {{> reply isViewPost=../isViewPost currentuser=currentuser}}
+                {{> reply currentuser=../currentuser}}
             {{/each}}
-            
-    <!--{{> communities}}-->
+        </div>
+    </div>            
+    {{> communities}}
 </body>
