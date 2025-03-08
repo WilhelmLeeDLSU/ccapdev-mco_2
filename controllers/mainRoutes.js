@@ -55,12 +55,14 @@ module.exports.add = (server) => {
         }
     });
 
-    server.get('/newpost', function(req, resp){
+    server.get('/newpost', async function(req, resp){
+        const communities = await Community.find().lean();
+
         resp.render('newpost',{
             layout: 'index',
             title: 'New Post',
             selNav: 'newpost',
-    
+            communities: communities,
             currentuser: req.query.currentuser || null
         });
     });

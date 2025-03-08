@@ -5,16 +5,16 @@
 
     <profile>
         <div class="makePostContainer">
-            <form class="makePost">
+            <form class="makePost" id="postForm" action="/newpost" method="POST">
                 <span class="pageHeader">Share your thoughts</span>
                 <input class="postTitle" name="postTitle" type="text" placeholder="Title of Post" required>
                 <textarea class="postDesc" name="postDesc" id="postDesc" placeholder="Description of Post"></textarea>
 
                 <footer>
                     <select class="postSelect" name="postCommunity" id="postCommunity">
-                        <option value="comA">Community A</option>
-                        <option value="comB">Community B</option>
-                        <option value="comC">Community C</option>
+                        {{#each communities}}
+                            <option value="{{_id}}">{{name}}</option>
+                        {{/each}}
                     </select>
                     <input id="postButton" type="submit" value="Post"> 
                 </footer>
@@ -22,3 +22,5 @@
         </div>
     </profile>
 </body>
+
+<script src="/js/dropdown.js"></script>

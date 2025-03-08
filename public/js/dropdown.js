@@ -1,17 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const profileTrigger = document.getElementById("profileDropdownTrigger");
-    const dropdownMenu = document.getElementById("profileDropdown");
+document.getElementById("postForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-    if (profileTrigger) {
-        profileTrigger.addEventListener("click", function (event) {
-            event.stopPropagation();
-            dropdownMenu.classList.toggle("active");
-        });
-    }
+    const currentUser = new URLSearchParams(window.location.search).get("currentuser");
 
-    document.addEventListener("click", function (event) {
-        if (!profileTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.classList.remove("active");
-        }
-    });
+    window.location.href = `/?currentuser=${encodeURIComponent(currentUser || '')}`;
 });

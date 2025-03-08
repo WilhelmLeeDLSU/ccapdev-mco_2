@@ -149,9 +149,6 @@ module.exports.add = (server) => {
                 })
                 .lean();
 
-            // Log output before rendering
-        console.log("Rendering viewpost with isViewPost:", true);
-
             const builtReplies = replies.map(reply => buildReply(reply));
             resp.render('viewpost', {
                 layout: 'index',
@@ -160,6 +157,7 @@ module.exports.add = (server) => {
                 isReply: false,
                 ...builtPost,
                 repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
+                currentuser: currentuser,
             });
             
         } catch (error) {
