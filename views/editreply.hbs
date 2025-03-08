@@ -1,0 +1,17 @@
+<body class="profilePage">
+    {{> header}}
+    {{> navbar}}
+    <profile>
+        <div class="editReplyContainer">
+            <form class="editReply" id="editForm" action="/editreply" method="POST">
+                <span class="pageHeader">Edit your reply</span>
+                <textarea class="replyDesc" name="replyDesc" id="replyDesc" placeholder="{{reply.content}}" required></textarea>
+                <footer>
+                    <input id="postButton" type="submit" value="Post"> 
+                </footer>
+            </form>
+        </div>
+    </profile>
+</body>
+
+<script src="/js/dropdown.js"></script>

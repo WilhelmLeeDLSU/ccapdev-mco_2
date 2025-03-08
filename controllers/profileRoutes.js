@@ -197,6 +197,30 @@ module.exports.add = (server) => {
         });
     });
 
+    // URL: /profile/<username>/reply<repid>/edit
+    server.get('/profile/:posteruser/reply/:repid/edit', async function(req, resp){
+        const { posteruser, repid } = req.params;
+        const currentuser = req.query.currentuser || null;
+
+        const repData = await Reply.findOne({ _id: repid })
+                    .populate("author", "profileName username pfp")
+                    .lean();
+        
+        if (!repData || repData.author?.username !== posteruser) {
+            return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
+        }
+
+        const builtRep = buildReply(repData);
+        console.log(builtRep);
+
+        resp.render('editreply',{
+            layout: 'index',
+            title: 'Editing Reply',
+            currentuser: currentuser,
+            reply: builtRep,
+        });
+    });
+    
     //edit profile
     server.get('/editprofile/:username', async function(req, resp){
         const currentuser = req.query.currentuser || null;

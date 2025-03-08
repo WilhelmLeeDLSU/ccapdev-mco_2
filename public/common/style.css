@@ -520,6 +520,71 @@ nav.mainPage > .navItem:hover {
     font-size: medium;
     cursor: pointer;
 }
+
+/* EDIT REPLY PAGE ----------------------------*/
+.editReplyContainer {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editReplyContainer > .editReply {
+    width: 70%;
+    height: 80%;
+    margin-top: 30px;
+    background-color: white;
+    box-shadow: 0 0 10px 5px #EAEAEA;
+    
+    padding-top: 1%;
+    border-radius: 40px;
+    display: flex;
+    padding-bottom: 3%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    box-sizing: border-box;
+}
+
+
+.editReply .replyDesc {
+    font-family: inherit;
+    width: 85%;
+    height: 50%;
+    background-color: hsl(0, 0%, 96%);
+    border-radius: 15px;
+    border: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    resize: none;
+
+    border: 1px solid #EAEAEA;
+    text-indent: 1.5%;
+    text-align:left;
+}
+
+.editReply footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+.editReply #postButton {
+    font-family: inherit;
+    width: auto;
+    height: 30px;
+    border-radius: 25px;
+    border: none;
+    padding: 5px 10px;
+    margin: auto;
+    background-color: black;
+    color: white;
+    font-size: medium;
+    cursor: pointer;
+}
 /* POPULAR PAGE ----------------------------*/
 
 /* PROFILE PAGE ----------------------------*/

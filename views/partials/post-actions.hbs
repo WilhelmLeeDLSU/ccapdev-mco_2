@@ -27,7 +27,11 @@
         <!-- EDIT & DELETE -->
         {{#if (eq currentuser author.username)}}
             <div class="action modifyContainer">
-                <a class="modify edit-btn" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
+                {{#if isReply}}
+                    <a class="modify edit-btn" href="/profile/{{author.username}}/reply/{{_id}}/edit?currentuser={{currentuser}}">
+                {{else}}
+                    <a class="modify edit-btn" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
+                {{/if}}
                     <img src="/common/edit.png" alt="edit" class="edit-img">
                 </a>
                 <a class="delete delete-btn" data-post-id="{{_id}}">
