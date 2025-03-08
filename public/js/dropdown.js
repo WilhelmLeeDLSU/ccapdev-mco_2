@@ -1,9 +1,19 @@
-document.getElementById("postForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    const profileTrigger = document.getElementById("profileDropdownTrigger");
+    const dropdownMenu = document.getElementById("profileDropdown");
 
-    const currentUser = new URLSearchParams(window.location.search).get("currentuser");
+    if (profileTrigger) {
+        profileTrigger.addEventListener("click", function (event) {
+            event.stopPropagation();
+            dropdownMenu.classList.toggle("active");
+        });
+    }
 
-    window.location.href = `/?currentuser=${encodeURIComponent(currentUser || '')}`;
+    document.addEventListener("click", function (event) {
+        if (!profileTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            dropdownMenu.classList.remove("active");
+        }
+    });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -35,4 +45,12 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => console.error("Error fetching search results:", error));
     }
+});
+
+document.getElementById("postForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const currentUser = new URLSearchParams(window.location.search).get("currentuser");
+
+    window.location.href = `/?currentuser=${encodeURIComponent(currentUser || '')}`;
 });
