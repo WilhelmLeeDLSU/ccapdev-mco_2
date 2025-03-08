@@ -40,17 +40,67 @@ module.exports.add = (server) => {
                 .lean();
             
             const builtPosts = posts.map(post => buildPost(post));
+
+            const communities = await Community.find().lean();
     
             resp.render('explore',{
                 layout: 'index',
                 title: 'Explore',
                 selNav: 'explore',
                 posts: builtPosts,
+                communities: communities,
                 currentuser: req.query.currentuser || null
             });
     
         } catch (error) {
             console.error("Error loading posts:", error);
+            resp.status(500).send("Internal Server Error");
+        }
+    });
+
+    server.get('/explore/results', async function(req, resp) {
+        try {
+            const searchQuery = req.query.searchBar || ""; 
+            const selectedCommunity = req.query.community || "";
+            const currentUser = req.query.currentuser || null;
+    
+            let filter = {};
+    
+            if (searchQuery) {
+                filter.$or = [
+                    { title: { $regex: searchQuery, $options: "i" } },
+                    { content: { $regex: searchQuery, $options: "i" } }
+                ];
+            }
+    
+            if (selectedCommunity) {
+                const community = await Community.findOne({ name: selectedCommunity }).lean();
+                if (community) {
+                    filter.community = community._id;
+                }
+            }
+    
+            const posts = await Post.find(filter)
+                .populate("author", "profileName username pfp")
+                .populate("community", "name color")
+                .lean();
+    
+            const communities = await Community.find().lean();
+
+            const builtPosts = posts.map(post => buildPost(post));
+    
+            resp.render('explore-results', { 
+                layout: 'index',
+                title: 'Search Results',
+                selNav: 'explore',
+                posts: builtPosts,
+                communities: communities,
+                currentuser: currentUser,
+                query: req.query
+            });
+    
+        } catch (error) {
+            console.error("Error loading search results:", error);
             resp.status(500).send("Internal Server Error");
         }
     });
