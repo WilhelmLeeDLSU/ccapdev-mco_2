@@ -637,6 +637,15 @@ profile > .profileContainer {
     color: white;
     font-size: medium;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.searchBarBox #searchButton:hover {
+    transform: scale(1.05);
+}
+
+.searchBarBox #searchButton:active {
+    transform: scale(0.95);
 }
 
 /* EDIT PROFILE PAGE ----------------------------*/
@@ -1127,6 +1136,16 @@ body.mainPage > aside {
     color: white;
     padding: 8px;
     border: none;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.postAReply > button:hover {
+    transform: scale(1.05);
+}
+
+.postAReply > button:active {
+    transform: scale(0.95);
 }
 
 .replyContainer {
