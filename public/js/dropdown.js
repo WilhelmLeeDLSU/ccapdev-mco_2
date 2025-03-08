@@ -47,10 +47,20 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-document.getElementById("postForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+const editForm = document.getElementById("editForm");
+if (editForm) {
+    editForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
+        window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+    });
+}
 
-    const currentUser = new URLSearchParams(window.location.search).get("currentuser");
-
-    window.location.href = `/?currentuser=${encodeURIComponent(currentUser || '')}`;
-});
+const postForm = document.getElementById("postForm");
+if (postForm) {
+    postForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
+        window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+    });
+}

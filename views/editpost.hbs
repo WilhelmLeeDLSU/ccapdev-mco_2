@@ -1,22 +1,24 @@
 <body class="profilePage">
-        {{> header}}
-        {{> navbar}}
-        <profile>
-            <div class="editPostContainer">
-                <form class="editPost">
-                    <span class="pageHeader">Edit your post</span>
-                    <input class="postTitle" name="postTitle" type="text" placeholder="Title of Post" required>
-                    <textarea class="postDesc" name="postDesc" id="postDesc" placeholder="Description of Post"></textarea>
-    
-                    <footer>
-                        <select class="postSelect" name="postCommunity" id="postCommunity">
-                            <option value="comA">Community A</option>
-                            <option value="comB">Community B</option>
-                            <option value="comC">Community C</option>
-                        </select>
-                        <input id="postButton" type="submit" value="Post"> 
-                    </footer>
-                </form>
-            </div>
-        </profile>
-    </body>
+    {{> header}}
+    {{> navbar}}
+    <profile>
+        <div class="editPostContainer">
+            <form class="editPost" id="editForm" action="/editpost" method="POST">
+                <span class="pageHeader">Edit your post</span>
+                <input class="postTitle" name="postTitle" type="text" placeholder="{{post.title}}" required>
+                <textarea class="postDesc" name="postDesc" id="postDesc" placeholder="{{post.content}}"></textarea>
+
+                <footer>
+                    <select class="postSelect" name="postCommunity" id="postCommunity">
+                        {{#each communities}}
+                        <option value="{{_id}}">{{name}}</option>
+                        {{/each}}
+                    </select>
+                    <input id="postButton" type="submit" value="Post"> 
+                </footer>
+            </form>
+        </div>
+    </profile>
+</body>
+
+<script src="/js/dropdown.js"></script>

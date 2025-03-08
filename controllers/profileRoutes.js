@@ -87,6 +87,7 @@ module.exports.add = (server) => {
         
     });
 
+    //profile upvotes
     server.get('/profile/:username/upvotes', async function(req, resp){
         const currentuser = req.query.currentuser || null;
 
@@ -170,14 +171,29 @@ module.exports.add = (server) => {
         });
     
     // URL: /profile/<username>/post<postid>/edit
-    server.get('/profile/:posteruser/post:postid/edit', function(req, resp){
+    server.get('/profile/:posteruser/post/:postid/edit', async function(req, resp){
+        const { posteruser, postid } = req.params;
+        const currentuser = req.query.currentuser || null;
+
+        const postData = await Post.findOne({ _id: postid })
+                    .populate("author", "profileName username pfp")
+                    .populate("community", "name color")
+                    .lean();
+        
+        if (!postData || postData.author?.username !== posteruser) {
+            return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
+        }
+
+        const builtPost = buildPost(postData);
+        console.log(builtPost);
+        const communities = await Community.find().lean();
+
         resp.render('editpost',{
             layout: 'index',
             title: 'Editing Post',
-            username: req.params.posteruser, //username of poster
-            postid: req.params.postid, 
-
-            currentuser: req.query.currentuser || null
+            currentuser: currentuser,
+            communities: communities,
+            post: builtPost,
         });
     });
 

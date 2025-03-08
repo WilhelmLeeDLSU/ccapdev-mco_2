@@ -27,7 +27,7 @@
         <!-- EDIT & DELETE -->
         {{#if (eq currentuser author.username)}}
             <div class="modifyContainer">
-                <a class="modify" href="/profile/BigGreenLegend/post1/edit">
+                <a class="modify" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
                     <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
                 </a>
                 <a class="modify">
