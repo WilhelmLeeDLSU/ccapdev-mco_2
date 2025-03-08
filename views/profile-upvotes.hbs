@@ -9,7 +9,11 @@
 </div>
 <hr>
 <div class="profilePosts">
-    {{#each posts}}
-        {{> post currentuser=../currentuser}}
-    {{/each}}
+    {{#if posts.length}}
+        {{#each posts}}
+            {{> post currentuser=../currentuser}}
+        {{/each}}
+    {{else}}
+        <p>No results found.</p>
+    {{/if}}
 </div>
