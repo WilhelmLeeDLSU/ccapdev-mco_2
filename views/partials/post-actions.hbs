@@ -2,22 +2,22 @@
     <div class="postAction">
         <div class="actionContainer">
             <!-- UPVOTES -->
-            <div class="action">
-                <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-up-icon.png">
-                <span>{{upvotes}}</span>
+            <div class="action upvote-btn" data-post-id="{{_id}}">
+                <img src="/common/upvote.png" class="upvote-img">
+                <span class="upvote-count">{{upvotes}}</span>
             </div>
             <!-- DOWNVOTES -->
-            <div class="action">
-                <img src="https://icons.iconarchive.com/icons/colebemis/feather/512/thumbs-down-icon.png">
-                <span>{{downvotes}}</span>
+            <div class="action downvote-btn" data-post-id="{{_id}}">
+                <img src="/common/downvote.png" class="downvote-img">
+                <span class="downvote-count">{{downvotes}}</span>
             </div>
             <!-- REPLIES -->
             {{#if isReply}}
                 <div class="action"></div>
             {{else}} 
-                <div class="action">
+                <div class="action reply-btn" data-post-id="{{_id}}">
                     <a href="/profile/{{author.username}}/post/{{_id}}?currentuser={{currentuser}}">
-                        <img src="https://icons.iconarchive.com/icons/fa-team/fontawesome-regular/512/FontAwesome-Regular-Comment-icon.png">
+                        <img src="/common/reply.png" class="reply-img">
                     </a>
                     <span>{{replies}}</span>
                 </div>
@@ -26,12 +26,12 @@
 
         <!-- EDIT & DELETE -->
         {{#if (eq currentuser author.username)}}
-            <div class="modifyContainer">
-                <a class="modify" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
-                    <img src="https://icons.veryicon.com/png/o/miscellaneous/linear-small-icon/edit-246.png" alt="edit">
+            <div class="action modifyContainer">
+                <a class="modify edit-btn" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
+                    <img src="/common/edit.png" alt="edit" class="edit-img">
                 </a>
-                <a class="modify">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3161/3161358.png" alt="delete">
+                <a class="delete delete-btn" data-post-id="{{_id}}">
+                    <img src="/common/delete.png" alt="delete" class="delete-img">
                 </a>
             </div>
         {{/if}}
@@ -42,3 +42,4 @@
         <hr>
     {{/if}}
 </div>
+<script src="/js/dropdown.js"></script>

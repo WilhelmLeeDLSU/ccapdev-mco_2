@@ -979,6 +979,10 @@ img.pfp:hover {
     cursor: pointer;
 }
 
+.action img:active {
+    transform: scale(0.9); 
+}
+
 .modifyContainer {
     display: flex;
     justify-content: end;
@@ -989,18 +993,52 @@ img.pfp:hover {
     gap: 25px;
 }
 
-.modifyContainer > .modify {
+.modifyContainer > .edit-btn, .delete-btn {
     display: flex;
     justify-content: end;
     align-items: center;
-
     font-size: small;
 }
 
-.modify img {
-    height: 20px;
+.modifyContainer img {
+    height: 22px;
     margin-top: 3px;
     margin-right: 3px;
+}
+
+.delete img {
+    height: 18px;
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+.edit-btn:hover img {
+    filter: brightness(1.2);
+}
+
+.delete-btn:hover img {
+    filter: brightness(1.2) saturate(1.5);
+    cursor: pointer;
+}
+
+.upvote-btn:hover .upvote-img {
+    content: url("/common/upvote-clicked.png");
+}
+
+.downvote-btn:hover .downvote-img {
+    content: url("/common/downvote-clicked.png");
+}
+
+.reply-btn:hover .reply-img {
+    content: url("/common/reply-clicked.png");
+}
+
+.edit-btn:hover .edit-img {
+    content: url("/common/edit-clicked.png");
+}
+
+.delete-btn:hover .delete-img {
+    content: url("/common/delete-clicked.png");
 }
 
 body.mainPage > aside {
