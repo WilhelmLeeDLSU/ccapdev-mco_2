@@ -702,7 +702,7 @@ profile > .profileContainer {
     flex-direction: column;
 }
 
-.editDetails> input {
+.editDetails> input[type="text"] {
     margin-left: 8%;
     margin-top: -2%;
 
@@ -721,15 +721,16 @@ profile > .profileContainer {
     margin-top: 3%;
 }
 
-.editDetails > button {
+.editDetails #postButton {
     background-color: black;
     border-radius: 15px;
-    padding: 10px 50px;
+    padding: 10px 40px;
     color: white;
     border: none;
     margin-top: 5%;
     align-self: flex-end;
     margin-right: 11%;
+    cursor: pointer;
 }
 
 /* LOGIN/REGISTER ----------------------------*/

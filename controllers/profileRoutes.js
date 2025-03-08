@@ -199,6 +199,7 @@ module.exports.add = (server) => {
 
     //edit profile
     server.get('/editprofile/:username', async function(req, resp){
+        const currentuser = req.query.currentuser || null;
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
@@ -209,7 +210,7 @@ module.exports.add = (server) => {
             title: 'Edit Profile',
             pfp: user.pfp,
             username: user.username,
-            currentuser: req.query.currentuser || null
+            currentuser: currentuser,
         });
     });
 }

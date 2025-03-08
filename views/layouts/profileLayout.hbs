@@ -27,7 +27,7 @@
                     <span>{{bio}}</span>
                 </div>
                 {{#if (eq username currentuser)}}
-                    <div class="profileEditButton">
+                    <div class="profileEditButton" onclick="window.location.href='/editprofile/{{username}}?currentuser={{currentuser}}';">
                         <a href="/editprofile/{{username}}?currentuser={{currentuser}}" class="no-style">
                             <span>Edit profile</span>
                         </a>
