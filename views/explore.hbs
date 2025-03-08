@@ -5,15 +5,24 @@
 
     <div class="pageContentContainer">
         <div class="exploreContent">
-            <form class="searchBarBox">
-                <input class="searchBar" name="searchBar" type="text" placeholder="Type to search" required>
+            <span class="pageHeader">Explore Posts</span>
+            <form class="searchBarBox" action="/explore/results?currentuser={{currentuser}}" method="GET">
+                <div class="searchContainer">
+                    <input class="searchBar" name="searchBar" type="text" placeholder="Type to search" required>
+                    <div class="dropdownContainerCommunity">
+                        <select name="community" class="communityDropdown">
+                            <option value="">Select Community</option>
+                                {{#each communities}}
+                                    <option value="{{name}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
                 <input id="searchButton" type="submit" value="Search"> 
             </form>
-            <!-- POSTS -->
             {{#each posts}}
                 {{> post currentuser=../currentuser}}
             {{/each}}
-            <!-- end of POST 1 -->
         </div>
     </div>
 </body>

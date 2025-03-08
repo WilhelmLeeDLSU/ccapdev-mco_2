@@ -1,0 +1,35 @@
+<body class="mainPage no-aside">
+    {{> header}}
+    {{> navbar}}
+
+    <div class="pageContentContainer">
+        <div class="exploreContent">
+            <span class="pageHeader">Search Results</span>
+
+            <form class="searchBarBox" action="/explore/results" method="GET">
+                <input type="hidden" name="currentuser" value="{{currentuser}}">
+                
+                <div class="searchContainer">
+                    <input class="searchBar" name="searchBar" type="text" placeholder="Type to search" value="{{query.searchBar}}">
+                    
+                    <div class="dropdownContainerCommunity">
+                        <select name="community" class="communityDropdown">
+                            <option value="" {{#unless query.community}}selected{{/unless}}>Select Community</option>
+                            {{#each communities}}
+                                <option value="{{name}}" {{#if (eq name ../query.community)}}selected{{/if}}>{{name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+                <input id="searchButton" type="submit" value="Search">
+            </form>
+            {{#if posts.length}}
+                {{#each posts}}
+                    {{> post currentuser=../currentuser}}
+                {{/each}}
+            {{else}}
+                <p>No results found.</p>
+            {{/if}}
+        </div>
+    </div>
+</body>
