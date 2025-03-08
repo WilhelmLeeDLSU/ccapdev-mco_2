@@ -784,6 +784,15 @@ profile > .profileContainer {
     font-size: medium;
     cursor: pointer;
     border: 1px solid #EAEAEA;
+    transition: transform 0.2s ease;
+}
+
+.loginDetails > button:hover {
+    transform: scale(1.05);
+}
+
+.loginDetails > button:active {
+    transform: scale(0.95);
 }
 
 .loginDetails > .rememberMeContainer {
