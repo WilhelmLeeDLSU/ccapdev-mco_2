@@ -9,7 +9,7 @@
             <span class="pageHeader">Popular Posts</span>
             <!-- POST 1 -->
             {{#each posts}}
-                {{> post}}
+                {{> post currentuser=../currentuser}}
             {{/each}}
             <!-- end of POST 1 -->
         </div>

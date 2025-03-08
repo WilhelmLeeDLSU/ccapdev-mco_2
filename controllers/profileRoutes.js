@@ -80,9 +80,9 @@ module.exports.add = (server) => {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
-    
             currentuser: currentuser,
-            currentuserPfp: currentUserPfp
+            currentuserPfp: currentUserPfp,
+            isViewPost: false,
         });
         
     });
@@ -143,8 +143,14 @@ module.exports.add = (server) => {
             const builtPost = buildPost(postData);
             const replies = await Reply.find({ post: postid })
                 .populate("author", "profileName username pfp")
-                .populate("post", "_id author")
+                .populate({
+                    path: "post",
+                    populate: { path: "author", select: "username" } 
+                })
                 .lean();
+
+            // Log output before rendering
+        console.log("Rendering viewpost with isViewPost:", true);
 
             const builtReplies = replies.map(reply => buildReply(reply));
             resp.render('viewpost', {
@@ -162,7 +168,7 @@ module.exports.add = (server) => {
         }
     });
     
-    // URL: /profile/<username>/post<postid>
+    // URL: /profile/<username>/post<postid>/edit
     server.get('/profile/:posteruser/post:postid/edit', function(req, resp){
         resp.render('editpost',{
             layout: 'index',
