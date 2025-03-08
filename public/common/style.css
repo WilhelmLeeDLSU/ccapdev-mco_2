@@ -677,6 +677,15 @@ profile > .profileContainer {
     height: 20px;
     position: absolute;
     left: 0;
+    transition: transform 0.2s ease;
+}
+
+.headerContainer img:hover {
+    transform: scale(1.05);
+}
+
+.headerContainer img:active {
+    transform: scale(0.95);
 }
 
 .headerContainer > h3 {
@@ -740,6 +749,15 @@ profile > .profileContainer {
     align-self: flex-end;
     margin-right: 11%;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.editDetails #postButton:hover {
+    transform: scale(1.05);
+}
+
+.editDetails #postButton:active {
+    transform: scale(0.95);
 }
 
 /* LOGIN/REGISTER ----------------------------*/
