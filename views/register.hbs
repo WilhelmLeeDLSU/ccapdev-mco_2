@@ -3,20 +3,21 @@
     <div class="loginContainer register">
         <img class="applogo" src="common/circle-logo.png" alt="logo">
         <h2>Log in to CLIQUE</h2>
-        <form class="loginDetails">
-            <input required type="text" id="email" placeholder="Email">
+        <form class="loginDetails" action="/register" method="POST">
+            <input required type="text" name="email" placeholder="Email">
             <br>
-            <input required type="text" id="userName" placeholder="Username">
+            <input required type="text" name="username" placeholder="Username">
             <br>
-            <input required type="text" id="profileName" placeholder="Profile Name">
+            <input required type="text" name="profileName" placeholder="Profile Name">
             <br>
-            <input required type="password" id="passWord" placeholder="Password">
+            <input required type="password" name="password" placeholder="Password">
             <br>
-            <input required type="password" id="confirmPassWord" placeholder="Confirm Password">
+            <input required type="password" name="confirmPassword" placeholder="Confirm Password">
             <br>
             <span class="registerTerms">By signing up, you agree to our Terms, Privacy<br>Policy, and Cookies Policy.</span>
-            <button type="register"><b>Register</b></button>
+            <button type="submit"><b>Register</b></button>
         </form>
         <br>
+        <span><a href="/login">Back to Login</a></span>
     </div>
 </body>
