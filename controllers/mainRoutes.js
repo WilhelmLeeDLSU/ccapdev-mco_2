@@ -166,6 +166,43 @@ module.exports.add = function(server) {
         });
     });
     
+    server.post('/newpost', async function(req, resp) {
+        const currentUser = req.query.currentuser || null;
+    
+        if (!currentUser) {
+            return resp.redirect('/login');
+        }
+    
+        try {
+            const { postTitle, postDesc, postCommunity } = req.body;
+    
+            const user = await User.findOne({ username: currentUser }).lean();
+            const communityDoc = await Community.findOne({ _id: postCommunity }).lean();
+    
+            if (!user || !communityDoc) {
+                return resp.status(400).send("Invalid user or community");
+            }
+    
+            const newPost = new Post({
+                title: postTitle,
+                content: postDesc,
+                author: user._id,
+                community: communityDoc._id,
+                createdAt: moment().toDate(),
+                upvotes: [], // Array of user IDs
+                downvotes: 0, // Number of downvotes
+                replies: [] // Array of reply IDs
+            });
+    
+            await newPost.save();
+    
+            resp.redirect(`/?currentuser=${encodeURI(currentUser)}`);
+        } catch (error) {
+            console.error("Error creating new post:", error);
+            resp.status(500).send("Internal Server Error");
+        }
+    });
+
     server.get('/popular', async function(req, resp){
         try {
             const posts = await Post.find({ 
