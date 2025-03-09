@@ -1,10 +1,13 @@
+//express
 const express = require('express');
 const server = express();
 
+//body-parser
 const bodyParser = require('body-parser');
 server.use(express.json()); 
 server.use(express.urlencoded({ extended: true }));
 
+//handlebars
 const handlebars = require('express-handlebars');
 server.set('view engine', 'hbs');
 server.engine('hbs', handlebars.engine({
@@ -16,36 +19,40 @@ server.engine('hbs', handlebars.engine({
     }
 }));
 
+//mongoose
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
 
+//static files
 server.use(express.static('public'));
 
+////////////////////////////////////////////////////////////////////////////////////////
+// Import models/schema
 const User = require('./models/userModel');
 const Post = require('./models/postModel');
 const Community = require('./models/communityModel');
 const Reply = require('./models/replyModel');
 
-const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes'];
+const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes']; //controller names array
 
-server.use( async(req, resp, next) => {
+server.use( async function(req, resp, next) {
     const currentuser = req.query.currentuser || null;
     let userData = null;
 
     if (currentuser) {
         userData = await User.findOne({ username: currentuser }).lean();
-    }
+    } //if currentuser is not null, find the user data
 
-    resp.locals.currentuser = currentuser;
-    resp.locals.isAuthenticated = !!currentuser;
+    resp.locals.currentuser = currentuser; //set the currentuser to the response locals
+    resp.locals.isAuthenticated = !!currentuser; //true if currentuser is not null
     resp.locals.pfp = userData ? userData.pfp : "/common/defaultpfp.png";
     next();
 });
 
-controllers.forEach(controllerName => {
+controllers.forEach(function(controllerName){
     const controller = require('./controllers/' + controllerName);
     controller.add(server);
-});
+}); //loop through the controllers array and require each controller
 
 const port = process.env.PORT || 3000;
 server.listen(port, function(){

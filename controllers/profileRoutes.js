@@ -4,7 +4,7 @@ const Community = require('../models/communityModel');
 const Reply = require('../models/replyModel');
 const { formatTimeDifference, buildPost, buildReply } = require('../js/utils');
 
-module.exports.add = (server) => {
+module.exports.add = function(server) {
     // URL: /profile/<username>
     server.get('/profile/:username', async function(req, resp){
         const currentuser = req.query.currentuser || null;

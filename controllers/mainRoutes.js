@@ -5,7 +5,7 @@ const Post = require('../models/postModel');
 const User = require('../models/userModel');
 const Community = require('../models/communityModel');
 
-module.exports.add = (server) => {
+module.exports.add = function(server) {
     server.get('/', async function (req, resp) {
         try {
             const posts = await Post.find()
@@ -13,6 +13,7 @@ module.exports.add = (server) => {
                 .populate("community", "name color ")
                 .lean();
             
+            //loops (maps) through the posts and calls the buildPost function
             const builtPosts = posts.map(post => buildPost(post));
 
             const communities = await Community.find().lean();
@@ -39,6 +40,7 @@ module.exports.add = (server) => {
                 .populate("community", "name color")
                 .lean();
             
+            //loops (maps) through the posts and calls the buildPost function
             const builtPosts = posts.map(post => buildPost(post));
 
             const communities = await Community.find().lean();

@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 
-module.exports.add = (server) => {
+module.exports.add = function(server) {
     server.get('/login', function(req, resp){
         resp.render('login',{
             layout: 'index',
