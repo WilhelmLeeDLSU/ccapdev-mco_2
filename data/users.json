@@ -71,7 +71,8 @@
   "username": "tech_guru",
   "profileName": "TechMaster",
   "email": "techguru@email.com",
-  "password": "securepassword123"
+  "password": "securepassword123",
+  "bio": ""
 },
 {
   "_id": {
@@ -80,7 +81,8 @@
   "username": "nature_lover",
   "profileName": "GreenThumb",
   "email": "naturelover@email.com",
-  "password": "plantsarelife"
+  "password": "plantsarelife",
+  "bio": ""
 },
 {
   "_id": {
@@ -89,7 +91,8 @@
   "username": "bookworm",
   "profileName": "PageTurner",
   "email": "bookworm@email.com",
-  "password": "readingisfun"
+  "password": "readingisfun",
+  "bio": ""
 },
 {
   "_id": {
@@ -98,7 +101,8 @@
   "username": "fitness_freak",
   "profileName": "GymRat",
   "email": "fitnessfreak@email.com",
-  "password": "workoutdaily"
+  "password": "workoutdaily",
+  "bio": ""
 },
 {
   "_id": {
@@ -107,7 +111,8 @@
   "username": "foodie",
   "profileName": "ChefMaster",
   "email": "foodie@email.com",
-  "password": "ilovefood"
+  "password": "ilovefood",
+  "bio": ""
 },
 {
   "_id": {
@@ -116,7 +121,8 @@
   "username": "travel_bug",
   "profileName": "Wanderlust",
   "email": "travelbug@email.com",
-  "password": "exploretheworld"
+  "password": "exploretheworld",
+  "bio": ""
 },
 {
   "_id": {
@@ -125,7 +131,8 @@
   "username": "music_lover",
   "profileName": "MelodyMaker",
   "email": "musiclover@email.com",
-  "password": "ilovemusic"
+  "password": "ilovemusic",
+  "bio": ""
 },
 {
   "_id": {
@@ -134,7 +141,8 @@
   "username": "art_fanatic",
   "profileName": "ArtisticSoul",
   "email": "artfanatic@email.com",
-  "password": "creativity"
+  "password": "creativity",
+  "bio": ""
 },
 {
   "_id": {
@@ -143,7 +151,8 @@
   "username": "sports_fan",
   "profileName": "Athlete",
   "email": "sportsfan@email.com",
-  "password": "gameon"
+  "password": "gameon",
+  "bio": ""
 },
 {
   "_id": {
@@ -152,7 +161,8 @@
   "username": "movie_buff",
   "profileName": "FilmCritic",
   "email": "moviebuff@email.com",
-  "password": "cinemalover"
+  "password": "cinemalover",
+  "bio": ""
 },
 {
   "_id": {
@@ -161,7 +171,8 @@
   "username": "history_buff",
   "profileName": "Historian",
   "email": "historybuff@email.com",
-  "password": "pastisfascinating"
+  "password": "pastisfascinating",
+  "bio": ""
 },
 {
   "_id": {
@@ -170,7 +181,8 @@
   "username": "science_geek",
   "profileName": "ScienceNerd",
   "email": "sciencegeek@email.com",
-  "password": "ilovescience"
+  "password": "ilovescience",
+  "bio": ""
 },
 {
   "_id": {
@@ -179,7 +191,8 @@
   "username": "fashionista",
   "profileName": "StyleIcon",
   "email": "fashionista@email.com",
-  "password": "fashionlover"
+  "password": "fashionlover",
+  "bio": ""
 },
 {
   "_id": {
@@ -188,7 +201,8 @@
   "username": "gamer",
   "profileName": "GameMaster",
   "email": "gamer@email.com",
-  "password": "gamingislife"
+  "password": "gamingislife",
+  "bio": ""
 },
 {
   "_id": {
@@ -197,7 +211,8 @@
   "username": "photographer",
   "profileName": "Shutterbug",
   "email": "photographer@email.com",
-  "password": "capturingmoments"
+  "password": "capturingmoments",
+  "bio": ""
 },
 {
   "_id": {
@@ -206,7 +221,8 @@
   "username": "animal_lover",
   "profileName": "PetLover",
   "email": "animallover@email.com",
-  "password": "ilovepets"
+  "password": "ilovepets",
+  "bio": ""
 },
 {
   "_id": {
@@ -215,7 +231,8 @@
   "username": "car_enthusiast",
   "profileName": "CarLover",
   "email": "carenthusiast@email.com",
-  "password": "vroomvroom"
+  "password": "vroomvroom",
+  "bio": ""
 },
 {
   "_id": {
@@ -224,7 +241,8 @@
   "username": "diy_expert",
   "profileName": "CraftMaster",
   "email": "diyexpert@email.com",
-  "password": "handmade"
+  "password": "handmade",
+  "bio": ""
 },
 {
   "_id": {
@@ -233,7 +251,8 @@
   "username": "gardener",
   "profileName": "PlantLover",
   "email": "gardener@email.com",
-  "password": "greenfingers"
+  "password": "greenfingers",
+  "bio": ""
 },
 {
   "_id": {
@@ -242,7 +261,8 @@
   "username": "tech_enthusiast",
   "profileName": "GadgetGuru",
   "email": "techenthusiast@email.com",
-  "password": "techsavvy"
+  "password": "techsavvy",
+  "bio": ""
 },
 {
   "_id": {
@@ -251,7 +271,8 @@
   "username": "fitness_guru",
   "profileName": "HealthNut",
   "email": "fitnessguru@email.com",
-  "password": "fitlife"
+  "password": "fitlife",
+  "bio": ""
 },
 {
   "_id": {
@@ -260,7 +281,8 @@
   "username": "movie_critic",
   "profileName": "FilmBuff",
   "email": "moviecritic@email.com",
-  "password": "moviereviews"
+  "password": "moviereviews",
+  "bio": ""
 },
 {
   "_id": {
@@ -269,7 +291,8 @@
   "username": "history_lover",
   "profileName": "HistoryBuff",
   "email": "historylover@email.com",
-  "password": "historyrocks"
+  "password": "historyrocks",
+  "bio": ""
 },
 {
   "_id": {
@@ -278,7 +301,8 @@
   "username": "science_lover",
   "profileName": "ScienceBuff",
   "email": "sciencelover@email.com",
-  "password": "scienceisfun"
+  "password": "scienceisfun",
+  "bio": ""
 },
 {
   "_id": {
@@ -287,7 +311,8 @@
   "username": "fashion_guru",
   "profileName": "FashionBuff",
   "email": "fashionguru@email.com",
-  "password": "fashionista"
+  "password": "fashionista",
+  "bio": ""
 },
 {
   "_id": {
@@ -296,7 +321,8 @@
   "username": "gamer_guru",
   "profileName": "GameBuff",
   "email": "gamerguru@email.com",
-  "password": "gamingpro"
+  "password": "gamingpro",
+  "bio": ""
 },
 {
   "_id": {
@@ -305,7 +331,8 @@
   "username": "photo_enthusiast",
   "profileName": "PhotoBuff",
   "email": "photoenthusiast@email.com",
-  "password": "photography"
+  "password": "photography",
+  "bio": ""
 },
 {
   "_id": {
@@ -314,7 +341,8 @@
   "username": "animal_fanatic",
   "profileName": "AnimalBuff",
   "email": "animalfanatic@email.com",
-  "password": "animalcrazy"
+  "password": "animalcrazy",
+  "bio": ""
 },
 {
   "_id": {
@@ -323,7 +351,8 @@
   "username": "car_fanatic",
   "profileName": "CarBuff",
   "email": "carfanatic@email.com",
-  "password": "carcrazy"
+  "password": "carcrazy",
+  "bio": ""
 },
 {
   "_id": {
@@ -332,7 +361,8 @@
   "username": "diy_fanatic",
   "profileName": "DIYBuff",
   "email": "diyfanatic@email.com",
-  "password": "diycrazy"
+  "password": "diycrazy",
+  "bio": ""
 },
 {
   "_id": {
@@ -341,5 +371,6 @@
   "username": "garden_guru",
   "profileName": "GardenBuff",
   "email": "gardenguru@email.com",
-  "password": "gardening"
+  "password": "gardening",
+  "bio": ""
 }]

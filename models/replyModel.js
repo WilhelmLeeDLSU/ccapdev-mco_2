@@ -7,7 +7,7 @@ const replySchema = new mongoose.Schema({
     content: { type: String, required: true },
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 }
-});
+}, { versionKey: false });
 
 // get the time diff
 replySchema.virtual('timeAgo').get(function(){

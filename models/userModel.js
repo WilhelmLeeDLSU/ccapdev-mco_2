@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true, unique: true },
     bio: { type: String, default: '' },
     pfp: { type: String, defaut: 'public/common/defaultpfp.png' }
-});
+}, { versionKey: false });
 
 const userModel = mongoose.model('user', userSchema);
 module.exports = userModel;
