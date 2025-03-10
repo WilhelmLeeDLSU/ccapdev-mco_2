@@ -2,7 +2,7 @@
     <div class="communityContainer">
         <h1>Communities</h1>
         {{#each communities}}
-            <div class="community">
+            <div class="community" onclick="window.location.href='/community/{{name}}';">
                 <h3 class="communityName">
                     <a href="/community/{{name}}" class="no-style">{{name}}</a>
                 </h3>

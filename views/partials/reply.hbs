@@ -2,7 +2,10 @@
     <div class="post" onclick="window.location.href='/profile/{{post.authorUsername}}/post/{{post._id}}?currentuser={{currentuser}}';">
         <img class="pfp" src="{{author.pfp}}" alt="pfp_o1">
         <div class="poster">
-            <b>{{author.profileName}}</b> <span>{{author.username}}</span> <span>{{timeCreated}}</span> <br>
+            <a href="/profile/{{author.username}}?currentuser={{currentuser}}" class="no-style">
+                <b class="profileName">{{author.profileName}}</b> <span class="username">@{{author.username}}</span>
+            </a>
+            <span>{{timeCreated}}</span> 
         </div>
         <div></div>
         <div class="postContent">
