@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema({
     upvotes: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     downvotes: { type: Number, default: 0 },
     replies: { type: mongoose.Schema.Types.ObjectId, ref: 'reply' } 
-});
+}, { versionKey: false });
 
 // get the time diff
 postSchema.virtual('timeAgo').get(function(){
