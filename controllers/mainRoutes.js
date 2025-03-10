@@ -3,6 +3,7 @@ const { formatTimeDifference, buildPost } = require('../js/utils');
 
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
+const Reply = require('../models/replyModel');
 const Community = require('../models/communityModel');
 
 module.exports.add = function(server) {
@@ -12,9 +13,19 @@ module.exports.add = function(server) {
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color ")
                 .lean();
+
+            const replies = await Reply.find({}, 'post').lean();
+
+            const replyCountMap = {};
+            replies.forEach(reply => {
+                const postId = reply.post.toString();
+                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            });
             
-            //loops (maps) through the posts and calls the buildPost function
-            const builtPosts = posts.map(post => buildPost(post));
+            const builtPosts = posts.map(post => buildPost({
+                ...post,
+                replyCount: replyCountMap[post._id.toString()] || 0 
+            }));
 
             const communities = await Community.find().lean();
     
@@ -40,8 +51,18 @@ module.exports.add = function(server) {
                 .populate("community", "name color")
                 .lean();
             
-            //loops (maps) through the posts and calls the buildPost function
-            const builtPosts = posts.map(post => buildPost(post));
+            const replies = await Reply.find({}, 'post').lean();
+
+            const replyCountMap = {};
+            replies.forEach(reply => {
+                const postId = reply.post.toString();
+                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            });
+                
+            const builtPosts = posts.map(post => buildPost({
+                ...post,
+                replyCount: replyCountMap[post._id.toString()] || 0 
+            }));
 
             const communities = await Community.find().lean();
     
@@ -88,8 +109,19 @@ module.exports.add = function(server) {
                 .lean();
     
             const communities = await Community.find().lean();
+            
+            const replies = await Reply.find({}, 'post').lean();
 
-            const builtPosts = posts.map(post => buildPost(post));
+            const replyCountMap = {};
+            replies.forEach(reply => {
+                const postId = reply.post.toString();
+                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            });
+                
+            const builtPosts = posts.map(post => buildPost({
+                ...post,
+                replyCount: replyCountMap[post._id.toString()] || 0 
+            }));
     
             resp.render('explore-results', { 
                 layout: 'index',
@@ -135,8 +167,19 @@ module.exports.add = function(server) {
                 .lean();
     
             const communities = await Community.find().lean();
+            
+            const replies = await Reply.find({}, 'post').lean();
 
-            const builtPosts = posts.map(post => buildPost(post));
+            const replyCountMap = {};
+            replies.forEach(reply => {
+                const postId = reply.post.toString();
+                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            });
+                
+            const builtPosts = posts.map(post => buildPost({
+                ...post,
+                replyCount: replyCountMap[post._id.toString()] || 0 
+            }));
     
             resp.render('explore-results', { 
                 layout: 'index',
@@ -211,8 +254,19 @@ module.exports.add = function(server) {
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color")
                 .lean();
-
-            const builtPosts = posts.map(post => buildPost(post));
+            
+                const replies = await Reply.find({}, 'post').lean();
+    
+                const replyCountMap = {};
+                replies.forEach(reply => {
+                    const postId = reply.post.toString();
+                    replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+                });
+                    
+                const builtPosts = posts.map(post => buildPost({
+                    ...post,
+                    replyCount: replyCountMap[post._id.toString()] || 0 
+                }));
 
             const communities = await Community.find().lean();
     
@@ -245,7 +299,18 @@ module.exports.add = function(server) {
             .populate("community", "name color")
             .lean();
             
-        const builtPosts = posts.map(post => buildPost(post));
+            const replies = await Reply.find({}, 'post').lean();
+
+            const replyCountMap = {};
+            replies.forEach(reply => {
+                const postId = reply.post.toString();
+                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            });
+                
+            const builtPosts = posts.map(post => buildPost({
+                ...post,
+                replyCount: replyCountMap[post._id.toString()] || 0 
+            }));
 
         const communities = await Community.find().lean();
     

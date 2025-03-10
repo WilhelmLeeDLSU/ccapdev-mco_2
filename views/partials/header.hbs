@@ -9,8 +9,8 @@
     <div class="headitem homeLoginContainer">
         {{#if isAuthenticated}}
             <div class="profile-container">
-                <img class="pfp" id="profileDropdownTrigger"src={{pfp}} alt="pfp">
-                <div class="dropdown-menu" id="profileDropdown">
+                <img class="pfp profileDropdownTrigger" src="{{pfp}}" alt="pfp">
+                <div class="dropdown-menu profileDropdown">
                     <a href="/profile/{{currentuser}}?currentuser={{currentuser}}">View Profile</a>
                     <a href="/logout" class="logout-button">Log Out</a>
                 </div>

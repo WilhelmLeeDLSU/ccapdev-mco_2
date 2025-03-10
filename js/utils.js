@@ -45,7 +45,7 @@ function buildPost(post) {
         content: post.content || "No content available",
         upvotes: post.upvotes.length || 0,
         downvotes: post.downvotes || 0,
-        replies: post.replies || [],
+        replies: post.replyCount || 0,
     };
 }
 

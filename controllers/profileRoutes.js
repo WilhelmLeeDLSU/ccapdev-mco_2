@@ -5,6 +5,7 @@ const Reply = require('../models/replyModel');
 const { formatTimeDifference, buildPost, buildReply } = require('../js/utils');
 
 module.exports.add = function(server) {
+    
     // URL: /profile/<username>
     server.get('/profile/:username', async function(req, resp){
         const currentuser = req.query.currentuser || null;
@@ -25,8 +26,19 @@ module.exports.add = function(server) {
             .populate("author", "profileName username pfp")
             .populate("community", "name color")
             .lean();
+            
+        const replies = await Reply.find({}, 'post').lean();
 
-        const transformedPosts = userPosts.map(post => buildPost(post));
+        const replyCountMap = {};
+        replies.forEach(reply => {
+            const postId = reply.post.toString();
+            replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+        });
+                
+        const builtPosts = userPosts.map(post => buildPost({
+            ...post,
+            replyCount: replyCountMap[post._id.toString()] || 0 
+        }));
         
         resp.render('profile-posts',{
             layout: 'profileLayout',
@@ -37,12 +49,13 @@ module.exports.add = function(server) {
             email: user.email,
             viewedUserPfp: user.pfp,
             bio: user.bio,
-            posts: transformedPosts,
+            posts: builtPosts,
 
             currentuser: currentuser,
             currentuserPfp: currentUserPfp
         });
     });
+    
     // URL: /profile/<username>/replies for replies of the profile
     server.get('/profile/:username/replies', async function(req, resp){
         const currentuser = req.query.currentuser || null;
@@ -107,8 +120,19 @@ module.exports.add = function(server) {
             .populate("author", "profileName username pfp")
             .populate("community", "name color")
             .lean();
-
-        const transformedPosts = upvotedPosts.map(post => buildPost(post));
+            
+        const replies = await Reply.find({}, 'post').lean();
+    
+        const replyCountMap = {};
+        replies.forEach(reply => {
+            const postId = reply.post.toString();
+            replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+        });
+                    
+        const builtPosts = upvotedPosts.map(post => buildPost({
+            ...post,
+            replyCount: replyCountMap[post._id.toString()] || 0 
+        }));
         
         resp.render('profile-upvotes',{
             layout: 'profileLayout',
@@ -119,7 +143,7 @@ module.exports.add = function(server) {
             email: user.email,
             viewedUserPfp: user.pfp,
             bio: user.bio,
-            posts: transformedPosts,
+            posts: builtPosts,
             currentuser: currentuser,
             currentuserPfp: currentUserPfp
         });
@@ -141,7 +165,20 @@ module.exports.add = function(server) {
                     return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
                 }
                 
-                const builtPost = buildPost(postData);
+                   
+        const replies_post = await Reply.find({}, 'post').lean();
+    
+        const replyCountMap = {};
+        replies_post.forEach(reply => {
+            const postId = reply.post.toString();
+            replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+        });
+                    
+        const builtPost = buildPost({
+            ...postData,
+            replyCount: replyCountMap[postData._id.toString()] || 0 
+        });
+
                 const replies = await Reply.find({ post: postid })
                     .populate("author", "profileName username pfp")
                     .populate({

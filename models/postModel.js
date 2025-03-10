@@ -8,7 +8,6 @@ const postSchema = new mongoose.Schema({
     content: { type: String, required: true },
     upvotes: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
     downvotes: { type: Number, default: 0 },
-    replies: { type: mongoose.Schema.Types.ObjectId, ref: 'reply' } 
 });
 
 // get the time diff

@@ -1,38 +1,49 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const profileTrigger = document.getElementById("profileDropdownTrigger");
-    const dropdownMenu = document.getElementById("profileDropdown");
+    const profileTriggers = document.querySelectorAll(".profileDropdownTrigger");
+    const dropdownMenus = document.querySelectorAll(".profileDropdown");
 
-    if (profileTrigger) {
+    if (profileTriggers.length === 0 || dropdownMenus.length === 0) {
+        return;
+    }
+
+    profileTriggers.forEach((profileTrigger, index) => {
+        const dropdownMenu = dropdownMenus[index]; // Match the corresponding dropdown
+
         profileTrigger.addEventListener("click", function (event) {
             event.stopPropagation();
             dropdownMenu.classList.toggle("active");
         });
-    }
 
-    document.addEventListener("click", function (event) {
-        if (!profileTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.classList.remove("active");
-        }
+        document.addEventListener("click", function (event) {
+            if (!profileTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.remove("active");
+            }
+        });
     });
 });
 
 document.addEventListener("DOMContentLoaded", function() {
     const searchBar = document.querySelector(".searchBar");
     const communityDropdown = document.querySelector(".communityDropdown");
-    const currentUser = new URLSearchParams(window.location.search).get("currentuser");
+    const currentUser = new URLSearchParams(window.location.search).get("currentuser"); // ✅ Store currentUser at the top
 
-    searchBar.addEventListener("input", () => updateSearchResults());
-    communityDropdown.addEventListener("change", () => updateSearchResults());
+    if (searchBar) {
+        searchBar.addEventListener("input", updateSearchResults);
+    }
+
+    if (communityDropdown) {
+        communityDropdown.addEventListener("change", updateSearchResults);
+    }
 
     function updateSearchResults() {
-        const searchQuery = searchBar.value;
-        const selectedCommunity = communityDropdown.value;
+        const searchQuery = searchBar ? searchBar.value : "";
+        const selectedCommunity = communityDropdown ? communityDropdown.value : "";
         const queryParams = new URLSearchParams({
             searchBar: searchQuery,
             community: selectedCommunity,
         });
 
-        if (currentUser) {
+        if (currentUser && currentUser.trim() !== "") {
             queryParams.append("currentuser", currentUser);
         }
 
@@ -41,11 +52,18 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(html => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
-                document.querySelector(".exploreContent").innerHTML = doc.querySelector(".exploreContent").innerHTML;
+                const exploreContent = document.querySelector(".exploreContent");
+                if (exploreContent && doc.querySelector(".exploreContent")) {
+                    exploreContent.innerHTML = doc.querySelector(".exploreContent").innerHTML;
+                } else {
+                    console.warn("Could not find .exploreContent in the response.");
+                }
             })
             .catch(error => console.error("Error fetching search results:", error));
     }
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const editForm = document.getElementById("editForm");
