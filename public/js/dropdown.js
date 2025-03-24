@@ -102,3 +102,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const id = button.getAttribute('data-id');
+            const type = button.getAttribute('data-type');
+            const url = `/${type}/${id}`;
+
+            fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`) {
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`);
+                    window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+                } else {
+                    alert(`Error deleting ${type}: ${data.error}`);
+                    window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+                }
+            })
+            .catch(error => {
+                alert(`Error: ${error}`);
+                window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+            });
+        });
+    });
+});

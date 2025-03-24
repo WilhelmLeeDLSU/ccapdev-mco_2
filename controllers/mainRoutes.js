@@ -7,6 +7,28 @@ const Reply = require('../models/replyModel');
 const Community = require('../models/communityModel');
 
 module.exports.add = function(server) {
+    server.delete('/post/:id', async function (req, resp) {
+        try {
+            const postId = req.params.id;
+            await Post.findByIdAndDelete(postId);
+            resp.status(200).send({ message: 'Post deleted successfully' });
+        } catch (error) {
+            console.error("Error deleting post:", error);
+            resp.status(500).send({ message: 'Error deleting post', error });
+        }
+    });
+
+    server.delete('/reply/:id', async function (req, resp) {
+        try {
+            const replyId = req.params.id;
+            await Reply.findByIdAndDelete(replyId);
+            resp.status(200).send({ message: 'Reply deleted successfully' });
+        } catch (error) {
+            console.error("Error deleting reply:", error);
+            resp.status(500).send({ message: 'Error deleting reply', error });
+        }
+    });
+
     server.get('/', async function (req, resp) {
         try {
             const posts = await Post.find()

@@ -34,7 +34,7 @@
                 {{/if}}
                     <img src="/common/edit.png" alt="edit" class="edit-img">
                 </a>
-                <a class="delete delete-btn" data-post-id="{{_id}}">
+                <a class="delete delete-btn" data-id="{{_id}}" data-type="{{#if isReply}}reply{{else}}post{{/if}}">
                     <img src="/common/delete.png" alt="delete" class="delete-img">
                 </a>
             </div>
