@@ -73,5 +73,11 @@ function buildReply(reply) {
     };
 }
 
+function requireAuth(req, res, next) {
+    if (!req.session.user?.username) {
+        return res.redirect('/login');
+    }
+    next();
+}
 
-module.exports = { formatTimeDifference, buildPost, buildReply };
+module.exports = { formatTimeDifference, buildPost, buildReply, requireAuth };

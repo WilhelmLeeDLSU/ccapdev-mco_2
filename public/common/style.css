@@ -103,9 +103,11 @@ header > .homeLoginContainer {
     position: relative;
     display: inline-block;
     cursor: pointer;
+    z-index: 100;
 }
 
 .dropdown-menu {
+    cursor: pointer;
     display: none;
     position: absolute;
     right: 0;

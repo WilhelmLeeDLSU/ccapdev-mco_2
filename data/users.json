@@ -5,7 +5,7 @@
   "username": "BigGreenLegend",
   "profileName": "Swamp Guardian",
   "email": "shrek@email.com",
-  "password": "ilovefiona",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$k/W5Os0Ax6JdWzfbiDAU7Q$aE/3LAuiKTqgi9bGNVfdDKQmAtrYXVl+cegh5DSIW+g",
   "bio": "",
   "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg"
 },

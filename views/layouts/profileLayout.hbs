@@ -27,8 +27,8 @@
                     <span>{{bio}}</span>
                 </div>
                 {{#if (eq username currentuser)}}
-                    <div class="profileEditButton" onclick="window.location.href='/editprofile/{{username}}?currentuser={{currentuser}}';">
-                        <a href="/editprofile/{{username}}?currentuser={{currentuser}}" class="no-style">
+                    <div class="profileEditButton" onclick="window.location.href='/editprofile/{{username}}';">
+                        <a href="/editprofile/{{username}}" class="no-style">
                             <span>Edit profile</span>
                         </a>
                     </div>
@@ -38,4 +38,5 @@
         </profile>
 
     </body>
+    <script src="/js/dropdown.js"></script>
 </html>

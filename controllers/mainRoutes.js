@@ -1,5 +1,5 @@
 const moment = require('moment'); 
-const { formatTimeDifference, buildPost } = require('../js/utils');
+const { formatTimeDifference, buildPost, requireAuth } = require('../js/utils');
 
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
@@ -57,7 +57,7 @@ module.exports.add = function(server) {
                 selNav: 'main',
                 posts: builtPosts,
                 communities: communities,
-                currentuser: req.query.currentuser || null
+                //currentuser: req.query.currentuser || null
             });
     
         } catch (error) {
@@ -94,7 +94,7 @@ module.exports.add = function(server) {
                 selNav: 'explore',
                 posts: builtPosts,
                 communities: communities,
-                currentuser: req.query.currentuser || null
+                //currentuser: req.query.currentuser || null
             });
     
         } catch (error) {
@@ -107,7 +107,7 @@ module.exports.add = function(server) {
         try {
             const searchQuery = req.query.searchBar || ""; 
             const selectedCommunity = req.query.community || "";
-            const currentUser = req.query.currentuser || null;
+            //const currentUser = req.query.currentuser || null;
     
             let filter = {};
     
@@ -151,7 +151,7 @@ module.exports.add = function(server) {
                 selNav: 'explore',
                 posts: builtPosts,
                 communities: communities,
-                currentuser: currentUser,
+                //currentuser: currentUser,
                 query: req.query
             });
     
@@ -165,7 +165,7 @@ module.exports.add = function(server) {
         try {
             const searchQuery = req.query.searchBar || ""; 
             const selectedCommunity = req.query.community || "";
-            const currentUser = req.query.currentuser || null;
+            //const currentUser = req.query.currentuser || null;
     
             let filter = {};
     
@@ -209,7 +209,7 @@ module.exports.add = function(server) {
                 selNav: 'explore',
                 posts: builtPosts,
                 communities: communities,
-                currentuser: currentUser,
+                //currentuser: currentUser,
                 query: req.query
             });
     
@@ -219,7 +219,13 @@ module.exports.add = function(server) {
         }
     });
 
-    server.get('/newpost', async function(req, resp){
+    server.get('/newpost', requireAuth, async function(req, resp){
+        //const currentuser = req.query.currentuser || null;
+
+        //if (!currentuser) {
+        //    return resp.redirect('/login');
+        //}
+
         const communities = await Community.find().lean();
 
         resp.render('newpost',{
@@ -227,16 +233,12 @@ module.exports.add = function(server) {
             title: 'New Post',
             selNav: 'newpost',
             communities: communities,
-            currentuser: req.query.currentuser || null
+            //currentuser: req.query.currentuser || null
         });
     });
     
     server.post('/newpost', async function(req, resp) {
-        const currentUser = req.query.currentuser || null;
-    
-        if (!currentUser) {
-            return resp.redirect('/login');
-        }
+        //const currentUser = req.query.currentuser || null;
     
         try {
             const { postTitle, postDesc, postCommunity } = req.body;
@@ -261,7 +263,7 @@ module.exports.add = function(server) {
     
             await newPost.save();
     
-            resp.redirect(`/?currentuser=${encodeURI(currentUser)}`);
+            resp.redirect(`/`);
         } catch (error) {
             console.error("Error creating new post:", error);
             resp.status(500).send("Internal Server Error");
@@ -298,7 +300,7 @@ module.exports.add = function(server) {
                 selNav: 'popular',
                 posts: builtPosts,
                 communities: communities,
-                currentuser: req.query.currentuser || null
+                //currentuser: req.query.currentuser || null
             });
     
         } catch (error) {
@@ -343,7 +345,7 @@ module.exports.add = function(server) {
             communityName: community.name,
             posts: builtPosts,
             communities: communities,
-            currentuser: req.query.currentuser || null
+            //currentuser: req.query.currentuser || null
         });
 
     });

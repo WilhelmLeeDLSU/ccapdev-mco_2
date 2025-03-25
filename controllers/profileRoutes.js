@@ -2,25 +2,17 @@ const User = require('../models/userModel');
 const Post = require('../models/postModel');
 const Community = require('../models/communityModel');
 const Reply = require('../models/replyModel');
-const { formatTimeDifference, buildPost, buildReply } = require('../js/utils');
+const { formatTimeDifference, buildPost, buildReply, requireAuth } = require('../js/utils');
 
 module.exports.add = function(server) {
     
     // URL: /profile/<username>
-    server.get('/profile/:username', async function(req, resp){
-        const currentuser = req.query.currentuser || null;
-
-        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
-            return resp.redirect('/login');
-        }
+    server.get('/profile/:username', requireAuth, async function(req, resp){
 
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
-        
-        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
-        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
         const userPosts = await Post.find({ author: user._id })
             .populate("author", "profileName username pfp")
@@ -51,18 +43,13 @@ module.exports.add = function(server) {
             bio: user.bio,
             posts: builtPosts,
 
-            currentuser: currentuser,
-            currentuserPfp: currentUserPfp
+            //currentuser: currentuser,
+            //currentuserPfp: currentUserPfp
         });
     });
     
     // URL: /profile/<username>/replies for replies of the profile
-    server.get('/profile/:username/replies', async function(req, resp){
-        const currentuser = req.query.currentuser || null;
-
-        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
-            return resp.redirect('/login');
-        }
+    server.get('/profile/:username/replies', requireAuth, async function(req, resp){
 
         const user = await User.findOne({ username: req.params.username })
 
@@ -70,8 +57,8 @@ module.exports.add = function(server) {
             return resp.status(404).send("User not found");
         }
         
-        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
-        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
+        //const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
+        //const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
         
         const replies = await Reply.find({ author: user._id })
@@ -93,28 +80,23 @@ module.exports.add = function(server) {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
-            currentuser: currentuser,
-            currentuserPfp: currentUserPfp,
+            //currentuser: currentuser,
+            //currentuserPfp: currentUserPfp,
             isViewPost: false,
         });
         
     });
 
     //profile upvotes
-    server.get('/profile/:username/upvotes', async function(req, resp){
-        const currentuser = req.query.currentuser || null;
-
-        if (!req.params.username || req.params.username === "undefined" || !currentuser) {
-            return resp.redirect('/login');
-        }
+    server.get('/profile/:username/upvotes', requireAuth, async function(req, resp){
 
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
         
-        const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
-        const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
+        //const loggedInUser = await User.findOne({ username: currentuser }).select('pfp').lean();
+        //const currentUserPfp = loggedInUser ? loggedInUser.pfp : "common/defaultpfp.png";
 
         const upvotedPosts = await Post.find({ upvotes: user._id })
             .populate("author", "profileName username pfp")
@@ -144,8 +126,8 @@ module.exports.add = function(server) {
             viewedUserPfp: user.pfp,
             bio: user.bio,
             posts: builtPosts,
-            currentuser: currentuser,
-            currentuserPfp: currentUserPfp
+            //currentuser: currentuser,
+            //currentuserPfp: currentUserPfp
         });
     });
 
@@ -153,7 +135,7 @@ module.exports.add = function(server) {
         server.get('/profile/:posteruser/post/:postid', async (req, resp) => {
             try {
                 const { posteruser, postid } = req.params;
-                const currentuser = req.query.currentuser || null;
+                //const currentuser = req.query.currentuser || null;
         
                 const postData = await Post.findOne({ _id: postid })
                     .populate("author", "profileName username pfp")
@@ -198,7 +180,7 @@ module.exports.add = function(server) {
                     ...builtPost,
                     repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
                     communities: communities,
-                    currentuser: currentuser
+                    //currentuser: currentuser
                 });
                 
             } catch (error) {
@@ -210,7 +192,7 @@ module.exports.add = function(server) {
     // URL: /profile/<username>/post<postid>/edit
     server.get('/profile/:posteruser/post/:postid/edit', async function(req, resp){
         const { posteruser, postid } = req.params;
-        const currentuser = req.query.currentuser || null;
+        //const currentuser = req.query.currentuser || null;
 
         const postData = await Post.findOne({ _id: postid })
                     .populate("author", "profileName username pfp")
@@ -228,7 +210,7 @@ module.exports.add = function(server) {
         resp.render('editpost',{
             layout: 'index',
             title: 'Editing Post',
-            currentuser: currentuser,
+            //currentuser: currentuser,
             communities: communities,
             post: builtPost,
         });
@@ -237,7 +219,7 @@ module.exports.add = function(server) {
     // URL: /profile/<username>/reply<repid>/edit
     server.get('/profile/:posteruser/reply/:repid/edit', async function(req, resp){
         const { posteruser, repid } = req.params;
-        const currentuser = req.query.currentuser || null;
+        //const currentuser = req.query.currentuser || null;
 
         const repData = await Reply.findOne({ _id: repid })
                     .populate("author", "profileName username pfp")
@@ -253,14 +235,14 @@ module.exports.add = function(server) {
         resp.render('editreply',{
             layout: 'index',
             title: 'Editing Reply',
-            currentuser: currentuser,
+            //currentuser: currentuser,
             reply: builtRep,
         });
     });
     
     //edit profile
     server.get('/editprofile/:username', async function(req, resp){
-        const currentuser = req.query.currentuser || null;
+        //const currentuser = req.query.currentuser || null;
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
@@ -271,7 +253,7 @@ module.exports.add = function(server) {
             title: 'Edit Profile',
             pfp: user.pfp,
             username: user.username,
-            currentuser: currentuser,
+            //currentuser: currentuser,
         });
     });
 }

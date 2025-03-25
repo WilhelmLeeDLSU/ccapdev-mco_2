@@ -16,7 +16,7 @@
                 <div class="action"></div>
             {{else}} 
                 <div class="action reply-btn" data-post-id="{{_id}}">
-                    <a href="/profile/{{author.username}}/post/{{_id}}?currentuser={{currentuser}}">
+                    <a href="/profile/{{author.username}}/post/{{_id}}">
                         <img src="/common/reply.png" class="reply-img">
                     </a>
                     <span>{{replies}}</span>
@@ -28,9 +28,9 @@
         {{#if (eq currentuser author.username)}}
             <div class="action modifyContainer">
                 {{#if isReply}}
-                    <a class="modify edit-btn" href="/profile/{{author.username}}/reply/{{_id}}/edit?currentuser={{currentuser}}">
+                    <a class="modify edit-btn" href="/profile/{{author.username}}/reply/{{_id}}/edit">
                 {{else}}
-                    <a class="modify edit-btn" href="/profile/{{author.username}}/post/{{_id}}/edit?currentuser={{currentuser}}">
+                    <a class="modify edit-btn" href="/profile/{{author.username}}/post/{{_id}}/edit">
                 {{/if}}
                     <img src="/common/edit.png" alt="edit" class="edit-img">
                 </a>

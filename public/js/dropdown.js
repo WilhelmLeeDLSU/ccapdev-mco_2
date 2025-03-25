@@ -1,77 +1,58 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const profileTriggers = document.querySelectorAll(".profileDropdownTrigger");
-    const dropdownMenus = document.querySelectorAll(".profileDropdown");
+    const containers = document.querySelectorAll(".profile-container");
+    console.log("Found containers:", containers.length);
 
-    if (profileTriggers.length === 0 || dropdownMenus.length === 0) {
-        return;
-    }
+    containers.forEach(container => {
+        const trigger = container.querySelector(".profileDropdownTrigger");
+        const dropdown = container.querySelector(".profileDropdown");
 
-    profileTriggers.forEach((profileTrigger, index) => {
-        const dropdownMenu = dropdownMenus[index]; // Match the corresponding dropdown
+        console.log("Trigger found:", !!trigger);
+        console.log("Dropdown found:", !!dropdown);
 
-        profileTrigger.addEventListener("click", function (event) {
-            event.stopPropagation();
-            dropdownMenu.classList.toggle("active");
-        });
+        if (trigger && dropdown) {
+            trigger.addEventListener("click", function (event) {
+                console.log("Profile image clicked!");
+                event.stopPropagation();
+                dropdown.classList.toggle("active");
+            });
 
-        document.addEventListener("click", function (event) {
-            if (!profileTrigger.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove("active");
-            }
-        });
+            document.addEventListener("click", function (event) {
+                if (!container.contains(event.target)) {
+                    dropdown.classList.remove("active");
+                }
+            });
+        }
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    const searchForm = document.getElementById("searchForm");
     const searchBar = document.querySelector(".searchBar");
     const communityDropdown = document.querySelector(".communityDropdown");
-    const currentUser = new URLSearchParams(window.location.search).get("currentuser"); // ✅ Store currentUser at the top
 
-    if (searchBar) {
-        searchBar.addEventListener("input", updateSearchResults);
-    }
+    if (searchForm) {
+        searchForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-    if (communityDropdown) {
-        communityDropdown.addEventListener("change", updateSearchResults);
-    }
+            const searchQuery = searchBar?.value.trim() || "";
+            const selectedCommunity = communityDropdown?.value || "";
 
-    function updateSearchResults() {
-        const searchQuery = searchBar ? searchBar.value : "";
-        const selectedCommunity = communityDropdown ? communityDropdown.value : "";
-        const queryParams = new URLSearchParams({
-            searchBar: searchQuery,
-            community: selectedCommunity,
+            const queryParams = new URLSearchParams();
+
+            if (searchQuery) queryParams.append("searchBar", searchQuery);
+            if (selectedCommunity) queryParams.append("community", selectedCommunity);
+
+            window.location.href = `/explore/results?${queryParams.toString()}`;
         });
-
-        if (currentUser && currentUser.trim() !== "") {
-            queryParams.append("currentuser", currentUser);
-        }
-
-        fetch(`/explore/results?${queryParams.toString()}`) 
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                const exploreContent = document.querySelector(".exploreContent");
-                if (exploreContent && doc.querySelector(".exploreContent")) {
-                    exploreContent.innerHTML = doc.querySelector(".exploreContent").innerHTML;
-                } else {
-                    console.warn("Could not find .exploreContent in the response.");
-                }
-            })
-            .catch(error => console.error("Error fetching search results:", error));
     }
 });
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const editForm = document.getElementById("editForm");
     if (editForm) {
         editForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
-            window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+            window.location.href = `/`;
         });
     }
 
@@ -79,8 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (editReplyForm) {
         editReplyForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
-            window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+            window.location.href = `/`;
         });
     }
 
@@ -88,8 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (postForm) {
         postForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
-            window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+            window.location.href = `/`;
         });
     }
 
@@ -97,8 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (editDetailsForm) {
         editDetailsForm.addEventListener("submit", function (event) {
             event.preventDefault();
-            const currentUser = new URLSearchParams(window.location.search).get("currentuser") || "";
-            window.location.href = `/profile/${encodeURIComponent(currentUser)}?currentuser=${encodeURIComponent(currentUser)}`;
+            window.location.href = `/profile`;
         });
     }
 });
@@ -123,15 +101,15 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 if (data.message === `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`) {
                     alert(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`);
-                    window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+                    window.location.href = `/`;
                 } else {
                     alert(`Error deleting ${type}: ${data.error}`);
-                    window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+                    window.location.href = `/`;
                 }
             })
             .catch(error => {
                 alert(`Error: ${error}`);
-                window.location.href = `/?currentuser=${encodeURIComponent(currentUser)}`;
+                window.location.href = `/`;
             });
         });
     });

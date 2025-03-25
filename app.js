@@ -23,6 +23,22 @@ server.engine('hbs', handlebars.engine({
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
 
+//cookies
+const cookieParser = require('cookie-parser');
+server.use(cookieParser());
+
+//session
+const session = require('express-session');
+server.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 // 1 day
+    }
+}));
+
 //static files
 server.use(express.static('public'));
 
@@ -36,7 +52,7 @@ const Reply = require('./models/replyModel');
 const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes']; //controller names array
 
 server.use( async function(req, resp, next) {
-    const currentuser = req.query.currentuser || null;
+    const currentuser = req.session.user?.username || null;
     let userData = null;
 
     if (currentuser) {
@@ -46,6 +62,8 @@ server.use( async function(req, resp, next) {
     resp.locals.currentuser = currentuser; //set the currentuser to the response locals
     resp.locals.isAuthenticated = !!currentuser; //true if currentuser is not null
     resp.locals.pfp = userData ? userData.pfp : "/common/defaultpfp.png";
+    resp.locals.currentUserPfp = userData ? userData.pfp : "/common/defaultpfp.png";
+
     next();
 });
 
