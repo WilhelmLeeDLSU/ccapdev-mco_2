@@ -75,8 +75,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const editDetailsForm = document.getElementById("editDetailsForm");
     if (editDetailsForm) {
         editDetailsForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            window.location.href = `/profile`;
+            const usernameInput = document.getElementById("userName");
+            const newUsername = usernameInput ? usernameInput.value : "";
+            window.location.href = `/profile/${encodeURIComponent(newUsername)}`;
         });
     }
 });

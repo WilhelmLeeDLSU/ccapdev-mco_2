@@ -242,7 +242,6 @@ module.exports.add = function(server) {
     
     //edit profile
     server.get('/editprofile/:username', async function(req, resp){
-        //const currentuser = req.query.currentuser || null;
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
@@ -253,7 +252,29 @@ module.exports.add = function(server) {
             title: 'Edit Profile',
             pfp: user.pfp,
             username: user.username,
-            //currentuser: currentuser,
+            profileName: user.profileName,
+            bio: user.bio,
         });
+    });
+
+    server.post('/editprofile/:username', async function(req, resp){
+        const { profileName, username, bio } = req.body;
+
+        const user = await User.findOne({ username: req.params.username });
+        if (!user) {
+            return resp.status(404).send("User not found");
+        }
+
+        user.profileName = profileName;
+        user.username = username;
+        user.bio = bio;
+
+        await user.save();
+
+        if (req.session.user && req.session.user.username === req.params.username) { //update session
+            req.session.user.username = username;
+        }
+
+        return resp.redirect(`/profile/${username}`);
     });
 }
