@@ -21,7 +21,6 @@ server.engine('hbs', handlebars.engine({
 
 //mongoose
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
 
 //cookies
 const cookieParser = require('cookie-parser');
@@ -44,35 +43,45 @@ server.use(express.static('public'));
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Import models/schema
-const User = require('./models/userModel');
-const Post = require('./models/postModel');
-const Community = require('./models/communityModel');
-const Reply = require('./models/replyModel');
+async function startApp() {
+    try {
+        await mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
 
-const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes']; //controller names array
+        const User = require('./models/userModel');
+        const Post = require('./models/postModel');
+        const Community = require('./models/communityModel');
+        const Reply = require('./models/replyModel');
 
-server.use( async function(req, resp, next) {
-    const currentuser = req.session.user?.username || null;
-    let userData = null;
+        const controllers = ['mainRoutes', 'profileRoutes', 'loginRoutes']; //controller names array
 
-    if (currentuser) {
-        userData = await User.findOne({ username: currentuser }).lean();
-    } //if currentuser is not null, find the user data
+        server.use( async function(req, resp, next) {
+            const currentuser = req.session.user?.username || null;
+            let userData = null;
 
-    resp.locals.currentuser = currentuser; //set the currentuser to the response locals
-    resp.locals.isAuthenticated = !!currentuser; //true if currentuser is not null
-    resp.locals.pfp = userData ? userData.pfp : "/common/defaultpfp.png";
-    resp.locals.currentUserPfp = userData ? userData.pfp : "/common/defaultpfp.png";
+            if (currentuser) {
+                userData = await User.findOne({ username: currentuser }).lean();
+            } //if currentuser is not null, find the user data
 
-    next();
-});
+            resp.locals.currentuser = currentuser; //set the currentuser to the response locals
+            resp.locals.isAuthenticated = !!currentuser; //true if currentuser is not null
+            resp.locals.pfp = userData ? userData.pfp : "/common/defaultpfp.png";
+            resp.locals.currentUserPfp = userData ? userData.pfp : "/common/defaultpfp.png";
 
-controllers.forEach(function(controllerName){
-    const controller = require('./controllers/' + controllerName);
-    controller.add(server);
-}); //loop through the controllers array and require each controller
+            next();
+        });
 
-const port = process.env.PORT || 3000;
-server.listen(port, function(){
-    console.log('Listening at port '+port);
-});
+        controllers.forEach(function(controllerName){
+            const controller = require('./controllers/' + controllerName);
+            controller.add(server);
+        }); //loop through the controllers array and require each controller
+
+        const port = process.env.PORT || 3000;
+        server.listen(port, function(){
+            console.log('Listening at port '+port);
+        });
+    } catch (error) {
+        console.error("Failed to start app:", error);
+    }
+}
+
+startApp();

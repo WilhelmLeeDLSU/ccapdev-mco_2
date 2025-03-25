@@ -13,7 +13,6 @@ module.exports.add = function(server) {
         try {
             const { username, password } = req.body;
             const user = await User.findOne({ username });
-            console.log("User password:", user?.password);
 
             if(!user) {
                 return resp.status(401).send("Invalid username or password");
