@@ -56,8 +56,7 @@ module.exports.add = function(server) {
                 title: 'Home',
                 selNav: 'main',
                 posts: builtPosts,
-                communities: communities,
-                //currentuser: req.query.currentuser || null
+                communities: communities
             });
     
         } catch (error) {
@@ -93,8 +92,7 @@ module.exports.add = function(server) {
                 title: 'Explore',
                 selNav: 'explore',
                 posts: builtPosts,
-                communities: communities,
-                //currentuser: req.query.currentuser || null
+                communities: communities
             });
     
         } catch (error) {
@@ -107,7 +105,6 @@ module.exports.add = function(server) {
         try {
             const searchQuery = req.query.searchBar || ""; 
             const selectedCommunity = req.query.community || "";
-            //const currentUser = req.query.currentuser || null;
     
             let filter = {};
     
@@ -151,7 +148,6 @@ module.exports.add = function(server) {
                 selNav: 'explore',
                 posts: builtPosts,
                 communities: communities,
-                //currentuser: currentUser,
                 query: req.query
             });
     
@@ -165,7 +161,6 @@ module.exports.add = function(server) {
         try {
             const searchQuery = req.query.searchBar || ""; 
             const selectedCommunity = req.query.community || "";
-            //const currentUser = req.query.currentuser || null;
     
             let filter = {};
     
@@ -209,7 +204,6 @@ module.exports.add = function(server) {
                 selNav: 'explore',
                 posts: builtPosts,
                 communities: communities,
-                //currentuser: currentUser,
                 query: req.query
             });
     
@@ -220,11 +214,6 @@ module.exports.add = function(server) {
     });
 
     server.get('/newpost', requireAuth, async function(req, resp){
-        //const currentuser = req.query.currentuser || null;
-
-        //if (!currentuser) {
-        //    return resp.redirect('/login');
-        //}
 
         const communities = await Community.find().lean();
 
@@ -232,13 +221,11 @@ module.exports.add = function(server) {
             layout: 'index',
             title: 'New Post',
             selNav: 'newpost',
-            communities: communities,
-            //currentuser: req.query.currentuser || null
+            communities: communities
         });
     });
     
     server.post('/newpost', async function(req, resp) {
-        //const currentUser = req.query.currentuser || null;
     
         try {
             const { postTitle, postDesc, postCommunity } = req.body;
@@ -300,7 +287,6 @@ module.exports.add = function(server) {
                 selNav: 'popular',
                 posts: builtPosts,
                 communities: communities,
-                //currentuser: req.query.currentuser || null
             });
     
         } catch (error) {
@@ -344,8 +330,7 @@ module.exports.add = function(server) {
             selNav: 'community',
             communityName: community.name,
             posts: builtPosts,
-            communities: communities,
-            //currentuser: req.query.currentuser || null
+            communities: communities
         });
 
     });

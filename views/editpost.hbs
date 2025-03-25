@@ -3,15 +3,15 @@
     {{> navbar}}
     <profile>
         <div class="editPostContainer">
-            <form class="editPost" id="editForm" method="POST">
+            <form class="editPost" id="editForm" method="POST" action="/profile/{{posteruser}}/post/{{postid}}/edit">
                 <span class="pageHeader">Edit your post</span>
-                <input class="postTitle" name="postTitle" type="text" placeholder="{{post.title}}" required>
-                <textarea class="postDesc" name="postDesc" id="postDesc" placeholder="{{post.content}}"></textarea>
+                <input class="postTitle" name="postTitle" value="{{post.title}}" type="text" required>
+                <textarea class="postDesc" name="postDesc" id="postDesc">{{post.content}}</textarea>
 
                 <footer>
-                    <select class="postSelect" name="postCommunity" id="postCommunity">
+                    <select class="postSelect" name="community" id="postCommunity">
                         {{#each communities}}
-                        <option value="{{_id}}">{{name}}</option>
+                            <option value="{{_id}}" {{#if (eq _id ../post.community._id)}}selected{{/if}}>{{name}}</option>
                         {{/each}}
                     </select>
                     <input id="postButton" type="submit" value="Post"> 

@@ -48,21 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-    const editForm = document.getElementById("editForm");
-    if (editForm) {
-        editForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            window.location.href = `/`;
-        });
-    }
-
-    const editReplyForm = document.getElementById("editReplyForm");
-    if (editReplyForm) {
-        editReplyForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            window.location.href = `/`;
-        });
-    }
 
     const postForm = document.getElementById("postForm");
     if (postForm) {
