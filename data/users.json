@@ -16,7 +16,7 @@
   "username": "f1_fanatic",
   "profileName": "RacingFan55",
   "email": "johnjohnjohn@email.com",
-  "password": "pastry",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Y+feSCjP24mgA4K0zr738w$lQnWGzAIwkx5QsiF7FhaAG0fSXYuKJD4HtjLYI76L0g",
   "bio": "MCL",
   "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp"
 },
@@ -27,7 +27,7 @@
   "username": "uni_survivor",
   "profileName": "StudentLife23",
   "email": "iloveschool@email.com",
-  "password": "nerd",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$5c+GQ164iYZs5aNyiNLTOQ$7rWhwf2pf5BvZCgc0SYb32tu0WKSZEehhTbokZ9cjeQ",
   "bio": "UCLA",
   "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg"
 },
@@ -38,7 +38,7 @@
   "username": "cinema_geek",
   "profileName": "MovieBuff77",
   "email": "anora@email.com",
-  "password": "notoemiliaperez",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$SuBOjErWUFZXeL7KySPHqw$Xr3o4snpXrq5Yv/Bn1rKGUlMQGmj5whiFzZ2Kr32W3g",
   "bio": "Wicked Lover",
   "pfp": "https://www.cia-france.com/media/1492/les-films-incontournables-du-cinema-w_2524x884.jpg"
 },
@@ -49,7 +49,7 @@
   "username": "prancing_horse",
   "profileName": "ScuderiaFan",
   "email": "forzaferrari@email.com",
-  "password": "leclercsainz",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$EBYrZvk7OPFvYU0SsRzzJQ$6LJ0GG2CbVJ8TBmVFZ+9gvuUhJacswWwykW0V+talfU",
   "bio": "FORZA",
   "pfp": "https://play-lh.googleusercontent.com/AFTR5qCcA2rTeEJTeQr4RcFelF7r1sJUnJTvo2lABGTR4SF774vcozga636nqzEGLk0"
 },
@@ -60,7 +60,7 @@
   "username": "meme_professor",
   "profileName": "CampusJoker",
   "email": "imfunny@email.com",
-  "password": "peoplelaughing",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$IxPfEYB3xyLB6k3NrJxpJw$9GHPXd+Z6+D8qSiubSF8lPDEkaDZ0RVn9o0gwpeiNUY",
   "bio": "Knock Knock",
   "pfp": "https://bluemoji.io/cdn-proxy/646218c67da47160c64a84d5/66b3e5fbd9bbb8343a2928d0_82.png"
 },
@@ -71,7 +71,7 @@
   "username": "tech_guru",
   "profileName": "TechMaster",
   "email": "techguru@email.com",
-  "password": "securepassword123",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$UubgryMhg4enOEtoA7r6zg$useiAnZdzBD7jdCY1132f++ra6SiQCw1iyusOWAOjok",
   "bio": ""
 },
 {
@@ -81,7 +81,7 @@
   "username": "nature_lover",
   "profileName": "GreenThumb",
   "email": "naturelover@email.com",
-  "password": "plantsarelife",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$o25BKbJcB7sNfvFyG400UA$S0kvnqBGvbPx4cuLFYk0QTgzOw7RAbvjzPs0MA7UHmA",
   "bio": ""
 },
 {
@@ -91,7 +91,7 @@
   "username": "bookworm",
   "profileName": "PageTurner",
   "email": "bookworm@email.com",
-  "password": "readingisfun",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$MpGBnDlLiTQ/RVDP8vrxHg$fOE/1GrKX9v7cb/tFxj3vrmYlgN1FZyVgx+9tiNDm8M",
   "bio": ""
 },
 {
@@ -101,7 +101,7 @@
   "username": "fitness_freak",
   "profileName": "GymRat",
   "email": "fitnessfreak@email.com",
-  "password": "workoutdaily",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$oqT/4unVrNrwn4C1z7P72Q$JDY8GAH8mYRnARITugO/a0lNiDC8ezGB1mzUHp42irE",
   "bio": ""
 },
 {
@@ -111,7 +111,7 @@
   "username": "foodie",
   "profileName": "ChefMaster",
   "email": "foodie@email.com",
-  "password": "ilovefood",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$uNjTRU1dP67l81X1vnxdjw$imaNYp6lX/2a36gRUKq6Q3rctRJ8bV+dk7uiK8T1Y7Y",
   "bio": ""
 },
 {
@@ -121,7 +121,7 @@
   "username": "travel_bug",
   "profileName": "Wanderlust",
   "email": "travelbug@email.com",
-  "password": "exploretheworld",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$vugcGxvUbLInyHdl9wFxwg$aWJSmURzk6aQmktW+eCBiTXFxgi+zIewEKm+djPR/h8",
   "bio": ""
 },
 {
@@ -131,7 +131,7 @@
   "username": "music_lover",
   "profileName": "MelodyMaker",
   "email": "musiclover@email.com",
-  "password": "ilovemusic",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$se+p7JnDAES68ha+X4yhxw$qOnbXNsim1Bq2xnjxSaLpb1lJWho3M5zc6Mx9LhThOE",
   "bio": ""
 },
 {
@@ -141,7 +141,7 @@
   "username": "art_fanatic",
   "profileName": "ArtisticSoul",
   "email": "artfanatic@email.com",
-  "password": "creativity",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$BDj0CSncCy0PuU/FEw+Adw$jYnMNauEtKAfeWuGGZd2BTy8362rAI/PiZnbw6rGq8k",
   "bio": ""
 },
 {
@@ -151,7 +151,7 @@
   "username": "sports_fan",
   "profileName": "Athlete",
   "email": "sportsfan@email.com",
-  "password": "gameon",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Z0ir2n0lWX+oe1wJQCRwqA$gHUOKOYr47ZoIQs+USuy7D8J0WPPxs8aQbXhzeBBZIA",
   "bio": ""
 },
 {
@@ -161,7 +161,7 @@
   "username": "movie_buff",
   "profileName": "FilmCritic",
   "email": "moviebuff@email.com",
-  "password": "cinemalover",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$CRWirgCxBTf2+eDtNc6+qw$lelMc9sct0y6vUuqX+tsgq860So1C7DnRURRjqMkB1k",
   "bio": ""
 },
 {
@@ -171,7 +171,7 @@
   "username": "history_buff",
   "profileName": "Historian",
   "email": "historybuff@email.com",
-  "password": "pastisfascinating",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$3DD0YBIUt05rJUOc5DDXRg$u/0OAdJVQsyBMdGEKc1tcfwTu2Yq+fF6BpqmWwkqVhg",
   "bio": ""
 },
 {
@@ -181,7 +181,7 @@
   "username": "science_geek",
   "profileName": "ScienceNerd",
   "email": "sciencegeek@email.com",
-  "password": "ilovescience",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$tdp3+ISlbzkwIyw4u2C6Ng$+z7N+WnJfb4ibfELpDhJmSpssgvMCBO03zrOEQ74FxI",
   "bio": ""
 },
 {
@@ -191,7 +191,7 @@
   "username": "fashionista",
   "profileName": "StyleIcon",
   "email": "fashionista@email.com",
-  "password": "fashionlover",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$ox25GVO8f+tRL42dViqUeQ$7QXxTk/UIG91yHClEOo/cW1/6O2OgOkEpEzQ2gkl9CQ",
   "bio": ""
 },
 {
@@ -201,7 +201,7 @@
   "username": "gamer",
   "profileName": "GameMaster",
   "email": "gamer@email.com",
-  "password": "gamingislife",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$i8WrORJzumy8ITy0HDT/rQ$P2mub1mVlTAIB8ztYbK7NBU3rSsYjK3lTl5xNzqILF0",
   "bio": ""
 },
 {
@@ -211,7 +211,7 @@
   "username": "photographer",
   "profileName": "Shutterbug",
   "email": "photographer@email.com",
-  "password": "capturingmoments",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Vr0sb1v8g5VGgZTorpQYoQ$y5nsTNbcKs9zO81o/ei0725G6cUjo8hCbWY0JAo0P9c",
   "bio": ""
 },
 {
@@ -221,7 +221,7 @@
   "username": "animal_lover",
   "profileName": "PetLover",
   "email": "animallover@email.com",
-  "password": "ilovepets",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$ZRWq9P/AwyU1lElDWk+lXQ$colT7rTgqokzngAhOfEVN8KWtQcFJ0nTboDhVel7JjA",
   "bio": ""
 },
 {
@@ -231,7 +231,7 @@
   "username": "car_enthusiast",
   "profileName": "CarLover",
   "email": "carenthusiast@email.com",
-  "password": "vroomvroom",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$tgYCfqaL7kQMPUNmurvvww$64kLVAM6C3RnEwflGO1dcg0SEMAVl7L0r7XRydEw4Bw",
   "bio": ""
 },
 {
@@ -241,7 +241,7 @@
   "username": "diy_expert",
   "profileName": "CraftMaster",
   "email": "diyexpert@email.com",
-  "password": "handmade",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$6zKHgEHB/CAZRnGSgcLOLw$d2OkRxgix49G48n81okgGL9RT9Tx0z5G7eMCouU1aEQ",
   "bio": ""
 },
 {
@@ -251,7 +251,7 @@
   "username": "gardener",
   "profileName": "PlantLover",
   "email": "gardener@email.com",
-  "password": "greenfingers",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$AFscP8YcPJ6r0ItMHCfYjQ$9nRQaJHDWXkXOawatdC8L7S4F6w5zZntYO7RtqKExGM",
   "bio": ""
 },
 {
@@ -261,7 +261,7 @@
   "username": "tech_enthusiast",
   "profileName": "GadgetGuru",
   "email": "techenthusiast@email.com",
-  "password": "techsavvy",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$VISKAzEVwHuVpUTzs0QQKg$fnvu/PKDLxGhQvD9BJ81qBC4twV071fwzFxa+LyDPH8",
   "bio": ""
 },
 {
@@ -271,7 +271,7 @@
   "username": "fitness_guru",
   "profileName": "HealthNut",
   "email": "fitnessguru@email.com",
-  "password": "fitlife",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$or7JXotK/7+6Fxa6X2errg$1sWV2SydcGaU05+N9SOPijAziD1+19B1y3NJ/an7LQ8",
   "bio": ""
 },
 {
@@ -281,7 +281,7 @@
   "username": "movie_critic",
   "profileName": "FilmBuff",
   "email": "moviecritic@email.com",
-  "password": "moviereviews",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Dox9bsyX4gF0xGiKhcyIKg$I6NDdQkWxS74E4Oqu9r7EKv66FHRI9ZFVgMs1fa3GX0",
   "bio": ""
 },
 {
@@ -291,7 +291,7 @@
   "username": "history_lover",
   "profileName": "HistoryBuff",
   "email": "historylover@email.com",
-  "password": "historyrocks",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$ADoaaFV/vs32snCRvcMWxQ$a6UoGR3YGL+/ax6bhALzAoDV4UFl4Zdrjc0OieI1btE",
   "bio": ""
 },
 {
@@ -301,7 +301,7 @@
   "username": "science_lover",
   "profileName": "ScienceBuff",
   "email": "sciencelover@email.com",
-  "password": "scienceisfun",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$uIn4C55lflHsPHmp88dQdg$coTC2EkrLQYRXQKF892p5TV0iNvdtiLBG6QVwuiB6og",
   "bio": ""
 },
 {
@@ -311,7 +311,7 @@
   "username": "fashion_guru",
   "profileName": "FashionBuff",
   "email": "fashionguru@email.com",
-  "password": "fashionista",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$5jHxw0LEoNEvXgeik+JAlQ$VxFWXRIDDuu77UBoeWSBntKyis8vdXNf6eZE8/m1VEE",
   "bio": ""
 },
 {
@@ -321,7 +321,7 @@
   "username": "gamer_guru",
   "profileName": "GameBuff",
   "email": "gamerguru@email.com",
-  "password": "gamingpro",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$CAAYudFGFPsjYkeqBZoVDg$jVKYbeykbkfU5gW81d3R8fqp36/nbI0OstvVSsuOSOU",
   "bio": ""
 },
 {
@@ -331,7 +331,7 @@
   "username": "photo_enthusiast",
   "profileName": "PhotoBuff",
   "email": "photoenthusiast@email.com",
-  "password": "photography",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$31CzTSi0jtPORYFPqfd3mw$MdEOiMkOHYCZ6AgvdL0LBWPCUXjfCOH5F14GEVpR0pI",
   "bio": ""
 },
 {
@@ -341,7 +341,7 @@
   "username": "animal_fanatic",
   "profileName": "AnimalBuff",
   "email": "animalfanatic@email.com",
-  "password": "animalcrazy",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$vYHXmcEwQMKJyuC4sKxvlA$1IY22jKivFn8dyIoU8vRzwAZGhPlDA7xGEP6j3UWi/g",
   "bio": ""
 },
 {
@@ -351,7 +351,7 @@
   "username": "car_fanatic",
   "profileName": "CarBuff",
   "email": "carfanatic@email.com",
-  "password": "carcrazy",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$qZNUXc17wN6d6YN63hJoZQ$KKf7hLHRu1p2qu/avmvsL1Epo0pWCPpo5/nYPFnzBV4",
   "bio": ""
 },
 {
@@ -361,7 +361,7 @@
   "username": "diy_fanatic",
   "profileName": "DIYBuff",
   "email": "diyfanatic@email.com",
-  "password": "diycrazy",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$YKCcGbsCw4v5nxhFv7ZJKw$k7YgB1AeybYy4tkd8dsO7+ACr+hicIpFYvzfoYFkzX8",
   "bio": ""
 },
 {
@@ -371,6 +371,16 @@
   "username": "garden_guru",
   "profileName": "GardenBuff",
   "email": "gardenguru@email.com",
-  "password": "gardening",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$HBRWP+Oj64seUGbflQrj0w$hBGaMl+5l8tGwW8LZ6K+uM2zEfYGjjBGQ2dKXSmXnBc",
+  "bio": ""
+},
+{
+  "_id": {
+    "$oid": "67e28b69e660adc17e6d3a7b"
+  },
+  "username": "Luca",
+  "profileName": "Luca1",
+  "email": "luca@mail.com",
+  "password": "$argon2id$v=19$m=65536,t=3,p=4$Y1tSQC0DYykVogV1M7dXyw$yWBp5O9WAiFyUucaxyakz8tH14iwFSY3t+3d+nz9dYo",
   "bio": ""
 }]
