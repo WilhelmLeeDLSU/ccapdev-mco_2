@@ -71,6 +71,7 @@ function buildReply(reply) {
         content: reply.content,
         upvotes: reply.upvotes,
         downvotes: reply.downvotes,
+        isEdited: reply.isEdited
     };
 }
 

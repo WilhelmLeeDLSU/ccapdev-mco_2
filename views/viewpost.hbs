@@ -13,7 +13,7 @@
             {{> post}}
             <!-- post reply -->
             <div class="postAReply">
-                <form class="makeReply" id="replyForm" action="/profile/{{author.username}}/post/{{_id}}" method="POST">
+                <form class="makeReply" id="replyForm" action="/reply/{{author.username}}/{{_id}}" method="POST">
                     <input type="text" name="replyText" placeholder="Post to reply...">
                     <input type="submit" value="Reply">
                 </form>

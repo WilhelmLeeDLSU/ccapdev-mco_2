@@ -3,7 +3,7 @@
     {{> navbar}}
     <profile>
         <div class="editPostContainer">
-            <form class="editPost" id="editForm" method="POST" action="/profile/{{posteruser}}/post/{{postid}}/edit">
+            <form class="editPost" id="editForm" method="POST" action="/post/{{posteruser}}/{{postid}}/edit">
                 <span class="pageHeader">Edit your post</span>
                 <input class="postTitle" name="postTitle" value="{{post.title}}" type="text" required>
                 <textarea class="postDesc" name="postDesc" id="postDesc">{{post.content}}</textarea>

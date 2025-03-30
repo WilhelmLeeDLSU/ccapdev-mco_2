@@ -6,7 +6,8 @@ const replySchema = new mongoose.Schema({
     timeCreated: { type: Date, default: Date.now },
     content: { type: String, required: true },
     upvotes: { type: Number, default: 0 },
-    downvotes: { type: Number, default: 0 }
+    downvotes: { type: Number, default: 0 },
+    isEdited: { type: Boolean, default: false }
 }, { versionKey: false });
 
 // get the time diff

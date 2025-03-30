@@ -3,7 +3,7 @@
     {{> navbar}}
     <profile>
         <div class="editReplyContainer">
-            <form class="editReply" id="editReplyForm" method="POST" action="/profile/{{posteruser}}/reply/{{repid}}/edit">
+            <form class="editReply" id="editReplyForm" method="POST" action="/reply/{{posteruser}}/{{repid}}/edit">
                 <span class="pageHeader">Edit your reply</span>
                 <textarea class="replyDesc" name="replyDesc" id="replyDesc" required>{{reply.content}}</textarea>
                 <footer>

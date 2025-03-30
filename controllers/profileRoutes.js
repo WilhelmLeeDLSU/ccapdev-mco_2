@@ -123,7 +123,7 @@ module.exports.add = function(server) {
     });
 
     // URL: /profile/<username>/post<postid>
-    server.get('/profile/:posteruser/post/:postid', async (req, resp) => {
+    server.get('/post/:posteruser/:postid', async (req, resp) => {
         try {
             const { posteruser, postid } = req.params;
     
@@ -179,7 +179,7 @@ module.exports.add = function(server) {
     });
     
     // Add a reply
-    server.post('/profile/:posteruser/post/:postid', async (req, resp) => {
+    server.post('/reply/:posteruser/:postid', async (req, resp) => {
         try{
             console.log("Received POST request to reply:");
             const { posteruser, postid } = req.params;
@@ -208,7 +208,7 @@ module.exports.add = function(server) {
 
             console.log("New reply added:", newReply);
 
-            resp.redirect(`/profile/${posteruser}/post/${postid}`);
+            resp.redirect(`/post/${posteruser}/${postid}`);
         } catch (error) {
             console.error("Error adding reply:", error);
             resp.status(500).send("Internal Server Error");
@@ -251,7 +251,8 @@ module.exports.add = function(server) {
         });
     });
 
-    server.post('/profile/:posteruser/post/:postid/edit', async function(req, resp){
+    //Edit post
+    server.post('/post/:posteruser/:postid/edit', async function(req, resp){
        try{
             const { postTitle, postDesc, community } = req.body;
             const { posteruser, postid } = req.params;
@@ -282,7 +283,7 @@ module.exports.add = function(server) {
 
             await post.save();
             console.log("Edited Post: ", post);
-            return resp.redirect(`/profile/${posteruser}/post/${postid}`);
+            return resp.redirect(`/post/${posteruser}/${postid}`);
        } catch (error) {
         console.error("Error updating post:", error);
         resp.status(500).send("Internal Server Error");
@@ -314,33 +315,34 @@ module.exports.add = function(server) {
         });
     });
 
-    server.post('/profile/:posteruser/reply/:repid/edit', async function(req, resp){
+    //Edit reply
+    server.post('/reply/:posteruser/:repid/edit', async function(req, resp) {
         const { replyDesc } = req.body;
         const { posteruser, repid } = req.params;
-
+    
         const reply = await Reply.findById(repid);
         if (!reply) {
-            return resp.status(404).send("Post not found");
+            return resp.status(404).send("Reply not found");
         }
-
-        const post = await Post.findById(reply.post);
+    
+        const post = await Post.findById(reply.post).populate("author", "username");
         if (!post) {
             return resp.status(404).send("Associated post not found");
         }
 
-        const ogUpvotes = post.upvotes;
-
-        const populatedPost = await post.populate("author", "username");
-        const postid = post._id;
-        const postAuthorUsername = populatedPost.author.username;
-
+        const ogUpvotes = reply.upvotes;
+    
         reply.content = replyDesc;
-
+        reply.isEdited = true; 
         await reply.save();
 
-        console.log("Redirecting to:", `/profile/${postAuthorUsername}/post/${postid}`);
-        return resp.redirect(`/profile/${postAuthorUsername}/post/${postid}`);
+        const postAuthorUsername = post.author.username;
+        const postid = post._id;
+    
+        console.log("Redirecting to:", `/post/${postAuthorUsername}/${postid}`);
+        return resp.redirect(`/post/${postAuthorUsername}/${postid}`);
     });
+    
     
     //edit profile
     server.get('/editprofile/:username', async function(req, resp){
