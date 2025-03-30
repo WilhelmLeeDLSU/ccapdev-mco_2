@@ -362,7 +362,9 @@ module.exports.add = function(server) {
     });
 
     server.post('/editprofile/:username', async function(req, resp){
-        const { profileName, username, bio } = req.body;
+        const { profileName, username, bio, pfp} = req.body;
+
+        console.log("Received pfp:", pfp);
 
         const user = await User.findOne({ username: req.params.username });
         if (!user) {
@@ -373,7 +375,12 @@ module.exports.add = function(server) {
         user.username = username;
         user.bio = bio;
 
+        if (pfp && pfp.trim() !== "") {
+            user.pfp = pfp;
+        }
+
         await user.save();
+        console.log(user);
 
         if (req.session.user && req.session.user.username === req.params.username) { //update session
             req.session.user.username = username;

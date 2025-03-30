@@ -10,20 +10,24 @@
                 <h3>Edit Profile</h3>
             </div>
             <div class="editPfp">
-                <img class="pfp" src={{pfp}} alt="pfp" />
-                <p><span>edit profile picture</span></p>
+                <img class="pfp" src="{{pfp}}" alt="Profile Picture" id="pfpPreview">
+                <p id="editPfpText"><span>edit profile picture</span></p>       
             </div>
+
             <form class="editDetails" id="editDetailsForm" method="POST" action="/editprofile/{{username}}">
+                <input type="text" id="pfpInput" name="pfp" value="{{pfp}}" placeholder="Paste image URL here" style="display: none;">
+                
                 <h4>Profile Name</h4>
                 <input type="text" id="profileName" name="profileName" value="{{profileName}}" placeholder="Profile Name">
                 <h4>Username</h4>
                 <input type="text" id="userName" name="username" value="{{username}}" placeholder="Username">
                 <h4>Bio</h4>
                 <input type="text" id="bio" name="bio" value="{{bio}}" placeholder="Bio">
+                
                 <input id="postButton" type="submit" value="Submit"> 
             </form>
         </div>
     </profile>
-</body>
 
-<script src="/js/dropdown.js"></script>
+    <script src="/js/dropdown.js"></script>
+</body>

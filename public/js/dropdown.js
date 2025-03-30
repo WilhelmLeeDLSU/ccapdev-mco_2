@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ Profile Dropdown
     const containers = document.querySelectorAll(".profile-container");
     console.log("Found containers:", containers.length);
 
@@ -24,10 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
+});
 
+document.addEventListener("DOMContentLoaded", function () {
     const searchForm = document.getElementById("searchForm");
     const searchBar = document.querySelector(".searchBar");
     const communityDropdown = document.querySelector(".communityDropdown");
+
     if (searchForm) {
         searchForm.addEventListener("submit", function (event) {
             event.preventDefault();
@@ -36,27 +38,30 @@ document.addEventListener("DOMContentLoaded", function () {
             const selectedCommunity = communityDropdown?.value || "";
 
             const queryParams = new URLSearchParams();
+
             if (searchQuery) queryParams.append("searchBar", searchQuery);
             if (selectedCommunity) queryParams.append("community", selectedCommunity);
 
             window.location.href = `/explore/results?${queryParams.toString()}`;
         });
     }
+});
 
+document.addEventListener("DOMContentLoaded", function () {
 
-    // ✅ Edit Profile
     const editDetailsForm = document.getElementById("editDetailsForm");
     if (editDetailsForm) {
         editDetailsForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // ✅ Prevent default form submission
             const usernameInput = document.getElementById("userName");
             const newUsername = usernameInput ? usernameInput.value : "";
             window.location.href = `/profile/${encodeURIComponent(newUsername)}`;
         });
     }
+});
 
-    // ✅ Delete Buttons
+document.addEventListener("DOMContentLoaded", function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
+
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -66,7 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fetch(url, {
                 method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
             .then(response => response.json())
             .then(data => {
@@ -83,5 +90,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = `/`;
             });
         });
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const pfpInput = document.getElementById("pfpInput");
+    const pfpPreview = document.getElementById("pfpPreview");
+    const editPfpText = document.getElementById("editPfpText");
+
+    pfpPreview.addEventListener("click", showPfpInput);
+    editPfpText.addEventListener("click", showPfpInput);
+
+    function showPfpInput() {
+        pfpInput.style.display = "block"; 
+        pfpInput.focus(); 
+    }
+
+    pfpInput.addEventListener("input", function () {
+        const newPfpUrl = pfpInput.value.trim();
+        if (newPfpUrl) {
+            pfpPreview.src = newPfpUrl;
+        } else {
+            pfpPreview.src = "https://cdn.pfps.gg/pfps/2301-default-2.png"; 
+        }
+    });
+
+    document.addEventListener("click", function (event) {
+        if (event.target !== pfpInput && event.target !== pfpPreview && event.target !== editPfpText) {
+            pfpInput.style.display = "none"; 
+        }
     });
 });
