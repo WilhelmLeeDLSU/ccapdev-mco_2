@@ -6,8 +6,9 @@ const postSchema = new mongoose.Schema({
     community: { type: mongoose.Schema.Types.ObjectId, ref: 'community', required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    upvotes: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
+    upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     downvotes: { type: Number, default: 0 },
+    isEdited: { type: Boolean, default: false }
 }, { versionKey: false });
 
 // get the time diff

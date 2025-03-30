@@ -977,6 +977,11 @@ profile > .profileContainer {
     transition: transform 0.2s, background-color 0.3s ease;
 }
 
+.edited-label {
+    color: gray;
+    font-style: italic;
+}
+
 .post:hover {
     transform: translateY(-2px);
     cursor: pointer;
@@ -1204,18 +1209,24 @@ body.mainPage > aside {
     margin-top: 20px;
     margin-left: 50px;
     margin-bottom: 10px;
-    gap: 10px;
 }
 
-.postAReply > input {
+.makeReply {
+    display: flex;
+    width: 100%;
+    
+}
+
+.makeReply > input[type="text"]{
     background-color: #f6f6f6;
     border-radius: 20px;
     border: none;
     flex-grow: 1;
     padding: 8px;
+    width: 70%;
 }
 
-.postAReply > button {
+.makeReply > input[type="submit"] {
     background-color: #545454;
     border-radius: 20px;
     color: white;

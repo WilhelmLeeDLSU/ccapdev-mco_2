@@ -13,8 +13,10 @@
             {{> post}}
             <!-- post reply -->
             <div class="postAReply">
-                <input type="text" placeholder="Post to reply...">
-                <button type="submit">Reply</button>
+                <form class="makeReply" id="replyForm" action="/profile/{{author.username}}/post/{{_id}}" method="POST">
+                    <input type="text" name="replyText" placeholder="Post to reply...">
+                    <input type="submit" value="Reply">
+                </form>
             </div>
             <!-- replies-->
             {{#each repliesToPost}}

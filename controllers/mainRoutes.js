@@ -34,6 +34,7 @@ module.exports.add = function(server) {
             const posts = await Post.find()
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color ")
+                .sort({ timeCreated: -1 })
                 .lean();
 
             const replies = await Reply.find({}, 'post').lean();
@@ -214,7 +215,6 @@ module.exports.add = function(server) {
     });
 
     server.get('/newpost', requireAuth, async function(req, resp){
-
         const communities = await Community.find().lean();
 
         resp.render('newpost',{
@@ -225,14 +225,17 @@ module.exports.add = function(server) {
         });
     });
     
-    server.post('/newpost', async function(req, resp) {
-    
+    // Add a new post
+    server.post('/newpost', requireAuth, async function(req, resp) {
         try {
             const { postTitle, postDesc, postCommunity } = req.body;
     
-            const user = await User.findOne({ username: currentUser }).lean();
+            const user = await User.findOne({ username: req.session.user?.username }).lean();
+            console.log("Session user:", req.session.user);
             const communityDoc = await Community.findOne({ _id: postCommunity }).lean();
-    
+            //const communityDoc = await Community.findById(mongoose.Types.ObjectId(postCommunity)).lean();
+
+
             if (!user || !communityDoc) {
                 return resp.status(400).send("Invalid user or community");
             }
@@ -249,14 +252,14 @@ module.exports.add = function(server) {
             });
     
             await newPost.save();
-    
+            console.log("Post Saved:", newPost);
             resp.redirect(`/`);
         } catch (error) {
             console.error("Error creating new post:", error);
             resp.status(500).send("Internal Server Error");
         }
     });
-
+    
     server.get('/popular', async function(req, resp){
         try {
             const posts = await Post.find({ 

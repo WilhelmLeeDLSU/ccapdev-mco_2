@@ -1,3 +1,4 @@
+const moment = require('moment'); 
 const User = require('../models/userModel');
 const Post = require('../models/postModel');
 const Community = require('../models/communityModel');
@@ -18,6 +19,7 @@ module.exports.add = function(server) {
         const userPosts = await Post.find({ author: user._id })
             .populate("author", "profileName username pfp")
             .populate("community", "name color")
+            .sort({ timeCreated: -1 })
             .lean();
             
         const replies = await Reply.find({}, 'post').lean();
@@ -61,6 +63,7 @@ module.exports.add = function(server) {
                 path: "post",
                 populate: { path: "author", select: "username" } 
             })
+            .sort({ timeCreated: -1 })
             .lean();
 
         const builtReplies = replies.map(reply => buildReply(reply));
@@ -90,6 +93,7 @@ module.exports.add = function(server) {
         const upvotedPosts = await Post.find({ upvotes: user._id })
             .populate("author", "profileName username pfp")
             .populate("community", "name color")
+            .sort({ timeCreated: -1 })
             .lean();
             
         const replies = await Reply.find({}, 'post').lean();
@@ -152,6 +156,7 @@ module.exports.add = function(server) {
                     path: "post",
                     populate: { path: "author", select: "username" } 
                 })
+                .sort({ timeCreated: -1 })
                 .lean();
                 
             const communities = await Community.find().lean();
@@ -173,6 +178,44 @@ module.exports.add = function(server) {
         }
     });
     
+    // Add a reply
+    server.post('/profile/:posteruser/post/:postid', async (req, resp) => {
+        try{
+            console.log("Received POST request to reply:");
+            const { posteruser, postid } = req.params;
+            const { replyText } = req.body;
+            const user = await User.findOne({ username: req.session.user?.username }).lean();
+
+            if (!user) {
+                return resp.status(401).send("Unauthorized. Please log in.");
+            }
+
+            const postExists = await Post.findById(postid);
+            if (!postExists) {
+                return resp.status(404).send("Post not found.");
+            }
+
+            const newReply = new Reply({
+                post: postid,
+                author: user._id,
+                timeCreated: moment().toDate(),
+                content: replyText,
+                upvotes: 0,
+                downvotes: 0,
+            });
+
+            await newReply.save();
+
+            console.log("New reply added:", newReply);
+
+            resp.redirect(`/profile/${posteruser}/post/${postid}`);
+        } catch (error) {
+            console.error("Error adding reply:", error);
+            resp.status(500).send("Internal Server Error");
+        }
+        
+
+    });
     // URL: /profile/<username>/post<postid>/edit
     server.get('/profile/:posteruser/post/:postid/edit', async function(req, resp){
         const { posteruser, postid } = req.params;
@@ -186,8 +229,13 @@ module.exports.add = function(server) {
             return resp.status(404).render('error', { message: "Post not found or doesn't belong to this user" });
         }
 
+        const user = await User.findOne({ username: req.session.user?.username }).lean();
+        if (!user || user._id.toString() !== postData.author._id.toString()) {
+            return resp.status(403).render('error', { message: "Unauthorized to edit this post" });
+        }
+
         const builtPost = buildPost(postData);
-        console.log(builtPost);
+        console.log("OG Post:", builtPost);
         const communities = await Community.find().lean();
 
         resp.render('editpost',{
@@ -204,24 +252,41 @@ module.exports.add = function(server) {
     });
 
     server.post('/profile/:posteruser/post/:postid/edit', async function(req, resp){
-        const { postTitle, postDesc, community } = req.body;
-        const { posteruser, postid } = req.params;
+       try{
+            const { postTitle, postDesc, community } = req.body;
+            const { posteruser, postid } = req.params;
 
-        const post = await Post.findById(postid);
-        if (!post) {
-            return resp.status(404).send("Post not found");
-        }
+            const post = await Post.findById(postid);
+            if (!post) {
+                return resp.status(404).send("Post not found");
+            }
 
-        const ogUpvotes = post.upvotes;
+            const user = await User.findOne({ username: req.session.user?.username }).lean();
+            if (!user || user._id.toString() !== post.author.toString()) {
+                return resp.status(403).send("Unauthorized to edit this post");
+            }
+            
+            const communityExists = await Community.findById(community);
+            if (!communityExists) {
+                return resp.status(400).send("Invalid community selected");
+            }
 
-        post.title = postTitle;
-        post.content = postDesc;
-        post.community = community;
-        post.upvotes = ogUpvotes
+            const ogUpvotes = post.upvotes;
 
-        await post.save();
+            post.title = postTitle;
+            post.content = postDesc;
+            post.community = community;
+            post.timeCreated = moment().toDate(),
+            post.upvotes = ogUpvotes
+            post.isEdited = true;
 
-        return resp.redirect(`/profile/${posteruser}/post/${postid}`);
+            await post.save();
+            console.log("Edited Post: ", post);
+            return resp.redirect(`/profile/${posteruser}/post/${postid}`);
+       } catch (error) {
+        console.error("Error updating post:", error);
+        resp.status(500).send("Internal Server Error");
+       }
     });
 
     // URL: /profile/<username>/reply<repid>/edit

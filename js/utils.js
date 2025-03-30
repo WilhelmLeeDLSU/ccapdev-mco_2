@@ -46,6 +46,7 @@ function buildPost(post) {
         upvotes: post.upvotes.length || 0,
         downvotes: post.downvotes || 0,
         replies: post.replyCount || 0,
+        isEdited: post.isEdited || false,
     };
 }
 

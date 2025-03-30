@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Profile Dropdown
     const containers = document.querySelectorAll(".profile-container");
     console.log("Found containers:", containers.length);
 
@@ -23,13 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const searchForm = document.getElementById("searchForm");
     const searchBar = document.querySelector(".searchBar");
     const communityDropdown = document.querySelector(".communityDropdown");
-
     if (searchForm) {
         searchForm.addEventListener("submit", function (event) {
             event.preventDefault();
@@ -38,38 +36,27 @@ document.addEventListener("DOMContentLoaded", function () {
             const selectedCommunity = communityDropdown?.value || "";
 
             const queryParams = new URLSearchParams();
-
             if (searchQuery) queryParams.append("searchBar", searchQuery);
             if (selectedCommunity) queryParams.append("community", selectedCommunity);
 
             window.location.href = `/explore/results?${queryParams.toString()}`;
         });
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    const postForm = document.getElementById("postForm");
-    if (postForm) {
-        postForm.addEventListener("submit", function (event) {
-            event.preventDefault();
-            window.location.href = `/`;
-        });
-    }
-
+    // ✅ Edit Profile
     const editDetailsForm = document.getElementById("editDetailsForm");
     if (editDetailsForm) {
         editDetailsForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // ✅ Prevent default form submission
             const usernameInput = document.getElementById("userName");
             const newUsername = usernameInput ? usernameInput.value : "";
             window.location.href = `/profile/${encodeURIComponent(newUsername)}`;
         });
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Delete Buttons
     const deleteButtons = document.querySelectorAll('.delete-btn');
-
     deleteButtons.forEach(button => {
         button.addEventListener('click', function (event) {
             event.preventDefault();
@@ -79,9 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fetch(url, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                headers: { 'Content-Type': 'application/json' }
             })
             .then(response => response.json())
             .then(data => {
