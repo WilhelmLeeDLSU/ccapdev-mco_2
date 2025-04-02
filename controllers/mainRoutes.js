@@ -466,7 +466,8 @@ module.exports.add = function(server) {
                 'moment',
                 'cookie-parser',
                 'express-session',
-                'argon2'
+                'argon2',
+                'dotenv'
             ]
         });
     });
