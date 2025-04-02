@@ -8,8 +8,7 @@ const postSchema = new mongoose.Schema({
     content: { type: String, required: true },
     upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     downvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
-    isEdited: { type: Boolean, default: false },
-    deleted: { type: Boolean, default: false } // 🔹 Add a flag for soft deletion
+    isEdited: { type: Boolean, default: false }
 }, { versionKey: false });
 
 // get the time diff

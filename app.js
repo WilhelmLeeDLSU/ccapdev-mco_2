@@ -6,9 +6,10 @@ const server = express();
 // cors
 const cors = require('cors');
 server.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-}));  
+    origin: '*', // Change to your frontend domain if needed
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 //body-parser
 const bodyParser = require('body-parser');

@@ -36,42 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Delete button logic
     const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+            const id = button.getAttribute('data-id');
+            const type = button.getAttribute('data-type');
+            const url = `/${type}/${id}`;
 
-deleteButtons.forEach(button => {
-    button.addEventListener('click', function (event) {
-        event.preventDefault();
-
-        const id = button.getAttribute('data-id');
-        const type = button.getAttribute('data-type');
-
-        // Construct URL based on type
-        const url = `/${type}/${id}/delete`; // Use POST request to mark as deleted
-
-        // Send POST request to update the "deleted" flag
-        fetch(url, {
-            method: 'POST', // Use POST to mark as deleted
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === `${type.charAt(0).toUpperCase() + type.slice(1)} marked as deleted`) {
-                alert(`${type.charAt(0).toUpperCase() + type.slice(1)} marked as deleted successfully`);
-                window.location.href = `/`; // Redirect after success
-            } else {
-                alert(`Error deleting ${type}: ${data.error}`);
-                window.location.href = `/`; // Redirect after error
-            }
-        })
-        .catch(error => {
-            alert(`Error: ${error}`);
-            window.location.href = `/`; // Redirect on error
+            fetch(url, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === `${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`) {
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} deleted successfully`);
+                    window.location.href = `/`;
+                } else {
+                    alert(`Error deleting ${type}: ${data.error}`);
+                    window.location.href = `/`;
+                }
+            })
+            .catch(error => {
+                alert(`Error: ${error}`);
+                window.location.href = `/`;
+            });
         });
     });
-});
-
-
 
     // Upvote button logic
     const upvoteButtons = document.querySelectorAll('.upvote-btn');
