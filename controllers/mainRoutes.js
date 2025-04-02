@@ -248,7 +248,7 @@ module.exports.add = function(server) {
                 community: communityDoc._id,
                 createdAt: moment().toDate(),
                 upvotes: [], // Array of user IDs
-                downvotes: 0, // Number of downvotes
+                downvotes:[], // Array of user IDs
                 replies: [] // Array of reply IDs
             });
     

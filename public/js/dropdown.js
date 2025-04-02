@@ -1,31 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const containers = document.querySelectorAll(".profile-container");
-    console.log("Found containers:", containers.length);
+    document.addEventListener("click", function (event) {
+        const trigger = event.target.closest(".profileDropdownTrigger");
+        const container = event.target.closest(".profile-container");
 
-    containers.forEach(container => {
-        const trigger = container.querySelector(".profileDropdownTrigger");
-        const dropdown = container.querySelector(".profileDropdown");
+        // Close all dropdowns first
+        document.querySelectorAll(".profileDropdown").forEach(dropdown => {
+            dropdown.classList.remove("active");
+        });
 
-        console.log("Trigger found:", !!trigger);
-        console.log("Dropdown found:", !!dropdown);
-
-        if (trigger && dropdown) {
-            trigger.addEventListener("click", function (event) {
-                console.log("Profile image clicked!");
+        // If a profile dropdown was clicked
+        if (trigger && container) {
+            const dropdown = container.querySelector(".profileDropdown");
+            if (dropdown) {
                 event.stopPropagation();
                 dropdown.classList.toggle("active");
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!container.contains(event.target)) {
-                    dropdown.classList.remove("active");
-                }
-            });
+            }
         }
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const searchForm = document.getElementById("searchForm");
     const searchBar = document.querySelector(".searchBar");
     const communityDropdown = document.querySelector(".communityDropdown");
@@ -45,9 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = `/explore/results?${queryParams.toString()}`;
         });
     }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
 
     const editDetailsForm = document.getElementById("editDetailsForm");
     if (editDetailsForm) {
@@ -57,9 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             window.location.href = `/profile/${encodeURIComponent(newUsername)}`;
         });
     }
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const deleteButtons = document.querySelectorAll('.delete-btn');
 
     deleteButtons.forEach(button => {
@@ -91,9 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
-});
 
-document.addEventListener("DOMContentLoaded", function () {
     const pfpInput = document.getElementById("pfpInput");
     const pfpPreview = document.getElementById("pfpPreview");
     const editPfpText = document.getElementById("editPfpText");
@@ -120,9 +105,10 @@ document.addEventListener("DOMContentLoaded", function () {
             pfpInput.style.display = "none"; 
         }
     });
+
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", function () {
     const upvoteButtons = document.querySelectorAll('.upvote-btn');
     const downvoteButtons = document.querySelectorAll('.downvote-btn');
 

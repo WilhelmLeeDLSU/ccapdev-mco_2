@@ -266,8 +266,8 @@ module.exports.add = function(server) {
                 author: user._id,
                 timeCreated: moment().toDate(),
                 content: replyText,
-                upvotes: 0,
-                downvotes: 0,
+                upvotes: [],
+                downvotes: [],
             });
 
             await newReply.save();
