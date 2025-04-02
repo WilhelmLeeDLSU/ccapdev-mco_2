@@ -9,33 +9,34 @@ module.exports.add = function(server) {
         });
     });
 
-    server.post('/login', async function(req, resp){
-        try {
-            const { username, password } = req.body;
-            const user = await User.findOne({ username });
+    server.post('/login', async function(req, resp) {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
 
-            if(!user) {
-                return resp.status(401).send("Invalid username or password");
-            }
-
-            const passwordMatch = await argon2.verify(user.password, password);
-            if (!passwordMatch) {
-                return resp.status(401).send("Invalid username or password");
-            }
-
-            console.log("User logged in:", user.username);
-            
-            req.session.user = {
-                username: user.username,
-                _id: user._id
-            };
-
-            resp.redirect(`/`);
-        } catch (error) {
-            console.error("Login error: ", error);
+        if (!user) {
+            return resp.status(401).json({ success: false, message: "Invalid username or password" });
         }
-    
-    });
+
+        const passwordMatch = await argon2.verify(user.password, password);
+        if (!passwordMatch) {
+            return resp.status(401).json({ success: false, message: "Invalid username or password" });
+        }
+
+        console.log("User logged in:", user.username);
+
+        req.session.user = {
+            username: user.username,
+            _id: user._id
+        };
+
+        resp.json({ success: true, redirectUrl: '/' });
+    } catch (error) {
+        console.error("Login error: ", error);
+        resp.status(500).json({ success: false, message: "Internal server error" });
+    }
+});
+
     
     server.get('/logout', function(req, res) {
         req.session.destroy(err => {

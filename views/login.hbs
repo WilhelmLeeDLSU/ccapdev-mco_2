@@ -3,19 +3,45 @@
     <div class="loginContainer">
         <img class="applogo" src="common/circle-logo.png" alt="logo">
         <h2>Log in to CLIQUE</h2>
-        <form class="loginDetails" action="/login" method="POST">
+        <form class="loginDetails" id="loginForm">
             <input required type="text" id="userName" name="username" placeholder="Username">
             <br>
             <input required type="password" id="passWord" name="password" placeholder="Password">
             <br>
             <div class="rememberMeContainer">
                 <input type="checkbox" id="rememberMe">
-            <label for="rememberMe">Remember me</label><br>
+                <label for="rememberMe">Remember me</label><br>
             </div>
             <br>
             <button type="submit"><b>Log in</b></button>
+            <p id="errorMessage" style="color: red; font-size:12px; display: none;"></p> <!-- Error message -->
         </form>
         <br>
-        <span>New to Clique?<a href="/register">Sign up</a></span>
+        <span>New to Clique? <a href="/register">Sign up</a></span>
     </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+
+            const username = document.getElementById("userName").value;
+            const password = document.getElementById("passWord").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            const response = await fetch("/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+                errorMessage.textContent = data.message; 
+                errorMessage.style.display = "block";
+            } else {
+                window.location.href = data.redirectUrl; 
+            }
+        });
+    </script>
 </body>
