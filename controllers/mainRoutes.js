@@ -343,6 +343,7 @@ module.exports.add = function(server) {
         resp.render('about', {
             layout: 'index',
             title: 'About',
+            selNav: 'about', // Pass this to highlight the About button
             npmPackages: [
                 'express',
                 'body-parser',
