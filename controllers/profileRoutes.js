@@ -29,11 +29,30 @@ module.exports.add = function(server) {
             const postId = reply.post.toString();
             replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
         });
-                
-        const builtPosts = userPosts.map(post => buildPost({
-            ...post,
-            replyCount: replyCountMap[post._id.toString()] || 0 
-        }));
+
+        // Get the current user directly from the session
+        const currentUser = req.session.user;
+
+        // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+        const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+        const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
+
+        // Create sets for fast lookup
+        const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+        const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+       // Map posts and include the reply count and vote flags
+        const builtPosts = userPosts.map(post => {
+            const postId = post._id.toString();
+            return {
+                ...buildPost({
+                    ...post,
+                    replyCount: replyCountMap[post._id.toString()] || 0,
+                }),
+                isUpvoted: upvotedPostIds.has(postId),
+                isDownvoted: downvotedPostIds.has(postId)
+            };
+        });
         
         resp.render('profile-posts',{
             layout: 'profileLayout',
@@ -49,25 +68,47 @@ module.exports.add = function(server) {
     });
     
     // URL: /profile/<username>/replies for replies of the profile
-    server.get('/profile/:username/replies', requireAuth, async function(req, resp){
-
-        const user = await User.findOne({ username: req.params.username })
+    server.get('/profile/:username/replies', requireAuth, async function(req, resp) {
+        const user = await User.findOne({ username: req.params.username });
 
         if (!user) {
             return resp.status(404).send("User not found");
         }
-        
+
+        // Get the current user directly from the session
+        const currentUser = req.session.user;
+
+        // Fetch the upvoted and downvoted REPLIES for the current user
+        const userUpvotedReplies = currentUser ? await Reply.find({ upvotes: currentUser._id }).lean() : [];
+        const userDownvotedReplies = currentUser ? await Reply.find({ downvotes: currentUser._id }).lean() : [];
+
+        // Create sets for fast lookup of reply IDs (not post IDs)
+        const upvotedReplyIds = new Set(userUpvotedReplies.map(reply => reply._id.toString()));
+        const downvotedReplyIds = new Set(userDownvotedReplies.map(reply => reply._id.toString()));
+
+        // Fetch the replies by the user
         const replies = await Reply.find({ author: user._id })
             .populate("author", "profileName username pfp")
             .populate({
                 path: "post",
-                populate: { path: "author", select: "username" } 
+                populate: { path: "author", select: "username" }
             })
             .sort({ timeCreated: -1 })
             .lean();
 
-        const builtReplies = replies.map(reply => buildReply(reply));
-        resp.render('profile-replies',{
+        // Map replies and add isUpvoted and isDownvoted flags for the REPLIES themselves
+        const builtReplies = replies.map(reply => {
+            const replyId = reply._id.toString();
+            return {
+                ...buildReply(reply),
+                isUpvoted: upvotedReplyIds.has(replyId),
+                isDownvoted: downvotedReplyIds.has(replyId),
+                isReply: true // Adding `isReply` for template usage
+            };
+        });
+
+        // Render the page with the relevant data
+        resp.render('profile-replies', {
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
             selNav: 'profile',
@@ -76,40 +117,63 @@ module.exports.add = function(server) {
             email: user.email,
             viewedUserPfp: user.pfp,
             bio: user.bio,
-            repliesToPost: builtReplies.map(reply => ({ ...reply, isReply: true })),
+            repliesToPost: builtReplies,
             isViewPost: false,
         });
-        
     });
 
-    //profile upvotes
-    server.get('/profile/:username/upvotes', requireAuth, async function(req, resp){
+
+    // Profile upvotes
+    server.get('/profile/:username/upvotes', requireAuth, async function(req, resp) {
 
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
         }
 
+        // Get the current user directly from the session
+        const currentUser = req.session.user;
+
+        // Fetch the upvoted posts by the profile owner (user)
         const upvotedPosts = await Post.find({ upvotes: user._id })
             .populate("author", "profileName username pfp")
             .populate("community", "name color")
             .sort({ timeCreated: -1 })
             .lean();
-            
+        
+        // Fetch all replies to associate them with posts
         const replies = await Reply.find({}, 'post').lean();
-    
+
+        // Create a map for reply counts for posts
         const replyCountMap = {};
         replies.forEach(reply => {
             const postId = reply.post.toString();
             replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
         });
-                    
-        const builtPosts = upvotedPosts.map(post => buildPost({
-            ...post,
-            replyCount: replyCountMap[post._id.toString()] || 0 
-        }));
-        
-        resp.render('profile-upvotes',{
+
+        // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+        const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+        const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
+
+        // Create sets for fast lookup
+        const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+        const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+        // Map posts and include the reply count and vote flags
+        const builtPosts = upvotedPosts.map(post => {
+            const postId = post._id.toString();
+            return {
+                ...buildPost({
+                    ...post,
+                    replyCount: replyCountMap[post._id.toString()] || 0,
+                }),
+                isUpvoted: upvotedPostIds.has(postId),
+                isDownvoted: downvotedPostIds.has(postId)
+            };
+        });
+
+        // Render the profile-upvotes page with the relevant data
+        resp.render('profile-upvotes', {
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
             selNav: 'profile',
@@ -121,6 +185,7 @@ module.exports.add = function(server) {
             posts: builtPosts
         });
     });
+
 
     // URL: /profile/<username>/post<postid>
     server.get('/post/:posteruser/:postid', async (req, resp) => {
@@ -177,6 +242,7 @@ module.exports.add = function(server) {
             resp.status(500).send("Internal Server Error");
         }
     });
+
     
     // Add a reply
     server.post('/reply/:posteruser/:postid', async (req, resp) => {

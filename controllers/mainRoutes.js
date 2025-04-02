@@ -44,11 +44,30 @@ module.exports.add = function(server) {
                 const postId = reply.post.toString();
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
+
+            // Get the current user directly from the session
+            const currentUser = req.session.user;
+
+            // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+            const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+            const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
             
-            const builtPosts = posts.map(post => buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0 
-            }));
+            // Create sets for fast lookup
+            const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+            const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+            const builtPosts = posts.map(post => {
+                const postId = post._id.toString();
+
+                return {
+                    ...buildPost({
+                        ...post,
+                        replyCount: replyCountMap[post._id.toString()] || 0,
+                    }),
+                    isUpvoted: upvotedPostIds.has(postId),
+                    isDownvoted: downvotedPostIds.has(postId)
+                };
+            });
 
             const communities = await Community.find().lean();
     
@@ -59,7 +78,7 @@ module.exports.add = function(server) {
                 posts: builtPosts,
                 communities: communities
             });
-    
+
         } catch (error) {
             console.error("Error loading posts:", error);
             resp.status(500).send("Internal Server Error");
@@ -81,10 +100,29 @@ module.exports.add = function(server) {
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
                 
-            const builtPosts = posts.map(post => buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0 
-            }));
+            // Get the current user directly from the session
+            const currentUser = req.session.user;
+
+            // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+            const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+            const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
+            
+            // Create sets for fast lookup
+            const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+            const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+            const builtPosts = posts.map(post => {
+                const postId = post._id.toString();
+
+                return {
+                    ...buildPost({
+                        ...post,
+                        replyCount: replyCountMap[post._id.toString()] || 0,
+                    }),
+                    isUpvoted: upvotedPostIds.has(postId),
+                    isDownvoted: downvotedPostIds.has(postId)
+                };
+            });
 
             const communities = await Community.find().lean();
     
@@ -95,7 +133,7 @@ module.exports.add = function(server) {
                 posts: builtPosts,
                 communities: communities
             });
-    
+
         } catch (error) {
             console.error("Error loading posts:", error);
             resp.status(500).send("Internal Server Error");
@@ -106,28 +144,28 @@ module.exports.add = function(server) {
         try {
             const searchQuery = req.query.searchBar || ""; 
             const selectedCommunity = req.query.community || "";
-    
+
             let filter = {};
-    
+
             if (searchQuery) {
                 filter.$or = [
                     { title: { $regex: searchQuery, $options: "i" } },
                     { content: { $regex: searchQuery, $options: "i" } }
                 ];
             }
-    
+
             if (selectedCommunity) {
                 const community = await Community.findOne({ name: selectedCommunity }).lean();
                 if (community) {
                     filter.community = community._id;
                 }
             }
-    
+
             const posts = await Post.find(filter)
                 .populate("author", "profileName username pfp")
                 .populate("community", "name color")
                 .lean();
-    
+
             const communities = await Community.find().lean();
             
             const replies = await Reply.find({}, 'post').lean();
@@ -138,67 +176,30 @@ module.exports.add = function(server) {
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
                 
-            const builtPosts = posts.map(post => buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0 
-            }));
-    
-            resp.render('explore-results', { 
-                layout: 'index',
-                title: 'Search Results',
-                selNav: 'explore',
-                posts: builtPosts,
-                communities: communities,
-                query: req.query
-            });
-    
-        } catch (error) {
-            console.error("Error loading search results:", error);
-            resp.status(500).send("Internal Server Error");
-        }
-    });
+            // Get the current user directly from the session
+            const currentUser = req.session.user;
 
-    server.get('/explore/results', async function(req, resp) {
-        try {
-            const searchQuery = req.query.searchBar || ""; 
-            const selectedCommunity = req.query.community || "";
-    
-            let filter = {};
-    
-            if (searchQuery) {
-                filter.$or = [
-                    { title: { $regex: searchQuery, $options: "i" } },
-                    { content: { $regex: searchQuery, $options: "i" } }
-                ];
-            }
-    
-            if (selectedCommunity) {
-                const community = await Community.findOne({ name: selectedCommunity }).lean();
-                if (community) {
-                    filter.community = community._id;
-                }
-            }
-    
-            const posts = await Post.find(filter)
-                .populate("author", "profileName username pfp")
-                .populate("community", "name color")
-                .lean();
-    
-            const communities = await Community.find().lean();
+            // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+            const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+            const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
             
-            const replies = await Reply.find({}, 'post').lean();
+            // Create sets for fast lookup
+            const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+            const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
 
-            const replyCountMap = {};
-            replies.forEach(reply => {
-                const postId = reply.post.toString();
-                replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+            const builtPosts = posts.map(post => {
+                const postId = post._id.toString();
+
+                return {
+                    ...buildPost({
+                        ...post,
+                        replyCount: replyCountMap[post._id.toString()] || 0,
+                    }),
+                    isUpvoted: upvotedPostIds.has(postId),
+                    isDownvoted: downvotedPostIds.has(postId)
+                };
             });
-                
-            const builtPosts = posts.map(post => buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0 
-            }));
-    
+
             resp.render('explore-results', { 
                 layout: 'index',
                 title: 'Search Results',
@@ -207,7 +208,7 @@ module.exports.add = function(server) {
                 communities: communities,
                 query: req.query
             });
-    
+
         } catch (error) {
             console.error("Error loading search results:", error);
             resp.status(500).send("Internal Server Error");
@@ -276,11 +277,29 @@ module.exports.add = function(server) {
                     const postId = reply.post.toString();
                     replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
                 });
-                    
-                const builtPosts = posts.map(post => buildPost({
-                    ...post,
-                    replyCount: replyCountMap[post._id.toString()] || 0 
-                }));
+                // Get the current user directly from the session
+                const currentUser = req.session.user;
+
+                // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+                const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+                const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
+                
+                // Create sets for fast lookup
+                const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+                const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+                const builtPosts = posts.map(post => {
+                const postId = post._id.toString();
+
+                return {
+                    ...buildPost({
+                        ...post,
+                        replyCount: replyCountMap[post._id.toString()] || 0,
+                    }),
+                    isUpvoted: upvotedPostIds.has(postId),
+                    isDownvoted: downvotedPostIds.has(postId)
+                };
+            });
 
             const communities = await Community.find().lean();
     
@@ -320,10 +339,29 @@ module.exports.add = function(server) {
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
                 
-            const builtPosts = posts.map(post => buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0 
-            }));
+            // Get the current user directly from the session
+            const currentUser = req.session.user;
+
+            // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+            const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
+            const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
+            
+            // Create sets for fast lookup
+            const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
+            const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
+
+            const builtPosts = posts.map(post => {
+                const postId = post._id.toString();
+
+                return {
+                    ...buildPost({
+                        ...post,
+                        replyCount: replyCountMap[post._id.toString()] || 0,
+                    }),
+                    isUpvoted: upvotedPostIds.has(postId),
+                    isDownvoted: downvotedPostIds.has(postId)
+                };
+            });
 
         const communities = await Community.find().lean();
     

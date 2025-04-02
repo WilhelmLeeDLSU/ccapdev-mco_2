@@ -2,13 +2,30 @@
     <div class="postAction">
         <div class="actionContainer">
             <!-- UPVOTES -->
-            <div class="action upvote-btn" data-post-id="{{_id}}">
-                <img src="/common/upvote.png" class="upvote-img">
+            <div class="action">
+                <button 
+                    class="upvote-btn" 
+                    {{#if isReply}}
+                    data-reply-id="{{_id}}"
+                    {{else}}
+                    data-post-id="{{_id}}"
+                    {{/if}}>
+                    <img src={{#if isUpvoted}}"/common/upvote-clicked.png"{{else}}"/common/upvote.png"{{/if}} class="upvote-img" alt="Upvote">
+                </button>
                 <span class="upvote-count">{{upvotes}}</span>
             </div>
+
             <!-- DOWNVOTES -->
-            <div class="action downvote-btn" data-post-id="{{_id}}">
-                <img src="/common/downvote.png" class="downvote-img">
+            <div class="action">
+                <button 
+                    class="downvote-btn" 
+                    {{#if isReply}}
+                    data-reply-id="{{_id}}"
+                    {{else}}
+                    data-post-id="{{_id}}"
+                    {{/if}}>
+                    <img src={{#if isDownvoted}}"/common/downvote-clicked.png"{{else}}"/common/downvote.png"{{/if}} class="downvote-img" alt="Downvote">
+                </button>
                 <span class="downvote-count">{{downvotes}}</span>
             </div>
             <!-- REPLIES -->

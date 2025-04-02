@@ -1249,3 +1249,9 @@ body.mainPage > aside {
     margin-left: 50px;
     margin-bottom: 30px;
 }
+.upvote-btn, .downvote-btn, .reply-btn {
+    border: none; /* Remove border */
+    background: none; /* Remove background */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Add pointer cursor for better UX */
+}
