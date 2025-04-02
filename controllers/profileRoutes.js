@@ -213,8 +213,14 @@ module.exports.add = function(server) {
 
             const upvotedPostIds = new Set();
             const downvotedPostIds = new Set();
-            const upvotedReplyIds = new Set();
-            const downvotedReplyIds = new Set();
+
+            // Fetch the upvoted and downvoted REPLIES for the current user
+            const userUpvotedReplies = currentUser ? await Reply.find({ upvotes: currentUser._id }).lean() : [];
+            const userDownvotedReplies = currentUser ? await Reply.find({ downvotes: currentUser._id }).lean() : [];
+
+            // Create sets for fast lookup of reply IDs (not post IDs)
+            const upvotedReplyIds = new Set(userUpvotedReplies.map(reply => reply._id.toString()));
+            const downvotedReplyIds = new Set(userDownvotedReplies.map(reply => reply._id.toString()));
 
             if (currentUser) {
                 const [userUpvotedPosts, userDownvotedPosts, userUpvotedReplies, userDownvotedReplies] = await Promise.all([
@@ -250,7 +256,17 @@ module.exports.add = function(server) {
                 
             const communities = await Community.find().lean();
 
-            const builtReplies = replies.map(reply => buildReply(reply));
+            // Map replies and add isUpvoted and isDownvoted flags for the REPLIES themselves
+            const builtReplies = replies.map(reply => {
+                const replyId = reply._id.toString();
+                return {
+                    ...buildReply(reply),
+                    isUpvoted: upvotedReplyIds.has(replyId),
+                    isDownvoted: downvotedReplyIds.has(replyId),
+                    isReply: true // Adding `isReply` for template usage
+                };
+            });
+
             resp.render('viewpost', {
                 layout: 'index',
                 title: postData.title, 
