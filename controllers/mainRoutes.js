@@ -7,18 +7,26 @@ const Reply = require('../models/replyModel');
 const Community = require('../models/communityModel');
 
 module.exports.add = function(server) {
-    server.delete('/post/:id', async function (req, resp) {
+    server.post('/post/:id/delete', async function (req, resp) {
         console.log('Server delete function reached');
         try {
             const postId = req.params.id;
-            await Post.findByIdAndDelete(postId);
-            console.log('Post SHOULD be deleted');
-            resp.status(200).send({ message: 'Post deleted successfully' });
+            
+            // Update the post to mark it as deleted (soft delete)
+            const post = await Post.findByIdAndUpdate(postId, { deleted: true }, { new: true });
+    
+            if (!post) {
+                return resp.status(404).send({ message: 'Post not found' });
+            }
+    
+            console.log('Post marked as deleted:', post);
+            resp.status(200).send({ message: 'Post marked as deleted' });
         } catch (error) {
             console.error("Error deleting post:", error);
             resp.status(500).send({ message: 'Error deleting post', error });
         }
     });
+    
 
     server.delete('/reply/:id', async function (req, resp) {
         try {
@@ -33,46 +41,60 @@ module.exports.add = function(server) {
 
     server.get('/', async function (req, resp) {
         try {
-            const posts = await Post.find()
+            // Fetch posts excluding those marked as deleted
+            const posts = await Post.find({ deleted: { $ne: true } })
                 .populate("author", "profileName username pfp")
-                .populate("community", "name color ")
+                .populate("community", "name color")
                 .sort({ timeCreated: -1 })
                 .lean();
-
+    
+            // Fetch replies to count them for each post
             const replies = await Reply.find({}, 'post').lean();
-
             const replyCountMap = {};
+    
             replies.forEach(reply => {
                 const postId = reply.post.toString();
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
-
+    
             // Get the current user directly from the session
             const currentUser = req.session.user;
-
-            // Fetch the current user's upvoted and downvoted posts for the "isUpvoted" and "isDownvoted" flags
+    
+            // Fetch the current user's upvoted and downvoted posts for flags
             const userUpvotedPosts = currentUser ? await Post.find({ upvotes: currentUser._id }).lean() : [];
             const userDownvotedPosts = currentUser ? await Post.find({ downvotes: currentUser._id }).lean() : [];
             
-            // Create sets for fast lookup
+            // Create sets for fast lookup of upvoted and downvoted post IDs
             const upvotedPostIds = new Set(userUpvotedPosts.map(post => post._id.toString()));
             const downvotedPostIds = new Set(userDownvotedPosts.map(post => post._id.toString()));
-
+    
+            // Process the posts to build them with flags and reply count
             const builtPosts = posts.map(post => {
                 const postId = post._id.toString();
-
-                return {
-                    ...buildPost({
-                        ...post,
-                        replyCount: replyCountMap[post._id.toString()] || 0,
-                    }),
-                    isUpvoted: upvotedPostIds.has(postId),
-                    isDownvoted: downvotedPostIds.has(postId)
-                };
-            });
-
+    
+                // Build the post and include flags for upvoted and downvoted
+                const builtPost = buildPost({
+                    ...post,
+                    replyCount: replyCountMap[postId] || 0,
+                });
+    
+                if (builtPost) {
+                    // Return the post with added upvote/downvote flags
+                    return {
+                        ...builtPost,
+                        isUpvoted: upvotedPostIds.has(postId),
+                        isDownvoted: downvotedPostIds.has(postId),
+                    };
+                }
+    
+                // If the post is invalid, return null
+                return null;
+            }).filter(post => post !== null); // Filter out any null values
+    
+            // Fetch the community details
             const communities = await Community.find().lean();
     
+            // Render the response with built posts and communities
             resp.render('main', {
                 layout: 'index',
                 title: 'Home',
@@ -80,12 +102,13 @@ module.exports.add = function(server) {
                 posts: builtPosts,
                 communities: communities
             });
-
+    
         } catch (error) {
             console.error("Error loading posts:", error);
-            resp.status(500).send("Internal Server Error");
+            resp.status(500).send({ message: 'Internal Server Error', error }); // Send more detailed error info
         }
     });
+    
 
     server.get('/explore', async function(req, resp){
         try {
