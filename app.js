@@ -1,3 +1,4 @@
+require('dotenv').config(); //environment variables
 //express
 const express = require('express');
 const server = express();
@@ -45,7 +46,11 @@ server.use(express.static('public'));
 // Import models/schema
 async function startApp() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/ccpapdev');
+        await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/ccpapdev', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("✅ Connected to MongoDB Atlas");
 
         const User = require('./models/userModel');
         const Post = require('./models/postModel');
