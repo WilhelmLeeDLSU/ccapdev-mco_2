@@ -5,8 +5,8 @@ const replySchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
     timeCreated: { type: Date, default: Date.now },
     content: { type: String, required: true },
-    upvotes: { type: Number, default: 0 },
-    downvotes: { type: Number, default: 0 },
+    upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+    downvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     isEdited: { type: Boolean, default: false }
 }, { versionKey: false });
 
