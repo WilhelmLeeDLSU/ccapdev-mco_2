@@ -3,6 +3,14 @@ require('dotenv').config(); //environment variables
 const express = require('express');
 const server = express();
 
+// cors
+const cors = require('cors');
+server.use(cors({
+    origin: ['http://localhost:3000', 'https://ccapdev-mco-2.onrender.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
+
 //body-parser
 const bodyParser = require('body-parser');
 server.use(express.json()); 
