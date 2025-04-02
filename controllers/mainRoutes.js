@@ -7,7 +7,7 @@ const Reply = require('../models/replyModel');
 const Community = require('../models/communityModel');
 
 module.exports.add = function(server) {
-    server.delete('/post/:id', async function (req, resp) {
+    server.delete('https://ccapdev-mco-2.onrender.com/post/:id', async function (req, resp) {
         console.log('Server delete function reached');
         try {
             const postId = req.params.id;
@@ -20,7 +20,7 @@ module.exports.add = function(server) {
         }
     });
 
-    server.delete('/reply/:id', async function (req, resp) {
+    server.delete('https://ccapdev-mco-2.onrender.com/reply/:id', async function (req, resp) {
         try {
             const replyId = req.params.id;
             await Reply.findByIdAndDelete(replyId);
