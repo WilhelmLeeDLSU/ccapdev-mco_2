@@ -8,8 +8,9 @@ const replyModel = require('../models/replyModel');
 
 module.exports.add = function(server) {
     
-    // Fetch posts for profile
-    server.get('/profile/:username', requireAuth, async function (req, resp) {
+    // URL: /profile/<username>
+    server.get('/profile/:username', requireAuth, async function(req, resp){
+
         const user = await User.findOne({ username: req.params.username }).lean();
         if (!user) {
             return resp.status(404).send("User not found");
@@ -20,7 +21,7 @@ module.exports.add = function(server) {
             .populate("community", "name color")
             .sort({ timeCreated: -1 })
             .lean();
-
+            
         const replies = await Reply.find({}, 'post').lean();
 
         const replyCountMap = {};
@@ -28,21 +29,13 @@ module.exports.add = function(server) {
             const postId = reply.post.toString();
             replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
         });
-
-        const currentUser = req.session.user ? await User.findById(req.session.user._id).lean() : null;
-
-        const builtPosts = userPosts.map(post => {
-            const isUpvoted = currentUser?.upvotedPosts.includes(post._id.toString());
-            const isDownvoted = currentUser?.downvotedPosts.includes(post._id.toString());
-            return buildPost({
-                ...post,
-                replyCount: replyCountMap[post._id.toString()] || 0,
-                isUpvoted,
-                isDownvoted
-            });
-        });
-
-        resp.render('profile-posts', {
+                
+        const builtPosts = userPosts.map(post => buildPost({
+            ...post,
+            replyCount: replyCountMap[post._id.toString()] || 0 
+        }));
+        
+        resp.render('profile-posts',{
             layout: 'profileLayout',
             title: `${user.profileName} | Profile`,
             selNav: 'profile',
@@ -89,37 +82,44 @@ module.exports.add = function(server) {
         
     });
 
-    // Profile upvotes
-    server.get('/profile/:username/upvotes', requireAuth, async function (req, resp) {
-        try {
-            const user = await User.findOne({ username: req.params.username })
-                .populate('upvotedPosts')
-                .lean();
+    //profile upvotes
+    server.get('/profile/:username/upvotes', requireAuth, async function(req, resp){
 
-            if (!user) {
-                return resp.status(404).send("User not found");
-            }
-
-            // Process upvoted posts
-            const builtUpvotedPosts = user.upvotedPosts.map(post => ({
-                ...post,
-                isUpvoted: true,
-                isDownvoted: false // Since these are upvoted posts
-            }));
-
-            // Render the profile-upvotes view
-            resp.render('profile-upvotes', {
-                layout: 'profileLayout',
-                title: `${user.profileName} | Upvoted Posts`,
-                selNav: 'profile',
-                username: user.username,
-                profileName: user.profileName,
-                posts: builtUpvotedPosts
-            });
-        } catch (error) {
-            console.error("Error loading profile upvotes:", error);
-            resp.status(500).send("Internal Server Error");
+        const user = await User.findOne({ username: req.params.username }).lean();
+        if (!user) {
+            return resp.status(404).send("User not found");
         }
+
+        const upvotedPosts = await Post.find({ upvotes: user._id })
+            .populate("author", "profileName username pfp")
+            .populate("community", "name color")
+            .sort({ timeCreated: -1 })
+            .lean();
+            
+        const replies = await Reply.find({}, 'post').lean();
+    
+        const replyCountMap = {};
+        replies.forEach(reply => {
+            const postId = reply.post.toString();
+            replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
+        });
+                    
+        const builtPosts = upvotedPosts.map(post => buildPost({
+            ...post,
+            replyCount: replyCountMap[post._id.toString()] || 0 
+        }));
+        
+        resp.render('profile-upvotes',{
+            layout: 'profileLayout',
+            title: `${user.profileName} | Profile`,
+            selNav: 'profile',
+            username: user.username,
+            profileName: user.profileName,
+            email: user.email,
+            viewedUserPfp: user.pfp,
+            bio: user.bio,
+            posts: builtPosts
+        });
     });
 
     // URL: /profile/<username>/post<postid>

@@ -7,14 +7,7 @@
   "email": "shrek@email.com",
   "password": "$argon2id$v=19$m=65536,t=3,p=4$k/W5Os0Ax6JdWzfbiDAU7Q$aE/3LAuiKTqgi9bGNVfdDKQmAtrYXVl+cegh5DSIW+g",
   "bio": "",
-  "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg",
-  "upvotedPosts": [
-    { "$oid": "67c9b61728f4cfabf324502c" },
-    { "$oid": "67c9b7c528f4cfabf3245034" }
-  ],
-  "downvotedPosts": [
-    { "$oid": "67c9b8e328f4cfabf3245035" }
-  ]
+  "pfp": "https://static.wikia.nocookie.net/dreamworks/images/6/67/Shrek_Profile.jpg"
 },
 {
   "_id": {
@@ -25,14 +18,7 @@
   "email": "johnjohnjohn@email.com",
   "password": "$argon2id$v=19$m=65536,t=3,p=4$Y+feSCjP24mgA4K0zr738w$lQnWGzAIwkx5QsiF7FhaAG0fSXYuKJD4HtjLYI76L0g",
   "bio": "MCL",
-  "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp",
-  "upvotedPosts": [
-    { "$oid": "67c9b61728f4cfabf324502c" },
-    { "$oid": "67c9b7c528f4cfabf3245034" }
-  ],
-  "downvotedPosts": [
-    { "$oid": "67c9b8e328f4cfabf3245035" }
-  ]
+  "pfp": "https://aem.dropbox.com/cms/content/dam/dropbox/blog/files/2024/september/mclaren/mclaren-race-hero.png/_jcr_content/renditions/mclaren-race-hero.webp"
 },
 {
   "_id": {
@@ -43,14 +29,7 @@
   "email": "iloveschool@email.com",
   "password": "$argon2id$v=19$m=65536,t=3,p=4$5c+GQ164iYZs5aNyiNLTOQ$7rWhwf2pf5BvZCgc0SYb32tu0WKSZEehhTbokZ9cjeQ",
   "bio": "UCLA",
-  "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg",
-  "upvotedPosts": [
-    { "$oid": "67c9b61728f4cfabf324502c" },
-    { "$oid": "67c9b7c528f4cfabf3245034" }
-  ],
-  "downvotedPosts": [
-    { "$oid": "67c9b8e328f4cfabf3245035" }
-  ]
+  "pfp": "https://d1amk1w0mr5k0.cloudfront.net/blog/wp-content/uploads/2018/08/GettyImages-802465010-1.jpg"
 },
 {
   "_id": {

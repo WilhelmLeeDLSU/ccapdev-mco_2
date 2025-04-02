@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true},
     timeCreated: { type: Date, default: Date.now },
     community: { type: mongoose.Schema.Types.ObjectId, ref: 'community', required: true },
     title: { type: String, required: true },
     content: { type: String, required: true },
-    upvotes: { type: Number, default: 0 },
+    upvotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     downvotes: { type: Number, default: 0 },
     isEdited: { type: Boolean, default: false }
 }, { versionKey: false });

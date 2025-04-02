@@ -1,37 +1,102 @@
-[
-  {
-    "_id": { "$oid": "67cae2fef1e2f6fcd4837866" },
-    "post": { "$oid": "67c9b61728f4cfabf324502c" },
-    "author": { "$oid": "67c9b2203094331e7fadb873" },
-    "timeCreated": { "$date": "2024-03-06T12:05:00.000Z" },
-    "content": "OMGG YASSS"
+[{
+  "_id": {
+    "$oid": "67cae2fef1e2f6fcd4837866"
   },
-  {
-    "_id": { "$oid": "67cae57cf1e2f6fcd4837867" },
-    "post": { "$oid": "67c9b61728f4cfabf324502c" },
-    "author": { "$oid": "67c9b4693094331e7fadb876" },
-    "timeCreated": { "$date": "2024-03-06T12:03:00.000Z" },
-    "content": "LET'S GOOOO"
+  "post": {
+    "$oid": "67c9b61728f4cfabf324502c"
   },
-  {
-    "_id": { "$oid": "67cae8dff1e2f6fcd483786c" },
-    "post": { "$oid": "67c9b8e328f4cfabf3245035" },
-    "author": { "$oid": "67c9b4d73094331e7fadb877" },
-    "timeCreated": { "$date": "2024-02-28T09:20:30.000Z" },
-    "content": "I HATE BIOLOGY"
+  "author": {
+    "$oid": "67c9b2203094331e7fadb873"
   },
-  {
-    "_id": { "$oid": "67cae963f1e2f6fcd483786d" },
-    "post": { "$oid": "67c9b97d28f4cfabf3245036" },
-    "author": { "$oid": "67c9b5e73094331e7fadb879" },
-    "timeCreated": { "$date": "2023-12-25T23:11:05.000Z" },
-    "content": "Idk, but it's def not Riverdale"
+  "timeCreated": {
+    "$date": "2024-03-06T12:05:00.000Z"
   },
-  {
-    "_id": { "$oid": "67caea35f1e2f6fcd483786e" },
-    "post": { "$oid": "67c9ba4928f4cfabf3245037" },
-    "author": { "$oid": "67c981c73094331e7fadb86e" },
-    "timeCreated": { "$date": "2024-01-15T19:45:00.000Z" },
-    "content": "This made me and my wife cry so bad huhu"
-  }
-]
+  "content": "OMGG YASSS",
+  "upvotes": 0,
+  "downvotes": 0
+},
+{
+  "_id": {
+    "$oid": "67cae57cf1e2f6fcd4837867"
+  },
+  "post": {
+    "$oid": "67c9b61728f4cfabf324502c"
+  },
+  "author": {
+    "$oid": "67c9b4693094331e7fadb876"
+  },
+  "timeCreated": {
+    "$date": "2024-03-06T12:03:00.000Z"
+  },
+  "content": "LET'S GOOOO",
+  "upvotes": 0,
+  "downvotes": 0
+},
+{
+  "_id": {
+    "$oid": "67cae8dff1e2f6fcd483786c"
+  },
+  "post": {
+    "$oid": "67c9b8e328f4cfabf3245035"
+  },
+  "author": {
+    "$oid": "67c9b4d73094331e7fadb877"
+  },
+  "timeCreated": {
+    "$date": "2024-02-28T09:20:30.000Z"
+  },
+  "content": "I HATE BIOLOGY",
+  "upvotes": 2,
+  "downvotes": 0
+},
+{
+  "_id": {
+    "$oid": "67cae963f1e2f6fcd483786d"
+  },
+  "post": {
+    "$oid": "67c9b97d28f4cfabf3245036"
+  },
+  "author": {
+    "$oid": "67c9b5e73094331e7fadb879"
+  },
+  "timeCreated": {
+    "$date": "2023-12-25T23:11:05.000Z"
+  },
+  "content": "Idk, but it's def not Riverdale",
+  "upvotes": 0,
+  "downvotes": 2
+},
+{
+  "_id": {
+    "$oid": "67caea35f1e2f6fcd483786e"
+  },
+  "post": {
+    "$oid": "67c9ba4928f4cfabf3245037"
+  },
+  "author": {
+    "$oid": "67c981c73094331e7fadb86e"
+  },
+  "timeCreated": {
+    "$date": "2024-01-15T19:45:00.000Z"
+  },
+  "content": "This made me and my wife cry so bad huhu",
+  "upvotes": 0,
+  "downvotes": 0
+},
+{
+  "_id": {
+    "$oid": "67cb1084f1e2f6fcd4837879"
+  },
+  "post": {
+    "$oid": "67c9b61728f4cfabf324502c"
+  },
+  "author": {
+    "$oid": "67c981c73094331e7fadb86e"
+  },
+  "timeCreated": {
+    "$date": "2024-03-04T10:00:00.000Z"
+  },
+  "content": "lol didn’t expect this post to blow up",
+  "upvotes": 0,
+  "downvotes": 0
+}]
