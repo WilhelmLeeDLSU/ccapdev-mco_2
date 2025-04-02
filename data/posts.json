@@ -15,25 +15,6 @@
   "content": "Excited for the new F1 season! Shame Sainz had to move to Williams.",
   "upvotes": [ 
     {
-      "$oid": "67c981c73094331e7fadb86e"
-    },
-    {
-      "$oid": "67c9b2203094331e7fadb873"
-    },
-    {
-      "$oid": "67c9b4693094331e7fadb876"
-    },
-    {
-      "$oid": "67c9b4d73094331e7fadb877"
-    },
-    {
-      "$oid": "67c9b5583094331e7fadb878"
-    },
-    {
-      "$oid": "67c9b5e73094331e7fadb879"
-    },
-
-    {
       "$oid": "67c9b6f73094331e7fadb880"
     },
     {
@@ -128,7 +109,26 @@
     }
 
   ],
-  "downvotes": 12,
+  "downvotes": [
+    {
+      "$oid": "67c981c73094331e7fadb86e"
+    },
+    {
+      "$oid": "67c9b2203094331e7fadb873"
+    },
+    {
+      "$oid": "67c9b4693094331e7fadb876"
+    },
+    {
+      "$oid": "67c9b4d73094331e7fadb877"
+    },
+    {
+      "$oid": "67c9b5583094331e7fadb878"
+    },
+    {
+      "$oid": "67c9b5e73094331e7fadb879"
+    }
+  ],
   "replies": 53
 },
 {
@@ -228,7 +228,7 @@
     }
 
   ],
-  "downvotes": 30,
+  "downvotes": [],
   "replies": 0
 },
 {
@@ -247,24 +247,7 @@
   "title": "Hardest Color Major",
   "content": "Which major do you think is the hardest?",
   "upvotes": [ 
-    {
-      "$oid": "67c981c73094331e7fadb86e"
-    },
-    {
-      "$oid": "67c9b2203094331e7fadb873"
-    },
-    {
-      "$oid": "67c9b4693094331e7fadb876"
-    },
-    {
-      "$oid": "67c9b4d73094331e7fadb877"
-    },
-    {
-      "$oid": "67c9b5583094331e7fadb878"
-    },
-    {
-      "$oid": "67c9b5e73094331e7fadb879"
-    },
+    
 
     {
       "$oid": "67c9b6f73094331e7fadb880"
@@ -313,7 +296,26 @@
     }
 
   ],
-  "downvotes": 3,
+  "downvotes": [
+    {
+      "$oid": "67c981c73094331e7fadb86e"
+    },
+    {
+      "$oid": "67c9b2203094331e7fadb873"
+    },
+    {
+      "$oid": "67c9b4693094331e7fadb876"
+    },
+    {
+      "$oid": "67c9b4d73094331e7fadb877"
+    },
+    {
+      "$oid": "67c9b5583094331e7fadb878"
+    },
+    {
+      "$oid": "67c9b5e73094331e7fadb879"
+    }
+  ],
   "replies": 1
 },
 {
@@ -422,7 +424,7 @@
     }
 
   ],
-  "downvotes": 0,
+  "downvotes": [],
   "replies": 1
 },
 {
@@ -531,6 +533,6 @@
     }
 
   ],
-  "downvotes": 0,
+  "downvotes": [],
   "replies": 4
 }]
