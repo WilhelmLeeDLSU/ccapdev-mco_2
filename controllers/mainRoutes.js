@@ -477,7 +477,8 @@ module.exports.add = function(server) {
                 'cookie-parser',
                 'express-session',
                 'argon2',
-                'dotenv'
+                'dotenv',
+                'cors'
             ]
         });
     });
