@@ -121,3 +121,62 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const upvoteButtons = document.querySelectorAll('.upvote-btn');
+    const downvoteButtons = document.querySelectorAll('.downvote-btn');
+
+    upvoteButtons.forEach(button => {
+        button.addEventListener('click', async function () {
+            const id = this.getAttribute('data-reply-id') || this.getAttribute('data-post-id');
+            const type = this.hasAttribute('data-reply-id') ? 'reply' : 'post';
+
+            try {
+                const response = await fetch('/upvote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, type })
+                });
+
+                const result = await response.json();
+
+                if (response.status === 401 && result.redirect) {
+                    window.location.href = result.redirect; // Redirect to login page
+                } else if (response.ok) {
+                    window.location.reload(); // Reload the page to reflect changes
+                } else {
+                    console.error(result.message);
+                }
+            } catch (error) {
+                console.error('Error upvoting:', error);
+            }
+        });
+    });
+
+    downvoteButtons.forEach(button => {
+        button.addEventListener('click', async function () {
+            const id = this.getAttribute('data-reply-id') || this.getAttribute('data-post-id');
+            const type = this.hasAttribute('data-reply-id') ? 'reply' : 'post';
+
+            try {
+                const response = await fetch('/downvote', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, type })
+                });
+
+                const result = await response.json();
+
+                if (response.status === 401 && result.redirect) {
+                    window.location.href = result.redirect; // Redirect to login page
+                } else if (response.ok) {
+                    window.location.reload(); // Reload the page to reflect changes
+                } else {
+                    console.error(result.message);
+                }
+            } catch (error) {
+                console.error('Error downvoting:', error);
+            }
+        });
+    });
+});

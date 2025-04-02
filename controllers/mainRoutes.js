@@ -376,6 +376,82 @@ module.exports.add = function(server) {
 
     });
 
+    server.post('/upvote', async (req, resp) => {
+        try {
+            const { id, type } = req.body; // `id` is the post/reply ID, `type` is either 'post' or 'reply'
+            const currentUser = req.session.user;
+    
+            if (!currentUser) {
+                return resp.status(401).send({ redirect: '/login' }); // Redirect to login if not authenticated
+            }
+    
+            const userId = currentUser._id;
+    
+            if (type === 'post') {
+                const post = await Post.findById(id);
+                if (!post) return resp.status(404).send({ message: 'Post not found' });
+    
+                if (!post.upvotes.includes(userId)) {
+                    post.upvotes.push(userId);
+                    post.downvotes = post.downvotes.filter(uid => uid.toString() !== userId.toString()); // Remove from downvotes if present
+                    await post.save();
+                }
+            } else if (type === 'reply') {
+                const reply = await Reply.findById(id);
+                if (!reply) return resp.status(404).send({ message: 'Reply not found' });
+    
+                if (!reply.upvotes.includes(userId)) {
+                    reply.upvotes.push(userId);
+                    reply.downvotes = reply.downvotes.filter(uid => uid.toString() !== userId.toString()); // Remove from downvotes if present
+                    await reply.save();
+                }
+            }
+    
+            resp.status(200).send({ message: 'Upvoted successfully' });
+        } catch (error) {
+            console.error('Error upvoting:', error);
+            resp.status(500).send({ message: 'Internal Server Error' });
+        }
+    });
+    
+    server.post('/downvote', async (req, resp) => {
+        try {
+            const { id, type } = req.body; // `id` is the post/reply ID, `type` is either 'post' or 'reply'
+            const currentUser = req.session.user;
+    
+            if (!currentUser) {
+                return resp.status(401).send({ redirect: '/login' }); // Redirect to login if not authenticated
+            }
+    
+            const userId = currentUser._id;
+    
+            if (type === 'post') {
+                const post = await Post.findById(id);
+                if (!post) return resp.status(404).send({ message: 'Post not found' });
+    
+                if (!post.downvotes.includes(userId)) {
+                    post.downvotes.push(userId);
+                    post.upvotes = post.upvotes.filter(uid => uid.toString() !== userId.toString()); // Remove from upvotes if present
+                    await post.save();
+                }
+            } else if (type === 'reply') {
+                const reply = await Reply.findById(id);
+                if (!reply) return resp.status(404).send({ message: 'Reply not found' });
+    
+                if (!reply.downvotes.includes(userId)) {
+                    reply.downvotes.push(userId);
+                    reply.upvotes = reply.upvotes.filter(uid => uid.toString() !== userId.toString()); // Remove from upvotes if present
+                    await reply.save();
+                }
+            }
+    
+            resp.status(200).send({ message: 'Downvoted successfully' });
+        } catch (error) {
+            console.error('Error downvoting:', error);
+            resp.status(500).send({ message: 'Internal Server Error' });
+        }
+    });
+    
     //about page
     server.get('/about', function (req, resp) {
         resp.render('about', {
@@ -394,4 +470,5 @@ module.exports.add = function(server) {
             ]
         });
     });
+    
 }
