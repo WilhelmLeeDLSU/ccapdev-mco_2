@@ -337,4 +337,22 @@ module.exports.add = function(server) {
         });
 
     });
+
+    //about page
+    server.get('/about', function (req, resp) {
+        resp.render('about', {
+            layout: 'index',
+            title: 'About',
+            npmPackages: [
+                'express',
+                'body-parser',
+                'express-handlebars',
+                'mongoose',
+                'moment',
+                'cookie-parser',
+                'express-session',
+                'argon2'
+            ]
+        });
+    });
 }

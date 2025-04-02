@@ -1,0 +1,15 @@
+<body class="mainPage no-aside">
+    {{> header}}
+    {{> navbar}}
+    <div class="pageContentContainer">
+        <div class="exploreContent">
+            <span class="pageHeader">About</span>
+            <p>This web app uses the following NPM packages:</p>
+            <ul>
+                {{#each npmPackages}}
+                    <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</body>
