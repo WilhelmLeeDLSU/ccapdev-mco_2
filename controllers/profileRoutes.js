@@ -191,6 +191,7 @@ module.exports.add = function(server) {
     server.get('/post/:posteruser/:postid', async (req, resp) => {
         try {
             const { posteruser, postid } = req.params;
+            const currentUser = req.session.user;
     
             const postData = await Post.findOne({ _id: postid })
                 .populate("author", "profileName username pfp")
@@ -209,11 +210,34 @@ module.exports.add = function(server) {
                 const postId = reply.post.toString();
                 replyCountMap[postId] = (replyCountMap[postId] || 0) + 1;
             });
+
+            const upvotedPostIds = new Set();
+            const downvotedPostIds = new Set();
+            const upvotedReplyIds = new Set();
+            const downvotedReplyIds = new Set();
+
+            if (currentUser) {
+                const [userUpvotedPosts, userDownvotedPosts, userUpvotedReplies, userDownvotedReplies] = await Promise.all([
+                    Post.find({ upvotes: currentUser._id }, '_id').lean(),
+                    Post.find({ downvotes: currentUser._id }, '_id').lean(),
+                    Reply.find({ upvotes: currentUser._id }, '_id').lean(),
+                    Reply.find({ downvotes: currentUser._id }, '_id').lean()
+                ]);
+    
+                userUpvotedPosts.forEach(post => upvotedPostIds.add(post._id.toString()));
+                userDownvotedPosts.forEach(post => downvotedPostIds.add(post._id.toString()));
+                userUpvotedReplies.forEach(reply => upvotedReplyIds.add(reply._id.toString()));
+                userDownvotedReplies.forEach(reply => downvotedReplyIds.add(reply._id.toString()));
+            }
                         
-            const builtPost = buildPost({
-                ...postData,
-                replyCount: replyCountMap[postData._id.toString()] || 0 
-            });
+            const builtPost = {
+                ...buildPost({
+                    ...postData,
+                    replyCount: replyCountMap[postData._id.toString()] || 0,
+                }),
+                isUpvoted: upvotedPostIds.has(postData._id.toString()),
+                isDownvoted: downvotedPostIds.has(postData._id.toString())
+            };
 
             const replies = await Reply.find({ post: postid })
                 .populate("author", "profileName username pfp")
