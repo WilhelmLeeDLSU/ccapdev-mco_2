@@ -8,9 +8,11 @@ const Community = require('../models/communityModel');
 
 module.exports.add = function(server) {
     server.delete('/post/:id', async function (req, resp) {
+        console.log('Server delete function reached');
         try {
             const postId = req.params.id;
             await Post.findByIdAndDelete(postId);
+            console.log('Post SHOULD be deleted');
             resp.status(200).send({ message: 'Post deleted successfully' });
         } catch (error) {
             console.error("Error deleting post:", error);
