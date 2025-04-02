@@ -1,23 +1,34 @@
 <div>
     <div class="postAction">
         <div class="actionContainer">
-            <!-- UPVOTES -->
-            <div class="action upvote-btn" data-post-id="{{_id}}">
-                <img src="/common/upvote.png" class="upvote-img">
-                <span class="upvote-count">{{upvotes}}</span>
-            </div>
-            <!-- DOWNVOTES -->
-            <div class="action downvote-btn" data-post-id="{{_id}}">
-                <img src="/common/downvote.png" class="downvote-img">
-                <span class="downvote-count">{{downvotes}}</span>
-            </div>
             <!-- REPLIES -->
             {{#if isReply}}
                 <div class="action"></div>
             {{else}} 
+                <!-- UPVOTES -->
+                <div class="action">
+                    <button 
+                        class="upvote-btn" 
+                        data-post-id="{{_id}}" 
+                        {{#if isUpvoted}}disabled{{/if}}>
+                        <img src="/common/upvote.png" class="upvote-img" alt="Upvote">
+                    </button>
+                    <span class="upvote-count">{{upvotes}}</span>
+                </div>
+
+                <!-- DOWNVOTES -->
+                <div class="action">
+                    <button 
+                        class="downvote-btn" 
+                        data-post-id="{{_id}}" 
+                        {{#if isDownvoted}}disabled{{/if}}>
+                        <img src="/common/downvote.png" class="downvote-img" alt="Downvote">
+                    </button>
+                    <span class="downvote-count">{{downvotes}}</span>
+                </div>
                 <div class="action reply-btn" data-post-id="{{_id}}">
                     <a href="/profile/{{author.username}}/post/{{_id}}">
-                        <img src="/common/reply.png" class="reply-img">
+                        <img src="/common/reply.png" class="reply-img" alt="Reply">
                     </a>
                     <span>{{replies}}</span>
                 </div>

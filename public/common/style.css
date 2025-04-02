@@ -1249,3 +1249,24 @@ body.mainPage > aside {
     margin-left: 50px;
     margin-bottom: 30px;
 }
+
+/* Remove default button styles */
+.upvote-btn, .downvote-btn, .reply-btn {
+    border: none; /* Remove border */
+    background: none; /* Remove background */
+    padding: 0; /* Remove padding */
+    cursor: pointer; /* Add pointer cursor for better UX */
+}
+
+/* Ensure the images inside buttons are properly styled */
+.upvote-img, .downvote-img, .reply-img, .edit-img, .delete-img {
+    width: 20px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Add hover effect for better interactivity */
+.upvote-btn:hover img, .downvote-btn:hover img, .reply-btn:hover img {
+    filter: brightness(1.2); /* Slightly brighten the image on hover */
+}

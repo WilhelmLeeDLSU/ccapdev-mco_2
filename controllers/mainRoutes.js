@@ -338,7 +338,87 @@ module.exports.add = function(server) {
 
     });
 
-    //about page
+    // Upvote a post
+    server.post('/post/:id/upvote', requireAuth, async function (req, resp) {
+        const postId = req.params.id;
+        const userId = req.session.user._id;
+
+        const user = await User.findById(userId);
+        if (user.upvotedPosts.includes(postId)) {
+            return resp.status(400).send({ message: 'Already upvoted' });
+        }
+
+        await Post.findByIdAndUpdate(postId, { $inc: { upvotes: 1 } });
+        user.upvotedPosts.push(postId);
+        await user.save();
+
+        resp.status(200).send({ message: 'Upvoted successfully' });
+    });
+
+    // Downvote a post
+    server.post('/post/:id/downvote', requireAuth, async function (req, resp) {
+        const postId = req.params.id;
+        const userId = req.session.user._id;
+
+        const user = await User.findById(userId);
+        if (user.downvotedPosts.includes(postId)) {
+            return resp.status(400).send({ message: 'Already downvoted' });
+        }
+
+        await Post.findByIdAndUpdate(postId, { $inc: { downvotes: 1 } });
+        user.downvotedPosts.push(postId);
+        await user.save();
+
+        resp.status(200).send({ message: 'Downvoted successfully' });
+    });
+
+    // Upvote a reply
+    server.post('/reply/:id/upvote', requireAuth, async function (req, resp) {
+        const replyId = req.params.id;
+        const userId = req.session.user._id;
+
+        const user = await User.findById(userId);
+        if (user.upvotedReplies.includes(replyId)) {
+            return resp.status(400).send({ message: 'Already upvoted this reply' });
+        }
+
+        if (user.downvotedReplies.includes(replyId)) {
+            // Remove the downvote if it exists
+            await Reply.findByIdAndUpdate(replyId, { $inc: { downvotes: -1 } });
+            user.downvotedReplies = user.downvotedReplies.filter(id => id.toString() !== replyId);
+        }
+
+        await Reply.findByIdAndUpdate(replyId, { $inc: { upvotes: 1 } });
+        user.upvotedReplies.push(replyId);
+        await user.save();
+
+        resp.status(200).send({ message: 'Reply upvoted successfully' });
+    });
+
+    // Downvote a reply
+    server.post('/reply/:id/downvote', requireAuth, async function (req, resp) {
+        const replyId = req.params.id;
+        const userId = req.session.user._id;
+
+        const user = await User.findById(userId);
+        if (user.downvotedReplies.includes(replyId)) {
+            return resp.status(400).send({ message: 'Already downvoted this reply' });
+        }
+
+        if (user.upvotedReplies.includes(replyId)) {
+            // Remove the upvote if it exists
+            await Reply.findByIdAndUpdate(replyId, { $inc: { upvotes: -1 } });
+            user.upvotedReplies = user.upvotedReplies.filter(id => id.toString() !== replyId);
+        }
+
+        await Reply.findByIdAndUpdate(replyId, { $inc: { downvotes: 1 } });
+        user.downvotedReplies.push(replyId);
+        await user.save();
+
+        resp.status(200).send({ message: 'Reply downvoted successfully' });
+    });
+
+    // About page
     server.get('/about', function (req, resp) {
         resp.render('about', {
             layout: 'index',
